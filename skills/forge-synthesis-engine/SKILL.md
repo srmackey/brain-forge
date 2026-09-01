@@ -1,9 +1,9 @@
 ---
 name: forge-synthesis-engine
-description: Shared forge-purview classification + learned-preferences engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, the learned-preferences model (single-sourced preferences.md, co-located with this core), the suggestion/feedback learning loop, and the source-tagged self-observation trace at _system/skill-logs/forge-synthesis-engine-tweaks-log.md. Charter is brain, not hands - it produces the routing decision + learns from feedback; consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows the AGENTS.md Forge Purview Constitution; human direction overrides.
+description: Shared forge-purview classification + learned-preferences engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, the learned-preferences model (single-sourced preferences.md, co-located with this core), the suggestion/feedback learning loop, and the source-tagged self-observation trace at skills/forge-synthesis-engine/tweaks-log.md. Charter is brain, not hands - it produces the routing decision + learns from feedback; consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows the AGENTS.md Forge Purview Constitution; human direction overrides.
 ---
 
-> **CANONICAL AGENT-AGNOSTIC CORE** (`_system/skills/` — the single editable source, per the Agent Canon in `_system/schema.md`). Per-agent copies under `.claude/skills/` and `.grok/skills/` are **generated** from this file + the agent profiles and are header-stamped — edit here, never there. Migrated 2026-07-06 (re-arch Phase 3, first skill).
+> Product core (`skills/forge-synthesis-engine/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
 
 # forge-synthesis-engine Skill
 
@@ -14,7 +14,7 @@ The shared **classification + learned-preferences brain** for the **forge purvie
 - **`forge-ingest`** (consumer #1) — applies the decision by integrating a `raw/` capture into `wiki/` (its Steps 5–9: integrate, tidy, `raw/_log`, `wiki/_index`, eval-log).
 - **`forge-signal-check`** (consumer #2) — applies the model to *existing* wiki content, emitting restructure / de-duplication / canonical-home / re-scope **proposals** (propose-only), then applying approved edits through its own gated path.
 
-This is the `-engine` of the **Tool Structure Convention** (`_system/schema.md`): shared logic consumed by 2+ commands, not itself a user invocation. (Per `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md`.)
+This is the `-engine` of the **Tool Structure Convention** (`templates/schema.md`): shared logic consumed by 2+ commands, not itself a user invocation. (Per `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md`.)
 
 ## Non-Negotiables (from the AGENTS.md Forge Purview Constitution)
 
@@ -48,13 +48,13 @@ Top-down classification. Do **not** start from "what's narrowly in this material
 
 ### Producer boundary (capture surfaces ↔ this engine)
 
-**Canonical home:** `_system/schema.md` — "Producer Boundary (Describe vs. Decide)". Capture surfaces (the web `distill-ai-session` primer, the local `forge-handoff` snapshot) **describe** the session; this engine **decides** the wiki home. Never import classify logic onto a capture surface (the slow-vs-fast heuristic lives in schema.md — do not duplicate it here).
+**Canonical home:** `templates/schema.md` — "Producer Boundary (Describe vs. Decide)". Capture surfaces (the web `distill-ai-session` primer, the local `forge-handoff` snapshot) **describe** the session; this engine **decides** the wiki home. Never import classify logic onto a capture surface (the slow-vs-fast heuristic lives in schema.md — do not duplicate it here).
 
 **Advisory `layers:` hint.** A raw capture distilled by `distill-ai-session` may carry a one-line `layers:` Routing Hint with one or more of `durable-reasoning` / `reference` / `system-intent`. Treat it as a **non-binding hint** — one input to `classify`, never the decision; the engine always owns the final classification call. The `system-intent` layer is **flagged-only**: deciding what happens to a `system-intent` signal at ingest is a separate brain-purview question (parked), not this engine's job.
 
 ## Module: preferences (the learned model)
 
-- The learned model lives in **`_system/skills/forge-synthesis-engine/preferences.md`** — a single file, co-located with this canonical core (generic name per the system learning-skill convention). It holds the user-specific, learned model: hub-vs-subpage bias, voice-preservation priorities, cross-link habits, what "feels like a distinct domain," provenance density, recognized hubs/reference surfaces, and any standing corrections (Learned Deltas).
+- The learned model lives in the instance file **`skills/forge-synthesis-engine/preferences.md`**. It does not ship. It holds the user-specific learned model: hub-vs-subpage bias, voice-preservation priorities, cross-link habits, what "feels like a distinct domain," provenance density, recognized hubs/reference surfaces, and any standing corrections (Learned Deltas).
 - **Always read that `preferences.md` at the start of any engine call** (classify or learn) and let it bias the decision. It is seeded from the 2026-06-26 model and updated as the user gives feedback. There is exactly **one** copy — learned deltas land here once and serve every agent and consumer.
 - Keep it concise and human-readable; it is a *model*, not a changelog (the trace is the changelog).
 
@@ -64,7 +64,7 @@ The **default mode** during the temporary learning/bootstrap period (it tapers �
 
 Per item (a capture being ingested, or a restructure candidate under review):
 
-1. **Load context.** Read `preferences.md` (seed model + learned deltas) **and** the recent self-observation trace (default last 10 entries of `_system/skill-logs/forge-synthesis-engine-tweaks-log.md`, or all if fewer) so prior accept/modify/reject patterns inform this decision (the compounding-improvement loop).
+1. **Load context.** Read `preferences.md` (seed model + learned deltas) **and** the recent self-observation trace (default last 10 entries of `skills/forge-synthesis-engine/tweaks-log.md`, or all if fewer) so prior accept/modify/reject patterns inform this decision (the compounding-improvement loop).
 2. **Generate a Proposal** via `classify` — do **not** silently apply. (Targets, classification rationale, hub wiring, new-page/reference recommendation, provenance, lifecycle visibility.)
 3. **Present** the proposal(s). Single item → inline; several → batch so the user can respond by number.
 4. **Capture feedback** — one of:
@@ -79,7 +79,7 @@ Per item (a capture being ingested, or a restructure candidate under review):
 
 ## Module: trace (self-observation, source-tagged)
 
-The engine records each learning-mode transformation to `_system/skill-logs/forge-synthesis-engine-tweaks-log.md` and **reads recent entries back** for compounding improvement. This is the engine's "evolution record of itself," kept **strictly out of** `wiki/`, `raw/`, and the eval-logs (the per-consumer eval-logs stay pure for tool-performance analysis). The file header carries the authoritative convention + strict AI instructions; this section is the skill-side contract.
+The engine records each learning-mode transformation to `skills/forge-synthesis-engine/tweaks-log.md` and **reads recent entries back** for compounding improvement. This is the engine's "evolution record of itself," kept **strictly out of** `wiki/`, `raw/`, and the eval-logs (the per-consumer eval-logs stay pure for tool-performance analysis). The file header carries the authoritative convention + strict AI instructions; this section is the skill-side contract.
 
 **One trace, two feedback streams.** Both consumers feed this single trace — `forge-ingest` ("did this capture route to the right home?") and `forge-signal-check` ("was this restructure/dedup/canonical-home proposal accepted or rejected?"). Entries are **source-tagged** so either stream can be analyzed alone.
 
@@ -121,12 +121,10 @@ Logic to naturally reduce feedback-prompt density and trace verbosity as the mod
 - **`forge-signal-check`** — calls `classify` against *existing* wiki pages to drive restructure / de-duplication / canonical-home / re-scope **proposals** (propose-only v1). Minimum proposal shape: name a canonical home, cite concrete merge/cross-link/re-scope edits, carry provenance, be reversible. Proposal *quality* is learned from pilot feedback through the shared trace.
 
 ## Related
-- `AGENTS.md` — Forge Purview Constitution (principles; the classification heuristics this engine executes).
-- `_system/schema.md` — Tool Structure Convention (this is the canonical `forge-synthesis-engine` `-engine`) + Agent Canon (generation contract for the per-agent copies).
-- `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md` — the extraction plan; `_system/plans/20260705-agent-agnostic-core-agent-canon-rearch.md` — the core migration.
-- `preferences.md` (co-located, single-sourced) — the learned model.
-- `_system/skill-logs/forge-synthesis-engine-tweaks-log.md` — source-tagged self-observation trace.
-- The `forge-ingest` / `forge-signal-check` skills — the consumers (hands), on each agent's generated surface.
-- The `brain-engine` skill — Eval Logs + skill-logs convention hygiene.
+- `templates/vault.md` — vault operations (principles this engine executes).
+- `templates/schema.md` — Tool Structure Convention and producer boundary.
+- Instance `skills/forge-synthesis-engine/preferences.md` — the learned model.
+- Instance `skills/forge-synthesis-engine/tweaks-log.md` — source-tagged self-observation trace.
+- `forge-ingest` / `forge-signal-check` — the consumers.
 
-**Current version:** Extracted (behavior-preserving) from `forge-ingest` 2026-06-28 as Phase 1 of the restructure plan. **Migrated 2026-07-06 to the canonical agent-agnostic core** (`_system/skills/`) as the first skill of re-arch Phase 3: per-agent copies are now generated + header-stamped; `preferences.md` is single-sourced here (the `.claude`/`.grok` copies were merged — verified identical in substance — and retired); the inline-parity rule no longer applies to this skill.
+**Current version:** Extracted from `forge-ingest` 2026-06-28. Preferences are instance overlay next to the installed skill, not product source.

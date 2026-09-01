@@ -4,13 +4,13 @@ description: "Graph-informed maintenance + lint/health-check pass on the wiki/ s
 argument-hint: "[optional: specific wiki page path (e.g. wiki/ai-skills.md) or 'all' or 'primers-index']"
 ---
 
-> **CANONICAL AGENT-AGNOSTIC CORE** (`_system/skills/` - the single editable source, per the Agent Canon in `_system/schema.md`). Per-agent copies under `.claude/skills/` and `.grok/skills/` are **generated** from this file + the agent profiles and are header-stamped - edit here, never there. Migrated 2026-07-06 (re-arch Phase 3).
+> Product core (`skills/forge-signal-check/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
 
 # forge-signal-check Skill
 
 The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of the `wiki/` (LLM-maintained synthesis) layer, plus maintenance of the slim human-readable catalog in `primers/_index.md`. This is the "forge" side of the architecture (forging the synthesis), distinct from the "brain" side handled by `/brain-maintain`. The `/forge-signal-check` command is a thin, human-facing entry point.
 
-**Brain vs. hands.** This skill is **consumer #2 of `forge-synthesis-engine`** (canonical core: `_system/skills/forge-synthesis-engine/SKILL.md`): it calls the engine's classification + learned-preferences brain to drive **restructure / de-duplication / canonical-home / re-scope proposals** over *existing* wiki content (step 6), and owns its own gated edit path. It also delegates **link integrity** to the `vault-link-check` engine (step 4). Two delegations, two concerns: link integrity = a filesystem check; restructure = a classification check. (Engine consumer per `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md`, Phase 2.)
+**Brain vs. hands.** This skill is **consumer #2 of `forge-synthesis-engine`** (canonical core: `skills/forge-synthesis-engine/SKILL.md`): it calls the engine's classification + learned-preferences brain to drive **restructure / de-duplication / canonical-home / re-scope proposals** over *existing* wiki content (step 6), and owns its own gated edit path. It also delegates **link integrity** to the `vault-link-check` engine (step 4). Two delegations, two concerns: link integrity = a filesystem check; restructure = a classification check. (Engine consumer per `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md`, Phase 2.)
 
 **Purpose (per AGENTS.md):** Keep the wiki high-signal, well-connected, and navigable without unnecessary page proliferation. The forge purview is conservative by default and favors integration and enrichment over creation or large structural changes.
 
@@ -42,7 +42,7 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 - Note current frontmatter, existing wikilinks/provenance, approximate size/focus, and any obvious legacy references (synthesis/, domains/, old matrix/, botanical maturity language, etc.). (Link-integrity file resolution is handled by `vault-link-check` in step 4.)
 
 ### 2. Frontmatter hygiene (light, schema-aligned)
-Apply only safe, current-schema fixes per the Frontmatter Constitution (Core table + Canonical Frontmatter Blocks + rules) in `_system/schema.md`:
+Apply only safe, current-schema fixes per the Frontmatter Constitution (Core table + Canonical Frontmatter Blocks + rules) in `templates/schema.md`:
 - Ensure appropriate `type:` (e.g. `concept`, `topic`, `reference`, `project`, `evolution`, `log`, `primer` — never legacy values).
 - `signal: true` on high-value living content that should participate in the graph and AI attention.
 - `status: active|draft|archived|...` where it adds orientation value.
@@ -67,7 +67,7 @@ Auto-apply these small, natural link/provenance additions.
 Link resolution and drift repair are a **vault-purview** concern (substrate, not synthesis), so this step **delegates** to the `vault-link-check` skill — do not duplicate the resolution logic here.
 - Invoke **`vault-link-check` scoped to `wiki/`**. It resolves every wikilink on the in-scope page(s) against the real file tree (a filesystem check, not a graph check), auto-repairs unambiguous rename/move drift (one clear target after normalizing `raw/YYYYMM/` relocation, `YYYY-MM-DD`→`YYYYMMDD`, separator changes), and surfaces dead or ambiguous links for human decision. It never auto-creates or auto-deletes files and honors the capability matrix + `ai-behavior` protections.
 - Fold its results into this pass's summary (step 8).
-- Full resolution rules live in `_system/skills/vault-link-check/SKILL.md`. **Why it matters:** a broken link silently spawns an empty phantom file the instant a human clicks it in Obsidian.
+- Full resolution rules live in `skills/vault-link-check/SKILL.md`. **Why it matters:** a broken link silently spawns an empty phantom file the instant a human clicks it in Obsidian.
 
 ### 5. Health / lint scan (qualitative surface)
 Surface (never silently fix):
@@ -86,9 +86,9 @@ The distinctive new value: drive consolidation/dedup/re-scope from the **learned
 - **Call `forge-synthesis-engine`** (module `classify`) treating each existing page's content as the material: *what is this page really about → which broad domain/hub → is that its canonical home → is it over-broad (a section ready to break out) or over-narrow (should fold into an umbrella)?* The engine reads `preferences.md` (recognized hubs, "cross-link on topic not shared tech", dual-layer captures, umbrella-with-sections, etc.) and the recent trace.
 - **Emit proposals** in the categories: **consolidation/merge** (same idea in multiple places → canonical home + cross-links, or a merge target), **de-duplication**, **canonical-home assignment**, **re-scope** (over-large → extract a section into an existing page; over-narrow → fold under an umbrella hub).
 - **Minimum proposal shape (required)** — each proposal must: (i) name a **canonical home**, (ii) cite **concrete** merge/cross-link/re-scope edits, (iii) carry **provenance**, (iv) be **propose-only / reversible**.
-- **Propose-only (v1).** Never apply restructure edits autonomously. Present them (step 8); the human approves; approved edits are applied through this skill's own write path, governed by the capability matrix (`_system/schema.md`) + the confidence gate. (Proposal *quality* is learned from pilot feedback — see below.)
+- **Propose-only (v1).** Never apply restructure edits autonomously. Present them (step 8); the human approves; approved edits are applied through this skill's own write path, governed by the capability matrix (`templates/schema.md`) + the confidence gate. (Proposal *quality* is learned from pilot feedback — see below.)
 - **Post-apply envelope (§5.7).** After any approved restructure edit lands (merge/move/extract), run **`vault-link-check` scoped to `wiki/`** to repair links to merged/moved pages, then **refresh the graph** (`/vault-graph-refresh`) since edits make it stale.
-- **Feed the shared trace.** When a restructure proposal gets feedback (accept/modify/reject), the engine writes a `source: forge-signal-check` entry to `_system/skill-logs/forge-synthesis-engine-tweaks-log.md`, and durable corrections fold into `preferences.md`. This is how signal-check teaches the same model that ingest does.
+- **Feed the shared trace.** When a restructure proposal gets feedback (accept/modify/reject), the engine writes a `source: forge-signal-check` entry to `skills/forge-synthesis-engine/tweaks-log.md`, and durable corrections fold into `preferences.md`. This is how signal-check teaches the same model that ingest does.
 - **First dogfood target:** redundancy on a high-level hub page (the plan's Phase-3 pilot).
 
 ### 7. Index and activity recording
@@ -123,7 +123,7 @@ After presenting the summary, append a minimal compliant entry to `_system/eval-
 - Use the recommended skeleton (## date header, key metadata like Changeset/Graph/Auto-applied/Findings, canonical summary excerpt).
 - **Live step call-outs required:** a "**Step call-outs observed during this execution:**" section with explicit "Step 1: ...", "Step 4: delegated to vault-link-check", "Step 6: engine-driven restructure pass", etc. for the major phases.
 - Include a timing marker: "**Core log written at:** after presenting the summary (before any direction or ephemeral handling)."
-- **Strict separation:** the eval-log is *tool-performance only* (consumed by `/brain-tool-eval`). The engine's *learning* content (restructure proposal → feedback → delta) goes to `_system/skill-logs/forge-synthesis-engine-tweaks-log.md` as `source: forge-signal-check`. Never mix.
+- **Strict separation:** the eval-log is *tool-performance only* (consumed by `/brain-tool-eval`). The engine's *learning* content (restructure proposal → feedback → delta) goes to `skills/forge-synthesis-engine/tweaks-log.md` as `source: forge-signal-check`. Never mix.
 
 If the pass is clean across the targets, say so concisely.
 
@@ -149,13 +149,13 @@ If the pass is clean across the targets, say so concisely.
 ---
 
 ## Related
-- `_system/skills/forge-synthesis-engine/SKILL.md` — the classification brain this skill consumes for the restructure pass (step 6).
+- `skills/forge-synthesis-engine/SKILL.md` — the classification brain this skill consumes for the restructure pass (step 6).
 - `AGENTS.md` (Forge Purview Constitution — primary source of truth; Lint/Health Check, Core Philosophy, Provenance, Graphify, Non-Negotiables).
-- `_system/schema.md` (authoritative frontmatter + AI steering rules; capability matrix; Tool Structure Convention).
+- `templates/schema.md` (authoritative frontmatter + AI steering rules; capability matrix; Tool Structure Convention).
 - `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md` — the governing plan (Phase 2).
-- `_system/skills/vault-link-check/SKILL.md` — the vault-purview link-integrity engine (step 4 delegates here, scoped to `wiki/`).
+- `skills/vault-link-check/SKILL.md` — the vault-purview link-integrity engine (step 4 delegates here, scoped to `wiki/`).
 - `/vault-graph-refresh` (required prerequisite for serious passes; post-restructure refresh).
 - `wiki/_index.md` (living catalog you help maintain).
 - `_graphify-out/GRAPH_REPORT.md` and graph.json (main relationship signal during the pass).
 
-**Current version:** Phase 2 — promoted from command-only to a dual-surface command+skill pair (2026-06-28); the lint/health logic moved into this skill and the command thinned. Added step 6, the engine-driven restructure/dedup pass (consumer #2 of `forge-synthesis-engine`, propose-only). Pilot run on a hub page is Phase 3. Single-sourced at the canonical core `_system/skills/forge-signal-check/SKILL.md` since 2026-07-06 (re-arch Phase 3); per-agent copies are generated.
+**Current version:** Consumer #2 of `forge-synthesis-engine` (restructure / dedup, propose-only). Link integrity delegates to `vault-link-check`.

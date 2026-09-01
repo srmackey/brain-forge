@@ -4,7 +4,7 @@ description: "The Context Composer + static primer authoring skill. Compose mode
 argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  static <description>"
 ---
 
-> **CANONICAL AGENT-AGNOSTIC CORE** (`_system/skills/` - the single editable source, per the Agent Canon in `_system/schema.md`). Per-agent copies under `.claude/skills/` and `.grok/skills/` are **generated** from this file + the agent profiles and are header-stamped - edit here, never there. Migrated 2026-07-06 (re-arch Phase 3).
+> Product core (`skills/forge-primer/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
 
 # forge-primer Skill
 
@@ -137,7 +137,7 @@ When the caller invokes with the `static` keyword (`/forge-primer static <descri
 
 1. **Determine intent** — extract from the current conversation, author from a description, or adapt external pasted content (Grok/ChatGPT custom instructions, etc.).
 2. **Elicit identifying info (filename only; ask only if not derivable):** AI tool (`claude | grok | cursor | any`), purpose (`coaching | code-review | brainstorm | system-prompt | …`), display title (the H1), slug `<tool>-<purpose>`. Tool + purpose live in the slug, not in frontmatter.
-3. **Draft** `primers/<slug>.md` — frontmatter `type: primer`, `signal: true`, `status: active`, `created:`/`last-updated:` (real current date; never inferred). Body per `_templates/primer.md` (When to Use, Role / Framing, Paste Block, Provenance). The **Paste Block must be fully self-contained** — no `[[wikilinks]]` or Obsidian syntax (the receiving AI lives outside this vault).
+3. **Draft** `primers/<slug>.md` — frontmatter `type: primer`, `signal: true`, `status: active`, `created:`/`last-updated:` (real current date; never inferred). Body per `templates/primer.md` (When to Use, Role / Framing, Paste Block, Provenance). The **Paste Block must be fully self-contained** — no `[[wikilinks]]` or Obsidian syntax (the receiving AI lives outside this vault).
 4. **Propose before saving** — slug, H1, When-to-Use preview, Paste-Block preview (~150 chars), word count. Wait for approval.
 5. **On approval** — write the file; suggest 1–2 existing primers to cross-link.
 
@@ -147,6 +147,6 @@ When the caller invokes with the `static` keyword (`/forge-primer static <descri
 
 v0.1 — Initial implementation of the Codex System Specification (grok_report.pdf, 2026-06-08) plus user clarifications (qualified headers primarily need callout only on wiki; dedicated `forge-primer` command/skill with rich instructions for caller input handling + `## Primer - ` discovery + codex execution).
 
-Update this file (and reflect changes back into `_system/primers.md`, the thin command descriptor, and supporting docs) whenever the composition rules or header conventions evolve. Single-sourced at the canonical core `_system/skills/forge-primer/SKILL.md` since 2026-07-06 (re-arch Phase 3); per-agent copies are generated.
+Update this file whenever the composition rules or header conventions evolve.
 
 This skill is the living embodiment of the "Context Composer" — keep it general, conservative, and high-leverage.

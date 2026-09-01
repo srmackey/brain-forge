@@ -1,10 +1,10 @@
 ---
 name: vault-link-check
-description: "Vault-wide link integrity engine (vault purview). Resolves every wikilink and markdown link against the real file tree — a filesystem check, not a graph check (Graphify cannot see dangling links). Auto-repairs unambiguous rename/move drift (exactly one clear target: raw/YYYYMM/ relocation, YYYY-MM-DD→YYYYMMDD, separator changes); surfaces dead links (no target) and ambiguous ones (multiple candidates) for human decision. Never auto-creates or auto-deletes files. Scope defaults to the whole vault; accepts a folder or path scope (e.g. wiki/). Write permission is governed by the folder × purview capability matrix in _system/schema.md + the confidence gate. forge-signal-check delegates its wiki/ link step here. Invoke for /vault-link-check or any 'check/repair broken links' request."
+description: "Vault-wide link integrity engine (vault purview). Resolves every wikilink and markdown link against the real file tree — a filesystem check, not a graph check (Graphify cannot see dangling links). Auto-repairs unambiguous rename/move drift (exactly one clear target: raw/YYYYMM/ relocation, YYYY-MM-DD→YYYYMMDD, separator changes); surfaces dead links (no target) and ambiguous ones (multiple candidates) for human decision. Never auto-creates or auto-deletes files. Scope defaults to the whole vault; accepts a folder or path scope (e.g. wiki/). Write permission is governed by the folder × purview capability matrix in templates/schema.md + the confidence gate. forge-signal-check delegates its wiki/ link step here. Invoke for /vault-link-check or any 'check/repair broken links' request."
 argument-hint: "[optional: scope — 'all' (whole vault, default) | a folder like wiki/ | a specific page path]"
 ---
 
-> **CANONICAL AGENT-AGNOSTIC CORE** (`_system/skills/` - the single editable source, per the Agent Canon in `_system/schema.md`). Per-agent copies under `.claude/skills/` and `.grok/skills/` are **generated** from this file + the agent profiles and are header-stamped - edit here, never there. Migrated 2026-07-06 (re-arch Phase 3).
+> Product core (`skills/vault-link-check/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
 
 # vault-link-check Skill
 
@@ -41,7 +41,7 @@ Graphify only draws edges between nodes that **already exist**, so a wikilink to
 
 ## Write-permission rules (capability matrix + confidence gate)
 
-Whether a repair is **applied** vs **proposed** vs **report-only** is governed by the **folder × purview capability matrix** in `_system/schema.md` (the **vault** column) for the *target page's* folder, ratcheted tighter by any `ai-behavior` protection on the file. The confidence gate operates **inside** what the matrix permits (matrix = "may I write here?"; confidence = "auto or surface?" — auto only on an unambiguous single target).
+Whether a repair is **applied** vs **proposed** vs **report-only** is governed by the **folder × purview capability matrix** in `templates/schema.md` (the **vault** column) for the *target page's* folder, ratcheted tighter by any `ai-behavior` protection on the file. The confidence gate operates **inside** what the matrix permits (matrix = "may I write here?"; confidence = "auto or surface?" — auto only on an unambiguous single target).
 
 In practice, for the vault purview:
 - **wiki/ · primers/ · _system/ · focus/** — `auto*`: auto-repair unambiguous drift on **unprotected** files; **propose** on `ai-behavior`-protected files (append-only logs, historical-evolution, park, etc.).
@@ -82,7 +82,7 @@ Surface — dead (no target, human decides):
   wiki/baz.md — [[domains/old-thing]] — deleted legacy page; suggest un-link to plain text
 
 Surface — ambiguous (multiple candidates):
-  wiki/qux.md — [[setup]] → setup.md? | _templates/setup.md? — choose target
+  wiki/qux.md — [[setup]] → setup.md? | templates/setup.md? — choose target
 
 Report-only (flag-only but live — not written):
   AGENTS.md — [[some/ref]] dead — noted for human cleanup
@@ -116,4 +116,4 @@ After presenting the report (core work complete), append a minimal compliant ent
 - `/brain-maintain` may surface link issues it notices on system surfaces but defers actual link resolution/repair to this engine.
 - `graphify` / `/vault-graph-refresh` are complementary (relationship discovery), not a substitute — they cannot see dangling links.
 
-This skill is the canonical link-integrity doctrine for the vault; keep it general, conservative, and high-leverage. Update it (and the thin command descriptor) when the resolution or drift rules evolve. Single-sourced at the canonical core `_system/skills/vault-link-check/SKILL.md` since 2026-07-06 (re-arch Phase 3); per-agent copies are generated.
+This skill is the canonical link-integrity doctrine for the vault; keep it general, conservative, and high-leverage. Update it (and the thin command descriptor) when the resolution or drift rules evolve. Single-sourced at the canonical core `skills/vault-link-check/SKILL.md` since 2026-07-06 (re-arch Phase 3); per-agent copies are generated.

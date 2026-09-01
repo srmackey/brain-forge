@@ -4,7 +4,7 @@ description: Rebuild the Graphify knowledge graph over the vault. Run manually b
 argument-hint: "[optional: path to subfolder to scope the graph]"
 ---
 
-> **CANONICAL AGENT-AGNOSTIC CORE** (`_system/skills/` - the single editable source, per the Agent Canon in `_system/schema.md`). Per-agent copies under `.claude/skills/` and `.grok/skills/` are **generated** from this file + the agent profiles and are header-stamped - edit here, never there. Migrated 2026-07-06 (re-arch Phase 3 slice 4 — logic moved out of the command per the centralization charter).
+> Product core (`skills/vault-graph-refresh/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
 
 # /vault-graph-refresh
 

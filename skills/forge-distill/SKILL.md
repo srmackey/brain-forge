@@ -4,7 +4,7 @@ description: "In-system session distill (forge purview): writes a durable source
 argument-hint: "[optional: topic focus or target filename slug]"
 ---
 
-> **CANONICAL AGENT-AGNOSTIC CORE** (`_system/skills/` - the single editable source, per the Agent Canon in `_system/schema.md`). Per-agent copies under `.claude/skills/` and `.grok/skills/` are **generated** from this file + the agent profiles and are header-stamped - edit here, never there. Created 2026-07-15.
+> Product core (`skills/forge-distill/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
 
 # forge-distill Skill
 
@@ -21,7 +21,7 @@ The forge purview's **in-system source-capture hands**: when an agent session wo
 
 ## Producer boundary (describe, never decide)
 
-This is a **capture surface**. It describes the session faithfully; it never picks wiki homes. The `Routing Hints` / `layers:` block stays descriptive — `brain-routing-engine` and `forge-synthesis-engine` own the destination decisions at ingest time. Never copy classification logic here (canonical: `_system/schema.md` "Producer Boundary (Describe vs. Decide)").
+This is a **capture surface**. It describes the session faithfully; it never picks wiki homes. The `Routing Hints` / `layers:` block stays descriptive — `forge-ingest` and `forge-synthesis-engine` own the destination decisions at ingest time. Never copy classification logic here (canonical: `templates/schema.md` "Producer Boundary (Describe vs. Decide)").
 
 ## Core flow
 
@@ -42,8 +42,8 @@ Apply `primers/distill-ai-session.md` in full: user-perspective priority, faithf
 ### Step 3 — Hand off to ingest
 The distill is source material like any other capture. Either (a) proceed directly into `/forge-ingest` for this file in the same session (typical when the user asked for wiki records), or (b) leave it for the next ingest pass — state which. If wiki entries were already written this session (retrofit case), fix their provenance to point at this file and record the ingest in `raw/_log.md` as usual.
 
-### Step 4 — Eval log (unconditional, maintainer-tool convention)
-Append a structured entry to `_system/eval-logs/forge-distill-log.md` per the Eval Logs Convention (`brain-engine` core): call-outs for the steps above, timing markers, **Tool Performance Analysis:**, and a **Reviewed:** placeholder.
+### Step 4 — Eval log (if the instance keeps one)
+If the instance keeps an eval log for this skill, append a performance entry after core work.
 
 ## Non-negotiables
 
@@ -52,4 +52,4 @@ Append a structured entry to `_system/eval-logs/forge-distill-log.md` per the Ev
 - No self-routing: destination decisions belong to the engines at ingest.
 - Human direction overrides everything here.
 
-**Provenance:** Created 2026-07-15 on explicit user direction during an Architect-mode session (see [[raw/202607/20260715-engram-repo-review-distill.md]] — the genesis run that motivated the skill): "formalize the process of saving a source file for sessions inside the system that are about info/topics outside the system."
+**Provenance:** Created 2026-07-15 to persist a source file for in-system sessions whose material came from outside the vault.

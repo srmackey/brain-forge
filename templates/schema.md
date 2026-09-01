@@ -7,9 +7,9 @@ last-updated: 2026-09-01
 
 # Schema
 
-Frontmatter, AI steering, capability matrix, raw-item rules, and the producer boundary for a Brain Forge vault. Canonical home for those rules. `AGENTS.md` states the principle and points here. Tools reference this file and never duplicate it.
+Frontmatter, AI steering, capability matrix, raw-item rules, and the producer boundary for a Brain Forge vault. Canonical home for those rules. Tools reference this file and never duplicate it.
 
-This is the instance copy, written by install from the product template. Do not hand-edit a generated copy.
+Install copies this file. Adapt it. It is user-owned after the first copy.
 
 ---
 
@@ -32,20 +32,17 @@ Any rule that more than one purview, surface, or tool must consult lives in exac
 | Tool autonomy / permissions | this file — Capability Matrix |
 | Tool structure (skill / engine) | this file — Tool Structure Convention |
 | Frontmatter / AI-steering / raw-item rules | this file |
-| Capture destination (wiki / hold) | `brain-routing-engine` (+ instance `preferences.md`) |
+| Capture destination (wiki / hold) | `forge-ingest` |
 | Wiki-page classification (which page, once wiki-bound) | `forge-synthesis-engine` (+ instance `preferences.md`) |
-| Authoring templates | `_templates/` |
-| Operating model | `AGENTS.md` |
+| Authoring templates | `templates/` |
+| Vault operations | `templates/vault.md` |
 | Capture-describe vs classify-decide | this file — Producer Boundary |
 
 ---
 
 ## Producer Boundary (Describe vs. Decide)
 
-A capture surface **describes** a session. The engines **decide** destination.
-
-- `brain-routing-engine` makes the coarse call: `wiki` or `hold`.
-- `forge-synthesis-engine` makes the fine call: which wiki page, and only for `wiki`-bound material.
+A capture surface **describes** a session. `forge-ingest` decides wiki vs hold. `forge-synthesis-engine` decides which wiki page, and only for wiki-bound material.
 
 A capture surface never picks the wiki home. Classification logic is never copied onto a capture surface.
 
@@ -106,7 +103,7 @@ last-updated: YYYY-MM-DD
 
 ## Capability Matrix (Folder × Purview → Permission)
 
-Canonical autonomy table. `AGENTS.md` points here. Tools never duplicate it.
+Canonical autonomy table. Tools never duplicate it.
 
 **Purviews:** **forge** (synthesis) · **vault** (mechanics; name pending) · **brain** (interaction: retrieval, query, analysis). Brain's write tools are not designed. The column still exists: an outside agent operates in brain and is denied forge and vault.
 
@@ -121,7 +118,8 @@ Canonical autonomy table. `AGENTS.md` points here. Tools never duplicate it.
 | Folder | brain | forge | vault |
 | --- | --- | --- | --- |
 | `AGENTS.md` / shims | flag-only | never | flag-only |
-| `_system/` | flag-only | log | auto\* (links) |
+| `skills/` | flag-only | never | flag-only |
+| `templates/` | flag-only | never | flag-only |
 | `raw/` | flag-only | flag-only | flag-only *(+ the one documented dated-subfolder move)* |
 | `wiki/` | flag-only | auto | auto\* (links) |
 | `primers/` | flag-only | auto | auto\* |
@@ -132,21 +130,20 @@ Canonical autonomy table. `AGENTS.md` points here. Tools never duplicate it.
 1. Folder is the default permission per purview.
 2. `ai-behavior` can only make a file more restrictive than its folder default.
 3. Confidence operates inside what the matrix permits. Matrix answers "may I write here?" Confidence answers "auto or surface?"
-4. Every maintainer tool logs to `_system/eval-logs/`. Forge holds `log` on `_system/` so it can record runs without otherwise writing there.
-5. Explicit human direction overrides the matrix.
-6. Link repair in the vault column is `vault-link-check`. `forge-signal-check` delegates its wiki link step there.
+4. Explicit human direction overrides the matrix.
+5. Link repair in the vault column is `vault-link-check`. `forge-signal-check` delegates its wiki link step there.
 
 ---
 
 ## Tool Structure Convention
 
-Every Brain Forge tool is a skill with a single canonical core at `_system/skills/<name>/SKILL.md`.
+Every Brain Forge tool is a skill with a single canonical core at `skills/<name>/SKILL.md` in the product. Install copies that file into the instance.
 
-- **User-invocable skill.** The human invokes `/<name>`. Generated copies live under host skill paths.
-- **`*-engine` skill.** Shared logic consumed by two or more skills, not itself user-invoked (`forge-synthesis-engine`, `brain-routing-engine`).
+- **User-invocable skill.** The human invokes `/<name>` after the instance operator exposes the skill to a host.
+- **`*-engine` skill.** Shared logic consumed by two or more skills, not itself user-invoked (`forge-synthesis-engine`).
 - **Tie-breaker.** A skill that is itself user-invocable keeps its natural name even when shared (`vault-link-check`).
 
-Cores are edited in the product. Instance copies are generated and stamped. Learned `preferences.md` is instance overlay, co-located with the copy, never overwritten by update.
+Learned `preferences.md` is instance overlay, co-located with the installed skill, never overwritten by update.
 
 Imported third-party skills are external artifacts, not authored cores.
 
