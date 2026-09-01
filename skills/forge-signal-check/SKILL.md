@@ -38,7 +38,7 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 ### 1. Load context
 - Read the page (or pages).
 - Read `wiki/_index.md`, recent sections of `raw/_log.md`, and the latest `_graphify-out/GRAPH_REPORT.md` + graph.json (for related nodes, communities, surprising connections).
-- Note current frontmatter, existing wikilinks/provenance, approximate size/focus, and any obvious legacy references (synthesis/, domains/, old matrix/, botanical maturity language, etc.). (Link-integrity file resolution is handled by `vault-link-check` in step 4.)
+- Note current frontmatter, existing wikilinks/provenance, and approximate size/focus. Link-integrity file resolution is handled by `vault-link-check` in step 4.
 
 ### 2. Frontmatter hygiene (light, schema-aligned)
 Apply only safe, current-schema fixes per the Frontmatter Constitution (Core table + Canonical Frontmatter Blocks + rules) in `templates/schema.md`:
@@ -88,7 +88,7 @@ The distinctive new value: drive consolidation/dedup/re-scope from the **learned
 - **Propose-only (v1).** Never apply restructure edits autonomously. Present them (step 8); the human approves; approved edits are applied through this skill's own write path, governed by the capability matrix (`templates/schema.md`) + the confidence gate. (Proposal *quality* is learned from pilot feedback — see below.)
 - **Post-apply envelope (§5.7).** After any approved restructure edit lands (merge/move/extract), run **`vault-link-check` scoped to `wiki/`** to repair links to merged/moved pages, then **refresh the graph** (`/vault-graph-refresh`) since edits make it stale.
 - **Feed the shared trace (when steering is on).** When a restructure proposal gets feedback (accept/modify/reject), the engine writes a `source: forge-signal-check` entry to `skills/forge-synthesis-engine/tweaks-log.md`, and durable corrections fold into `preferences.md`. Off: do not create those files.
-- **First dogfood target:** redundancy on a high-level hub page (the plan's Phase-3 pilot).
+
 
 ### 7. Index and activity recording
 - If the pass reveals the need for catalog updates (new core area, major page, significant recent activity), prepare a concise proposed diff for `wiki/_index.md`.
@@ -139,7 +139,7 @@ If the pass is clean across the targets, say so concisely.
 - **No prose rewriting** for links. Insert around existing natural language only.
 - **Link integrity on every full pass — delegated to `vault-link-check`** scoped to `wiki/`. Do not duplicate the resolution logic here.
 - **Respect protections.** Read and obey any `ai-behavior` + AI Instructions callout on protected pages.
-- **No legacy model artifacts.** Do not reference, create, or maintain synthesis/, domains/, old maturity promotion flows.
+- **Do not invent parallel trees.** Stay in `raw/` and `wiki/` (plus `primers/` for the catalog). If this vault still has other layouts, leave them unless the user directed cleanup.
 - **Logging split:** Raw ingest activity → only `raw/_log.md`. Wiki maintenance findings → the wiki pages (or an instance system log, if it keeps one). Tool-performance transcript → the instance eval log, if it keeps one. Restructure learning → the engine trace (`source: forge-signal-check`).
 - **Update `wiki/_index.md`** for significant structural or catalog changes.
 - Keep `primers/_index.md` as a pure human-readable catalog.

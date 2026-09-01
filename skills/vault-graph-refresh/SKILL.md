@@ -1,6 +1,6 @@
 ---
 name: vault-graph-refresh
-description: Rebuild the Graphify knowledge graph over the vault. Run manually before /forge-ingest when the graph is stale (>24h old).
+description: Rebuild the Graphify knowledge graph over the vault. Graphify is a user install; this product does not ship it. Run manually when the graph is stale (>24h old).
 argument-hint: "[optional: path to subfolder to scope the graph]"
 ---
 
@@ -8,26 +8,28 @@ argument-hint: "[optional: path to subfolder to scope the graph]"
 
 # /vault-graph-refresh
 
-Rebuild the Graphify knowledge graph for this vault by executing the graphify *skill* logic inside the current AI session. This lets the calling LLM supply the agentic/semantic extraction work (no external key required). `/forge-ingest` queries this graph to find related nodes without re-reading every file. Run this manually — never triggered automatically.
+Rebuild the Graphify knowledge graph for this vault. **Graphify is a user install.** This product does not ship Graphify or Graphify's skills. If no Graphify skill is available on the host, say so and stop.
+
+When Graphify is present, execute its skill logic inside the current AI session so the calling model supplies semantic extraction (no external key required). Run this manually. Never trigger it from ingest.
 
 **Do not** default to the package CLI `extract` path; that is headless and needs its own LLM key.
 
 ## Execution mode (critical — ensures the calling LLM does the work)
 
-When this command is invoked from inside an AI session, **execute the graphify skill logic directly using the current model's agentic capabilities**. The goal is for the *calling LLM* (this session) to supply the intelligence for semantic extraction.
+When this command is invoked from inside an AI session, **execute the Graphify skill logic directly using the current model's agentic capabilities**.
 
-- Read the active graphify skill definition (typically the user-global `~/.claude/skills/graphify/SKILL.md`; use whatever graphify skill surface the current agent discovers).
-- Follow the skill's "What You Must Do When Invoked" procedure *inside this conversation*.
-- For semantic extraction on documents/papers/images (Step B): use subagent dispatch so the host model performs the work (the skill explicitly supports the "host session itself is the LLM" path when no external key is set; dispatch general-purpose subagents with the exact prompt template from the skill).
+- Discover whatever Graphify skill surface this host has. Do not assume a path.
+- Follow that skill's invoke procedure *inside this conversation*.
+- For semantic extraction on documents/papers/images: use subagent dispatch so the host model performs the work when the skill supports a "host session is the LLM" path.
 - Use terminal/python execution only for deterministic parts (detection, AST, build, clustering).
-- **Do not** invoke the `graphify` package CLI binary with the `extract` (or equivalent full-build) subcommand. That is the headless path — the package will require its own external LLM provider key (Gemini, Anthropic, etc.).
+- **Do not** invoke the `graphify` package CLI binary with the `extract` (or equivalent full-build) subcommand.
 
 Direct CLI use is only appropriate for fully unattended / CI scenarios where you intentionally provide a key or local backend.
 
 ## Steps
 
-1. Invoke the `graphify` skill on this vault **by following the integrated execution mode above** (or scoped to `$ARGUMENTS` if a subfolder is specified). By default it respects `.graphifyignore` (see below).
-2. (Local patch applied on this machine) The graphify skill now always outputs to `_graphify-out/`. The graph JSON is at `_graphify-out/graph.json`.
+1. Invoke the Graphify skill on this vault **by following the integrated execution mode above** (or scoped to a subfolder if the caller named one). By default it respects `.graphifyignore` at the vault root.
+2. Brain Forge expects the graph at `_graphify-out/graph.json`. If Graphify wrote somewhere else, say where and treat that path as the graph for this run. Do not assume a machine-local patch.
 3. Record the rebuild time and confirm:
    ```
    Graph rebuilt: YYYY-MM-DD HH:MM
@@ -40,14 +42,11 @@ Direct CLI use is only appropriate for fully unattended / CI scenarios where you
 
 The graph is primarily a supporting tool for the **forge purview** working in `wiki/`.
 
-- For normal work (ingest from raw/, Query → File Back, /forge-signal-check on wiki pages): prefer a focused scope or rely on the tightened `.graphifyignore`.
-- For full lint/health checks or migration review (porting from legacy domains/archive): use a broader or full run.
-- Recommended focused invocations (these are passed to the graphify skill; the AI executes the integrated skill path, not the CLI):
+- For normal work (ingest, wiki maintenance): prefer a focused scope, or rely on `.graphifyignore` at the vault root (this product ships a starting ignore).
+- For a full lint/health check: a broader or full run.
+- Recommended focused invocations (passed to the Graphify skill; the AI executes the integrated skill path, not the CLI):
   - `graphify wiki raw`
   - `graphify wiki raw primers`
-- The `.graphifyignore` (at root) now aggressively excludes archive/, journal/, domains/ (legacy), old constitution drafts, etc., while carving back the key active `_system/` files. This keeps communities and god nodes high-signal around the living `raw/` + `wiki/` layer.
-
-See also the Graphify notes in `templates/vault.md` if that vault adapted them.
 
 ## When to run
 
@@ -59,6 +58,6 @@ See also the Graphify notes in `templates/vault.md` if that vault adapted them.
 
 - Never invoke this from within `/forge-ingest` — graph refresh is always a separate, explicit step.
 - The output directory (`_graphify-out/`) is overwritten on each run — that is expected behavior.
-- **Invocation path**: AI-driven runs (the normal case when you type `/vault-graph-refresh` inside an AI session) must use the integrated skill execution path so the calling LLM performs semantic extraction via subagents. Direct use of the `graphify` package CLI `extract` path is the headless mode and will require an external LLM key — avoid it for normal use inside this system.
-- A local patch was applied to the graphify skill on this machine so AI-driven runs (including /vault-graph-refresh) consistently use the vault's preferred `_graphify-out/` location (hidden, matching other system folders). Direct CLI usage of the package may still default to `graphify-out/` (the env var GRAPHIFY_OUT=_graphify-out in your profile can keep CLI aligned too). .gitignore and .graphifyignore ignore the other variants defensively.
+- **Invocation path**: AI-driven runs must use the integrated skill execution path so the calling LLM performs semantic extraction via subagents. Direct use of the Graphify package CLI `extract` path is headless and needs an external LLM key. Avoid it for normal use.
+- If Graphify is missing, stop. Do not pretend a graph exists.
 - If the instance keeps an eval log for this skill, append a minimal entry after the rebuild: date, scope, node/edge counts.

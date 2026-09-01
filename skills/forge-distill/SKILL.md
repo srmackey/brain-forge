@@ -1,6 +1,6 @@
 ---
 name: forge-distill
-description: "In-system session distill (forge purview): writes a durable source capture to raw/ when the current agent session is itself the genesis of substantive information from outside the system (repo/tool reviews, web research, novel in-session brainstorms) — keeping wiki/ rebuildable from raw/ and the content portable. The in-system sibling of the web primers/distill-ai-session.md: one distill format, two producers, one consumer (forge-ingest). Trigger on /forge-distill, 'distill this session (to raw)', or before any Query→File Back of substantive external-genesis material. Describes only — routing/synthesis decisions stay with the engines. Follows `templates/vault.md`; human direction overrides."
+description: "In-system session distill (forge purview): writes a durable source capture to raw/ when the current agent session is itself the genesis of substantive information from outside the system (repo/tool reviews, web research, novel in-session brainstorms) — keeping wiki/ rebuildable from raw/ and the content portable. The in-system sibling of the web distill format (primers/distill-ai-session.md): one distill format, two producers, one consumer (forge-ingest). Trigger on /forge-distill or 'distill this session (to raw)'. Describes only — routing/synthesis decisions stay with the engines. Follows `templates/vault.md`; human direction overrides."
 argument-hint: "[optional: topic focus or target filename slug]"
 ---
 
@@ -16,7 +16,7 @@ The forge purview's **in-system source-capture hands**: when an agent session wo
 
 - **Run** when the session introduced **substantive external-genesis material**: reviews of external repos/tools/articles, web research, reference facts pulled from outside, or in-session brainstorms that produced novel content worth synthesizing — anything where the wiki write would otherwise be the *only* durable record of the source material.
 - **Run on explicit signal**: `/forge-distill`, "distill this session", "save a source record of this".
-- **Do not run** for small insights *derived from existing vault material* — those may Query→File Back directly with session provenance (the external-genesis rule in AGENTS.md § Query → File Back). Also not for session *state* snapshots (that is `forge-handoff` territory: resumption freeze-frame, not source distillation).
+- **Do not run** for small insights *derived from existing vault material* — those may be written to the wiki with session provenance (`templates/vault.md`). Not for session-state snapshots (resumption notes). This skill is source distillation.
 - When about to file back substantive external-genesis material without a raw source, **stop and run this first** (or propose it if the situation is borderline).
 
 ## Producer boundary (describe, never decide)

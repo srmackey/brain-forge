@@ -29,7 +29,7 @@ Install copies `skills/` and `templates/` into a vault as ordinary files. It doe
 
 `forge-ingest` decides wiki vs hold. Hold when directed, or when the capture is not vault material.
 
-`vault-graph-refresh` expects Graphify in the vault. This repo does not vendor it.
+`vault-graph-refresh` needs Graphify. This product does not ship Graphify or Graphify's skills. The vault owner installs those separately. How that install is documented is still open.
 
 ## Synthesis steering
 

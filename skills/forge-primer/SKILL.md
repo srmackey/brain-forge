@@ -1,6 +1,6 @@
 ---
 name: forge-primer
-description: "The Context Composer + static primer authoring skill. Compose mode (default): assembles high-signal, intent-specific primers on demand by discovering and following ## Primer - Steering (wiki pages), ## Primer - Continuity (raw/distill files), and ## Primer - Codex - Name (inside primer files); when a codex is referenced, reads and executes its instructions for dynamic assembly. Static mode (`static` arg): authors a new hand-crafted static primer file in primers/ (type: primer + signal: true). Produces clean, dense, attributed output with lightweight provenance. Primary implementation of the Codex / Context Composer system (grok_report.pdf). Follows `templates/vault.md`: human direction overrides, provenance on contributions, conservative defaults, no wiki pollution, preserve human agency."
+description: "The Context Composer + static primer authoring skill. Compose mode (default): assembles high-signal, intent-specific primers on demand by discovering and following ## Primer - Steering (wiki pages), ## Primer - Continuity (raw/distill files), and ## Primer - Codex - Name (inside primer files); when a codex is referenced, reads and executes its instructions for dynamic assembly. Static mode (`static` arg): authors a new hand-crafted static primer file in primers/ (type: primer + signal: true). Produces clean, dense, attributed output with lightweight provenance. The Codex / Context Composer lives in this skill. Follows `templates/vault.md`: human direction overrides, provenance on contributions, conservative defaults, no wiki pollution, preserve human agency."
 argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  static <description>"
 ---
 
@@ -145,7 +145,7 @@ When the caller invokes with the `static` keyword (`/forge-primer static <descri
 
 ## Version & Provenance
 
-v0.1 — Initial implementation of the Codex System Specification (grok_report.pdf, 2026-06-08) plus user clarifications (qualified headers primarily need callout only on wiki; dedicated `forge-primer` command/skill with rich instructions for caller input handling + `## Primer - ` discovery + codex execution).
+v0.1 — Codex / Context Composer: qualified headers (`## Primer - Steering` / `Continuity` / `Codex - Name`), caller input handling, and static authoring mode. Callouts required only on wiki Steering.
 
 Update this file whenever the composition rules or header conventions evolve.
 
