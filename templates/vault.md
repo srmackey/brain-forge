@@ -36,6 +36,21 @@ The matrix in `templates/schema.md` is the canonical home. Tools reference it. T
 
 **Synthesis steering** is a shipping feature of `forge-synthesis-engine`, and it is optional. Create `skills/forge-synthesis-engine/preferences.md` to turn it on (agents propose wiki homes, take feedback, and learn). Edit that file to adjust how autonomously they synthesize. Leave it off (no file, or autonomy `off`) for full discretion. The file is user-owned and is not overwritten on update. Instruction lives in the engine skill.
 
+## Graphify (user install)
+
+This product does not ship Graphify or Graphify's skills. You install them.
+
+Official project: [safishamsi/graphify](https://github.com/safishamsi/graphify). Package `graphifyy`, command and skill `graphify`.
+
+```
+uv tool install graphifyy
+graphify install
+```
+
+`graphify install` registers `/graphify` with your coding assistant. `vault-graph-refresh` discovers that skill; it does not assume a path. Ingest still runs without a graph. A full `forge-signal-check` needs a fresh one.
+
+Expected output: `_graphify-out/graph.json` and `GRAPH_REPORT.md`. Graphify may write `graphify-out/` instead. Treat whichever exists. `.graphifyignore` at the vault root (this product ships a starting copy) ignores both.
+
 ## Non-negotiables
 
 - Provenance on every wiki contribution: `Source: [[raw/…]]`.

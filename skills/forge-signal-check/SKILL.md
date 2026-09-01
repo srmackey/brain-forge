@@ -21,12 +21,12 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 - On explicit request: "run maintenance on the wiki", "lint the wiki", "health check wiki/", "find duplication / restructure", etc.
 
 **Prerequisites:**
-- A fresh graph is **mandatory** for any full pass. Run `/vault-graph-refresh` first if the output in `_graphify-out/` is stale (> ~24h or after substantial changes). Recommended focused scope: `graphify wiki raw`
+- A fresh graph is **mandatory** for any full pass. Run `/vault-graph-refresh` first if `_graphify-out/` (or `graphify-out/`) is stale (> ~24h or after substantial changes). Recommended focused scope: `graphify wiki raw`. Graphify is a user install; see `templates/vault.md`.
 - Consult `wiki/_index.md` and recent `raw/_log.md` for orientation on what is current vs. legacy.
 
 **Scope and philosophy:**
 - Primary target: pages under `wiki/`, plus the slim catalog in `primers/_index.md`.
-- Use `_graphify-out/graph.json` + `GRAPH_REPORT.md` (communities, god nodes, connections) and the HTML for relationship discovery.
+- Use `_graphify-out/graph.json` or `graphify-out/graph.json`, plus `GRAPH_REPORT.md` beside it (communities, god nodes, connections), and the HTML for relationship discovery.
 - **Strong default**: update existing pages. Add wikilinks and small improvements where natural. Flag (do not auto-execute) anything that would create new pages, merge, split, or delete.
 - Every meaningful edit must carry lightweight provenance.
 - Human direction always overrides. Protected pages (`ai-behavior`) have strict limits — read and honor their AI Instructions callouts.

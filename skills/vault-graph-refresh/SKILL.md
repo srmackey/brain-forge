@@ -8,7 +8,7 @@ argument-hint: "[optional: path to subfolder to scope the graph]"
 
 # /vault-graph-refresh
 
-Rebuild the Graphify knowledge graph for this vault. **Graphify is a user install.** This product does not ship Graphify or Graphify's skills. If no Graphify skill is available on the host, say so and stop.
+Rebuild the Graphify knowledge graph for this vault. **Graphify is a user install.** This product does not ship Graphify or Graphify's skills. Install is in `templates/vault.md` (and the product README): package `graphifyy` from [safishamsi/graphify](https://github.com/safishamsi/graphify), then `graphify install` so the host has a `/graphify` skill. If no Graphify skill is available, say so and stop. Do not vendor Graphify into this tree.
 
 When Graphify is present, execute its skill logic inside the current AI session so the calling model supplies semantic extraction (no external key required). Run this manually. Never trigger it from ingest.
 
@@ -29,12 +29,12 @@ Direct CLI use is only appropriate for fully unattended / CI scenarios where you
 ## Steps
 
 1. Invoke the Graphify skill on this vault **by following the integrated execution mode above** (or scoped to a subfolder if the caller named one). By default it respects `.graphifyignore` at the vault root.
-2. Brain Forge expects the graph at `_graphify-out/graph.json`. If Graphify wrote somewhere else, say where and treat that path as the graph for this run. Do not assume a machine-local patch.
+2. Look for the graph at `_graphify-out/graph.json`, then `graphify-out/graph.json`. Use whichever exists. Report the path. Same for `GRAPH_REPORT.md` beside it.
 3. Record the rebuild time and confirm:
    ```
    Graph rebuilt: YYYY-MM-DD HH:MM
    Nodes: N | Edges: N
-   Output: _graphify-out/graph.json
+   Output: <path actually written>
    ```
 4. If Graphify fails or produces 0 nodes: report the error. Do not treat the previous graph as updated.
 
@@ -57,7 +57,7 @@ The graph is primarily a supporting tool for the **forge purview** working in `w
 ## Non-negotiables
 
 - Never invoke this from within `/forge-ingest` — graph refresh is always a separate, explicit step.
-- The output directory (`_graphify-out/`) is overwritten on each run — that is expected behavior.
+- The output directory (`_graphify-out/` or `graphify-out/`) is overwritten on each run. That is expected.
 - **Invocation path**: AI-driven runs must use the integrated skill execution path so the calling LLM performs semantic extraction via subagents. Direct use of the Graphify package CLI `extract` path is headless and needs an external LLM key. Avoid it for normal use.
 - If Graphify is missing, stop. Do not pretend a graph exists.
 - If the instance keeps an eval log for this skill, append a minimal entry after the rebuild: date, scope, node/edge counts.

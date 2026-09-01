@@ -29,7 +29,24 @@ Install copies `skills/` and `templates/` into a vault as ordinary files. It doe
 
 `forge-ingest` decides wiki vs hold. Hold when directed, or when the capture is not vault material.
 
-`vault-graph-refresh` needs Graphify. This product does not ship Graphify or Graphify's skills. The vault owner installs those separately. How that install is documented is still open.
+## Graphify (user install)
+
+Brain Forge does not ship Graphify or Graphify's skills. `vault-graph-refresh` and a full `forge-signal-check` need them. Ingest still runs without a graph.
+
+Official project: [safishamsi/graphify](https://github.com/safishamsi/graphify). The PyPI package is `graphifyy` (double y). The command and skill are `graphify`.
+
+```
+uv tool install graphifyy
+graphify install
+```
+
+`graphify install` registers the `/graphify` skill with your coding assistant. Name the host if it is not Claude Code (`graphify install --platform cursor`, and so on). Alternatives: `pipx install graphifyy` or `pip install graphifyy`. Other `graphify*` packages on PyPI are not this project.
+
+What Brain Forge expects after that:
+
+- A Graphify skill the host can discover. `vault-graph-refresh` will not assume a path.
+- Graph output at `_graphify-out/graph.json` (and `GRAPH_REPORT.md` beside it). Graphify's own default is `graphify-out/`. If it wrote there, treat that path as the graph. This product ships `.graphifyignore` and ignores both output dirs.
+- Run `/vault-graph-refresh` (or `/graphify wiki raw`) before a full lint pass. Do not invoke Graphify from ingest.
 
 ## Synthesis steering
 
