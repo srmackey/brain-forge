@@ -1,15 +1,28 @@
-# .graphifyignore — starting ignore for a new Brain Forge vault.
-# Uses gitignore semantics (last-match-wins, ! to un-ignore).
+# Starting ignore for a new Brain Forge vault graph.
+# Living layer: wiki/, raw/ (except _log.md), primers/.
+# gitignore semantics (last-match-wins, ! to un-ignore).
 
-# Host / runtime surfaces
+# Host / runtime
 .obsidian/
 .claude/
 .grok/
 .cursor/
 .vscode/
 .git/
-_scripts/
-_templates/
+
+# Chair overlay, if present
+_status/
+inbox/
+PROTOCOL.md
+_system/
+
+# Installed framework (not vault knowledge)
+skills/
+scripts/
+
+# Templates except the live schema
+templates/*
+!templates/schema.md
 
 # Constitution is read directly. Indexing it creates a dominant hub.
 AGENTS.md
@@ -23,16 +36,9 @@ __graphify-out/
 # Binary attachments
 _attachments/
 
-# Archive and journal are retained on disk but low signal for the living wiki layer
+# Retained on disk, low signal for the living wiki layer
 archive/
 journal/
 
-# Operator logs
-_system/eval-logs/
-_system/skill-logs/
-
-# Keep the live schema in the graph
-!_system/schema.md
-
-# raw/_log.md is noise for graph purposes. Read it as text during ingest.
+# Ingest reads this as text
 raw/_log.md
