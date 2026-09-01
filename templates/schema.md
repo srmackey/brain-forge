@@ -33,7 +33,7 @@ Any rule that more than one purview, surface, or tool must consult lives in exac
 | Tool structure (skill / engine) | this file — Tool Structure Convention |
 | Frontmatter / AI-steering / raw-item rules | this file |
 | Capture destination (wiki / hold) | `forge-ingest` |
-| Wiki-page classification (which page, once wiki-bound) | `forge-synthesis-engine` (+ instance `preferences.md`) |
+| Wiki-page classification (which page, once wiki-bound) | `forge-synthesis-engine` (optional instance `preferences.md` when steering is on) |
 | Authoring templates | `templates/` |
 | Vault operations | `templates/vault.md` |
 | Capture-describe vs classify-decide | this file — Producer Boundary |
@@ -143,7 +143,7 @@ Every Brain Forge tool is a skill with a single canonical core at `skills/<name>
 - **`*-engine` skill.** Shared logic consumed by two or more skills, not itself user-invoked (`forge-synthesis-engine`).
 - **Tie-breaker.** A skill that is itself user-invocable keeps its natural name even when shared (`vault-link-check`).
 
-A skill may keep a `preferences.md` next to its installed `SKILL.md` for learned corrections. That file is user-owned and is not overwritten on update.
+`forge-synthesis-engine` may keep a `preferences.md` next to the installed skill for optional synthesis steering. That file is user-owned and is not overwritten on update. Absence means the feature is off.
 
 Imported third-party skills are external artifacts, not authored cores.
 

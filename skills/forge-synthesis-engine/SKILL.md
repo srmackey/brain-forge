@@ -1,20 +1,20 @@
 ---
 name: forge-synthesis-engine
-description: Shared forge-purview classification + learned-preferences engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, the learned-preferences model (single-sourced preferences.md, co-located with this core), the suggestion/feedback learning loop, and the source-tagged self-observation trace at skills/forge-synthesis-engine/tweaks-log.md. Charter is brain, not hands - it produces the routing decision + learns from feedback; consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows `templates/vault.md`; human direction overrides.
+description: Shared forge-purview classification engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, and optional synthesis steering via instance preferences.md (learn from feedback, adjust the file, or leave off for full discretion). Source-tagged self-observation trace at skills/forge-synthesis-engine/tweaks-log.md when steering is on. Charter is brain, not hands. Consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows `templates/vault.md`; human direction overrides.
 ---
 
 > Product core (`skills/forge-synthesis-engine/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
 
 # forge-synthesis-engine Skill
 
-The shared **classification + learned-preferences brain** for the **forge purview's** synthesis work. It holds the system's routing heuristics as *executable, self-improving* instruction — top-down classification, the page-type taxonomy, the structuring principle, the learned model in `preferences.md`, the suggestion/feedback learning loop, and the self-observation trace.
+The shared **classification brain** for the **forge purview's** synthesis work. It holds the routing heuristics as executable instruction: top-down classification, the page-type taxonomy, the structuring principle. **Synthesis steering** is an optional product feature on top of that: an instance `preferences.md` the user can turn on, edit, or leave off.
 
-**Charter — brain, not hands.** This engine owns the *model + the learning*: given a piece of material (a raw capture, or an existing wiki page under review) it produces a **routing/structuring decision** and **learns from the user's feedback**. It does **not** perform the writes. Each consumer owns its own write path:
+**Charter — brain, not hands.** Given a piece of material (a raw capture, or an existing wiki page under review) this engine produces a **routing/structuring decision**. When steering is on, it also **learns from the user's feedback**. It does **not** perform the writes. Each consumer owns its own write path:
 
 - **`forge-ingest`** (consumer #1) — applies the decision by integrating a `raw/` capture into `wiki/` (its Steps 5–9: integrate, tidy, `raw/_log`, `wiki/_index`, eval-log).
 - **`forge-signal-check`** (consumer #2) — applies the model to *existing* wiki content, emitting restructure / de-duplication / canonical-home / re-scope **proposals** (propose-only), then applying approved edits through its own gated path.
 
-This is the `-engine` of the **Tool Structure Convention** (`templates/schema.md`): shared logic consumed by 2+ commands, not itself a user invocation. (Per `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md`.)
+This is the `-engine` of the **Tool Structure Convention** (`templates/schema.md`): shared logic consumed by 2+ commands, not itself a user invocation.
 
 ## Non-Negotiables (from `templates/vault.md`)
 
@@ -27,7 +27,7 @@ This is the `-engine` of the **Tool Structure Convention** (`templates/schema.md
 
 ## Module: classify (the heart)
 
-Top-down classification. Do **not** start from "what's narrowly in this material and where could it just fit?" Instead reason top-down (consult `preferences.md` for learned biases):
+Top-down classification. Do **not** start from "what's narrowly in this material and where could it just fit?" Instead reason top-down (if steering is on, consult `preferences.md` for learned biases):
 
 1. **What is this *really about*** at the highest useful level?
 2. **What broad category / life domain** does it belong to? (craft, learning, skills, personal practices, relationships, health, PKM, privacy/security, AI tooling, etc.)
@@ -52,15 +52,41 @@ Top-down classification. Do **not** start from "what's narrowly in this material
 
 **Advisory `layers:` hint.** A raw capture distilled by `distill-ai-session` may carry a one-line `layers:` Routing Hint with one or more of `durable-reasoning` / `reference` / `system-intent`. Treat it as a **non-binding hint** — one input to `classify`, never the decision; the engine always owns the final classification call. The `system-intent` layer is **flagged-only**: deciding what happens to a `system-intent` signal at ingest is a separate brain-purview question (parked), not this engine's job.
 
-## Module: preferences (the learned model)
+## Module: preferences (synthesis steering)
 
-- The learned model lives in the instance file **`skills/forge-synthesis-engine/preferences.md`**. It does not ship. It holds the user-specific learned model: hub-vs-subpage bias, voice-preservation priorities, cross-link habits, what "feels like a distinct domain," provenance density, recognized hubs/reference surfaces, and any standing corrections (Learned Deltas).
-- **Always read that `preferences.md` at the start of any engine call** (classify or learn) and let it bias the decision. It is seeded from the 2026-06-26 model and updated as the user gives feedback. There is exactly **one** copy — learned deltas land here once and serve every agent and consumer.
-- Keep it concise and human-readable; it is a *model*, not a changelog (the trace is the changelog).
+This is a **shipping product feature**. It is optional. The user sets the dial: use it so agents learn how they like synthesis routed, edit it to steer, or leave it off and give the engine full discretion.
+
+The learned model, when used, lives in the instance file **`skills/forge-synthesis-engine/preferences.md`**. That file does not ship. Install does not create it. Update never overwrites it. There is exactly one copy. It is a model, not a changelog (the trace is the changelog). Keep it concise and human-readable.
+
+| State | How the user gets there | What the engine does |
+|---|---|---|
+| **Off** | No `preferences.md`, or the file's `## Autonomy` is `off` | Classify from the standing rules in this skill only. Apply with full discretion. Do not propose-then-wait to capture preferences. Do not create the file. Do not write `tweaks-log.md`. Vault non-negotiables still apply. |
+| **On** | User creates `preferences.md` (or sets `## Autonomy` to `learn`) | Read the file at the start of every classify/learn call. Bias the decision. Run the learn loop: propose, take feedback, fold durable deltas, append the trace. |
+| **Adjust** | User edits the file, or gives accept/modify/reject during learn | Standing rules in the file are the dial (hub-vs-subpage, voice, recognized hubs, how much to ask). Feedback becomes Learned Deltas. |
+
+Turning it on is creating the file. Turning it off is deleting the file or setting autonomy to `off`. Saying "full discretion" / "leave preferences off" / "just ingest" is Off for that run, and does not create the file.
+
+If the user asks to turn steering on and the file is missing, create it with this skeleton, then run On:
+
+```markdown
+# Synthesis preferences
+
+Optional steering for forge-synthesis-engine. Delete this file, or set autonomy to off, for full discretion.
+
+## Autonomy
+learn
+
+## Standing rules
+- Prefer updating an existing hub over creating a new page.
+
+## Learned Deltas
+```
+
+`## Autonomy` values: `learn` (propose and capture feedback) or `off` (full discretion). The user may add standing rules at any time.
 
 ## Module: learn (suggestion/feedback loop — consumer-agnostic)
 
-The **default mode** during the temporary learning/bootstrap period (it tapers — see Tapering). Purpose: learn the user's preferences quickly by **proposing before applying** and capturing corrections. The intense feedback phase is **temporary by design**.
+Runs only when steering is **On**. Purpose: learn the user's preferences by proposing before applying and capturing corrections. The intense feedback phase tapers (see Tapering).
 
 Per item (a capture being ingested, or a restructure candidate under review):
 
@@ -79,7 +105,7 @@ Per item (a capture being ingested, or a restructure candidate under review):
 
 ## Module: trace (self-observation, source-tagged)
 
-The engine records each learning-mode transformation to `skills/forge-synthesis-engine/tweaks-log.md` and **reads recent entries back** for compounding improvement. This is the engine's "evolution record of itself," kept **strictly out of** `wiki/`, `raw/`, and the eval-logs (the per-consumer eval-logs stay pure for tool-performance analysis). The file header carries the authoritative convention + strict AI instructions; this section is the skill-side contract.
+Only when steering is On. The engine records each learning-mode transformation to `skills/forge-synthesis-engine/tweaks-log.md` and **reads recent entries back** for compounding improvement. This is the engine's "evolution record of itself," kept **strictly out of** `wiki/`, `raw/`, and the eval-logs (the per-consumer eval-logs stay pure for tool-performance analysis). The file header carries the authoritative convention + strict AI instructions; this section is the skill-side contract.
 
 **One trace, two feedback streams.** Both consumers feed this single trace — `forge-ingest` ("did this capture route to the right home?") and `forge-signal-check` ("was this restructure/dedup/canonical-home proposal accepted or rejected?"). Entries are **source-tagged** so either stream can be analyzed alone.
 
@@ -109,22 +135,22 @@ The engine records each learning-mode transformation to `skills/forge-synthesis-
 - **Preference delta:** durable rule added to `preferences.md` Learned Deltas | none
 ```
 
-**Read-back (initial policy)** — in suggestion/feedback mode, load the most recent **10** entries (or all if fewer) alongside `preferences.md` at step 1. A compact-summary view for very long traces is deferred (Phase 4+).
+**Read-back (initial policy)** — in suggestion/feedback mode, load the most recent **10** entries (or all if fewer) alongside `preferences.md` at step 1. A compact-summary view for very long traces is deferred.
 
 ## Tapering
 
-Logic to naturally reduce feedback-prompt density and trace verbosity as the model matures (e.g. "after 5 consecutive runs with ≥80% acceptance and no explicit corrections, halve feedback-prompt density and trace verbosity"), plus response to explicit "ease off" signals.
+When steering is On: reduce feedback-prompt density and trace verbosity as the model matures (for example after 5 consecutive runs with high acceptance and no explicit corrections, halve both), plus honor explicit "ease off" signals. Tapering never turns the feature Off by itself. Off is the user's call.
 
 ## Consumers
 
-- **`forge-ingest`** — calls `classify` (and `learn` in suggestion mode) to route a `raw/` capture, then applies via its own Steps 5–9. The engine reads `preferences.md`; forge-ingest owns the wiki write, the `raw/YYYYMM/` tidy, `raw/_log.md`, `wiki/_index.md`, and its performance eval-log.
-- **`forge-signal-check`** — calls `classify` against *existing* wiki pages to drive restructure / de-duplication / canonical-home / re-scope **proposals** (propose-only v1). Minimum proposal shape: name a canonical home, cite concrete merge/cross-link/re-scope edits, carry provenance, be reversible. Proposal *quality* is learned from pilot feedback through the shared trace.
+- **`forge-ingest`** — calls `classify` (and `learn` when steering is On) to route a `raw/` capture, then applies via its own Steps 5–9. forge-ingest owns the wiki write, the `raw/YYYYMM/` tidy, `raw/_log.md`, `wiki/_index.md`, and its performance eval-log if the instance keeps one.
+- **`forge-signal-check`** — calls `classify` against *existing* wiki pages to drive restructure / de-duplication / canonical-home / re-scope **proposals** (propose-only v1). Minimum proposal shape: name a canonical home, cite concrete merge/cross-link/re-scope edits, carry provenance, be reversible. When steering is On, proposal quality is learned from feedback through the shared trace.
 
 ## Related
 - `templates/vault.md` — vault operations (principles this engine executes).
 - `templates/schema.md` — Tool Structure Convention and producer boundary.
-- Instance `skills/forge-synthesis-engine/preferences.md` — the learned model.
-- Instance `skills/forge-synthesis-engine/tweaks-log.md` — source-tagged self-observation trace.
+- Instance `skills/forge-synthesis-engine/preferences.md` — the learned model, if the user turned steering on.
+- Instance `skills/forge-synthesis-engine/tweaks-log.md` — source-tagged self-observation trace, if steering is on.
 - `forge-ingest` / `forge-signal-check` — the consumers.
 
-**Current version:** Extracted from `forge-ingest` 2026-06-28. Preferences are instance overlay next to the installed skill, not product source.
+**Current version:** Extracted from `forge-ingest` 2026-06-28. Synthesis steering is a shipping feature: on, adjustable, or off.

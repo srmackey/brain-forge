@@ -31,6 +31,16 @@ Install copies `skills/` and `templates/` into a vault as ordinary files. It doe
 
 `vault-graph-refresh` expects Graphify in the vault. This repo does not vendor it.
 
+## Synthesis steering
+
+`forge-synthesis-engine` can learn how you like wiki homes chosen. That is a shipping feature, and it is optional.
+
+- **On.** Create `skills/forge-synthesis-engine/preferences.md` in the instance. Ingest and signal-check will propose wiki homes, take accept / modify / reject, and fold durable corrections into that file. A `tweaks-log.md` beside it is the trace.
+- **Adjust.** Edit the file (standing rules, how often to ask) or keep giving feedback. That is the dial for how autonomously agents synthesize.
+- **Off.** Do not create the file, delete it, or set its autonomy to `off`. The engine classifies from its standing rules and applies with full discretion. Vault non-negotiables still hold.
+
+Install does not create the file. Update never overwrites it. The instruction for the feature lives in the engine skill.
+
 ## Status
 
 Framework source stood up 2026-09-01. Init and update are not built yet. A manual copy is the first install. Do not treat this tree as a finished distribution.

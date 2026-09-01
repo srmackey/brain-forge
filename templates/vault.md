@@ -34,7 +34,7 @@ The matrix in `templates/schema.md` is the canonical home. Tools reference it. T
 | User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, adapted templates, learned `preferences.md`, the vault's own constitution and inbox, instance-authored skills | Never |
 | Product source | Not in this vault. Lives in the Brain Forge product repo. | n/a |
 
-A skill may keep a `preferences.md` next to its `SKILL.md` for learned corrections (for example the synthesis engine's classification model). That file is user-owned and is not overwritten on update.
+**Synthesis steering** is a shipping feature of `forge-synthesis-engine`, and it is optional. Create `skills/forge-synthesis-engine/preferences.md` to turn it on (agents propose wiki homes, take feedback, and learn). Edit that file to adjust how autonomously they synthesize. Leave it off (no file, or autonomy `off`) for full discretion. The file is user-owned and is not overwritten on update. Instruction lives in the engine skill.
 
 ## Non-negotiables
 

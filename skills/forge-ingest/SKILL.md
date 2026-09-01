@@ -1,6 +1,6 @@
 ---
 name: forge-ingest
-description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification + the learned-preferences model + the suggestion/feedback learning loop to the shared forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and an optional instance eval log. Adds lightweight provenance. Follows `templates/vault.md`; human direction overrides."
+description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification (and optional synthesis steering) to forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and an optional instance eval log. Adds lightweight provenance. Follows `templates/vault.md`; human direction overrides."
 argument-hint: "[optional: single filename or path under raw/ to process]"
 ---
 
@@ -61,7 +61,7 @@ Before any wiki classification, decide destination for each capture:
 Bundle all hold / propose cases into **one grouped digest** rather than per-item prompts.
 
 ### Step 4 — Classify the wiki-bound capture (delegated to `forge-synthesis-engine`)
-For each wiki-bound capture, call the **`forge-synthesis-engine`** skill — module `classify` (or `learn` in suggestion/feedback mode). The engine reads `preferences.md` + the recent trace and returns the **page decision**: target page(s) each marked *update* or *new page*, the top-down rationale (citing the preference(s) that drove it), which high-level hub(s) get a pointer + short synthesis, any new-page / reference-surface recommendation + criterion, the provenance line(s), and a lifecycle-visibility note when relevant. **This skill does not re-derive the classification** — it consumes the engine's decision. (Full classification doctrine: the engine's `classify` module + `preferences.md`.)
+For each wiki-bound capture, call the **`forge-synthesis-engine`** skill — module `classify` (or `learn` when synthesis steering is on). The engine returns the **page decision**: target page(s) each marked *update* or *new page*, the top-down rationale, which high-level hub(s) get a pointer + short synthesis, any new-page / reference-surface recommendation + criterion, the provenance line(s), and a lifecycle-visibility note when relevant. **This skill does not re-derive the classification** — it consumes the engine's decision. (Full classification doctrine: the engine's `classify` module, plus `preferences.md` when steering is on.)
 
 ### Step 5 — Integrate the signal (update existing > create new)
 - **Default:** update the most appropriate *existing* page(s), and **always wire the relevant high-level hub** (pkm for the domain, craft for practice, etc.) with links + short synthesis so cross-cutting signal is not lost.
@@ -84,13 +84,15 @@ For significant changes, update Recent Activity + relevant page pointers.
 ### Step 9 — Eval log (if the instance keeps one)
 If the instance keeps an eval log for this skill, append a performance entry after core work: flow adherence, `raw/_log.md` consultation, capture-quality screening, provenance, preference for existing pages, permitted moves only. Do not mix learning content (proposals, preference deltas) into that log. Those belong with the engine's trace next to `skills/forge-synthesis-engine/`.
 
-## Learning Mode (delegated to `forge-synthesis-engine`)
+## Synthesis steering (delegated to `forge-synthesis-engine`)
 
-During the temporary learning/bootstrap period the default mode is the engine's **suggestion/feedback loop** (`learn` module): it loads `preferences.md` + the recent trace, generates a proposal, presents it, captures feedback, folds durable corrections into `preferences.md`, and writes a source-tagged trace entry. **This skill provides the *apply* step** — Steps 5–8 above — for accepted/corrected decisions; the engine never writes to `wiki/`. The intense feedback phase is temporary by design and tapers (engine's Tapering logic).
+The engine owns this feature. This skill applies the page decision (Steps 5–8). The engine never writes to `wiki/`.
 
-- **Engine preferences model:** instance `skills/forge-synthesis-engine/preferences.md` (user-owned; read first on every run, via the engine).
-- **Engine trace:** instance `skills/forge-synthesis-engine/tweaks-log.md` — forge-ingest's entries are tagged `source: forge-ingest`.
-- For a quiet run, say "just ingest" / "apply directly": the engine may apply-and-announce trivially-unambiguous routings; full propose-then-confirm remains the default for non-trivial decisions.
+- **Off** (no `preferences.md`, or the user said full discretion / just ingest / leave preferences off): classify and apply. Do not create the file. Do not run the learn loop.
+- **On** (`preferences.md` present with autonomy `learn`): the engine proposes, takes feedback, folds durable deltas, and writes a `source: forge-ingest` trace entry. This skill applies accepted/corrected decisions.
+- **Adjust:** the user edits `preferences.md`, or their accept/modify/reject during learn becomes a Learned Delta.
+
+Trace file, when On: instance `skills/forge-synthesis-engine/tweaks-log.md`.
 
 ## Graphify
 - Consult recent Graphify output during normal ingest only when it adds clear value. **Do not** auto-refresh during ingest.
@@ -104,7 +106,7 @@ Invocation pattern (once the instance operator has exposed this skill to a host)
 ```
 Use the forge-ingest skill.
 Scope: [specific file/path | discover unprocessed in raw/]
-Mode: suggestion/feedback (default during the temporary learning phase) | "just ingest" for a quiet run.
+Mode: follow synthesis steering (off = full discretion; on = propose/learn). "just ingest" / "full discretion" forces off for this run.
 Consult raw/_log.md first; call the forge-synthesis-engine for classification; follow the Core Flow + Non-Negotiables.
 ```
 
