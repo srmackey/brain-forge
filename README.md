@@ -15,7 +15,7 @@ Install copies `skills/` and `templates/` into a vault as ordinary files. It doe
 | Path | Role |
 |---|---|
 | `skills/` | Skill cores |
-| `templates/` | journal, primer, raw, schema, vault ops |
+| `templates/` | journal, primer, raw, schema, vault ops, distill format |
 | `scripts/` | Helper scripts |
 | `.graphifyignore` | Starting ignore for a new vault graph |
 | `AGENTS.md` | Product-development constitution. Does not travel. |

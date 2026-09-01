@@ -44,7 +44,7 @@ Read the latest entries to avoid duplicate work. (Hard precondition; call it out
 - Note inline hints (`#todo`, `#revisit`, `suggested-title:`, etc.).
 
 ### Step 3.4 — Screen capture quality (noise that must not compound)
-Before triage, screen each capture — AI-session distills especially — for the **capture-noise patterns** (the detection-side counterpart of the capture-quality Core Rules in `primers/distill-ai-session.md`; distills predating that primer's 2026-07-10 upgrade are the likely carriers):
+Before triage, screen each capture — AI-session distills especially — for the **capture-noise patterns** (the detection-side counterpart of the capture-quality Core Rules in `templates/distill.md`):
 
 1. **Flattering / persona-affirming register** about the user ("deep expertise", "impressive system") — appraisal instead of plain fact.
 2. **AI suggestions recorded as settled conclusions** — especially untagged numbers (prices, hours, estimates, timelines) with no evidence the user adopted them.
@@ -52,7 +52,7 @@ Before triage, screen each capture — AI-session distills especially — for th
 4. **Missing origin attribution** — no record of who originated significant ideas/direction-changes or how the user engaged.
 5. **AI-voice narration / editorializing** — third-person framing of the user, advice-column tone, outside knowledge beyond the session.
 
-Output a per-capture verdict — `capture-quality: clean` or `capture-quality: flagged (patterns N, …)` — that **travels with the capture** through routing and synthesis and **must appear** in the human digest and the Step 7 `raw/_log.md` entry. The screen never blocks ingest by itself; default handling is flag + neutralize (Step 5). **Severe case** (untagged AI-suggested conclusions dominate the capture, so a faithful wiki write would require guesswork): propose **`hold` + remediation** — a cleaned durable-record sibling in `raw/` per the superseded-sibling pattern (see `primers/raw-noise-cleanup-pass.md` while active) — instead of ingesting. Propose-only; the human decides.
+Output a per-capture verdict — `capture-quality: clean` or `capture-quality: flagged (patterns N, …)` — that **travels with the capture** through routing and synthesis and **must appear** in the human digest and the Step 7 `raw/_log.md` entry. The screen never blocks ingest by itself; default handling is flag + neutralize (Step 5). **Severe case** (untagged AI-suggested conclusions dominate the capture, so a faithful wiki write would require guesswork): propose **`hold`** and a cleaned sibling capture in `raw/` (same date, marked as a replacement). Do not ingest until the user decides.
 
 ### Step 3.5 — Wiki or hold
 Before any wiki classification, decide destination for each capture:
@@ -116,6 +116,7 @@ Returns: per-file routing decisions (from the engine) + applied edits, the `raw/
 - `skills/forge-synthesis-engine/SKILL.md` — the shared classification brain this skill consumes for wiki-bound captures.
 - `templates/vault.md` — vault operations.
 - `templates/schema.md` — producer boundary and capability matrix.
+- `templates/distill.md` — distill format (capture-quality rules).
 - `raw/_log.md` — raw-processing memory.
 
 **Current version:** Consumer #1 of `forge-synthesis-engine`. Wiki vs hold is this skill's call (2026-09-01). Capture-quality screen added 2026-07-11.

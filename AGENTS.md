@@ -23,7 +23,7 @@ The capability matrix in `templates/schema.md` is the canonical home for tool pe
 | Path | Role |
 |---|---|
 | `skills/` | Skill cores (forge, vault) |
-| `templates/` | journal, primer, raw, schema, vault ops |
+| `templates/` | journal, primer, raw, schema, vault ops, distill format |
 | `scripts/` | Vault helper scripts |
 | `.graphifyignore` | Starting ignore for a new vault graph |
 

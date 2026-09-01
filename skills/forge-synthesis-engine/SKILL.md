@@ -50,7 +50,7 @@ Top-down classification. Do **not** start from "what's narrowly in this material
 
 **Canonical home:** `templates/schema.md` — "Producer Boundary (Describe vs. Decide)". Capture surfaces (`forge-distill`, a web distill primer) **describe** the session; this engine **decides** the wiki home. Never import classify logic onto a capture surface (the slow-vs-fast heuristic lives in schema.md — do not duplicate it here).
 
-**Advisory `layers:` hint.** A raw capture distilled by `distill-ai-session` may carry a one-line `layers:` Routing Hint with one or more of `durable-reasoning` / `reference` / `system-intent`. Treat it as a **non-binding hint** — one input to `classify`, never the decision; the engine always owns the final classification call. The `system-intent` layer is **flagged-only**: deciding what happens to a `system-intent` signal at ingest is a separate brain-purview question (parked), not this engine's job.
+**Advisory `layers:` hint.** A raw capture distilled per `templates/distill.md` may carry a one-line `layers:` Routing Hint with one or more of `durable-reasoning` / `reference` / `system-intent`. Treat it as a **non-binding hint** — one input to `classify`, never the decision; the engine always owns the final classification call. The `system-intent` layer is **flagged-only**: deciding what happens to a `system-intent` signal at ingest is a separate brain-purview question (parked), not this engine's job.
 
 ## Module: preferences (synthesis steering)
 
