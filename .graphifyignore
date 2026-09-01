@@ -1,0 +1,38 @@
+# .graphifyignore — starting ignore for a new Brain Forge vault.
+# Uses gitignore semantics (last-match-wins, ! to un-ignore).
+
+# Host / runtime surfaces
+.obsidian/
+.claude/
+.grok/
+.cursor/
+.vscode/
+.git/
+_scripts/
+_templates/
+
+# Constitution is read directly. Indexing it creates a dominant hub.
+AGENTS.md
+CLAUDE.md
+
+# Graphify output
+_graphify-out/
+graphify-out/
+__graphify-out/
+
+# Binary attachments
+_attachments/
+
+# Archive and journal are retained on disk but low signal for the living wiki layer
+archive/
+journal/
+
+# Operator logs
+_system/eval-logs/
+_system/skill-logs/
+
+# Keep the live schema in the graph
+!_system/schema.md
+
+# raw/_log.md is noise for graph purposes. Read it as text during ingest.
+raw/_log.md

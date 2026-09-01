@@ -1,0 +1,22 @@
+# Chair overlay
+_status/
+inbox/
+PROTOCOL.md
+
+# Operator context under _system. Skill cores are the product and stay tracked.
+_system/*
+!_system/skills/
+!_system/skills/**
+
+# Host overlay stays untracked, not ignored (repo-public).
+# Do not add .claude/, .cursor/, .grok/, or project.yaml here.
+
+.obsidian/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.vscode/
+.DS_Store
