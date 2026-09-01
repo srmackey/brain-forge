@@ -1,6 +1,6 @@
 ---
 name: forge-ingest
-description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification + the learned-preferences model + the suggestion/feedback learning loop to the shared forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and the performance eval-log at _system/eval-logs/forge-ingest-log.md. Adds lightweight provenance. Follows AGENTS.md Forge Purview Constitution; human direction overrides."
+description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification + the learned-preferences model + the suggestion/feedback learning loop to the shared forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and an optional instance eval log. Adds lightweight provenance. Follows `templates/vault.md`; human direction overrides."
 argument-hint: "[optional: single filename or path under raw/ to process]"
 ---
 
@@ -18,7 +18,7 @@ The forge purview's **raw→wiki ingest hands**: it brings material from the imm
 
 Acting in the forge purview, transform raw material into a clean, evolving wiki. Be **conservative by default** and favor **integration over proliferation**. The strong default is to *update an existing page* (especially the relevant high-level hub) rather than create a new one. Wiki vs hold is this skill's call. Page classification comes from the engine. This skill applies both faithfully and adds provenance.
 
-## Non-Negotiables (from AGENTS.md Forge Purview Constitution)
+## Non-Negotiables (from `templates/vault.md`)
 
 - **`raw/` is immutable.** Never modify, move, or delete anything in `raw/` **except**: (a) appending to `raw/_log.md`, and (b) the narrow permitted move of a capture into its correct `raw/YYYYMM/` year-month subfolder based on the file's date. Never alter raw *content* (light frontmatter enrichment only if it clearly helps future processing; prefer leaving the capture untouched).
 - **Always consult `raw/_log.md` first** to know what has already been processed; never auto-scan/auto-process the whole `raw/` tree on every session. Ingest is human-initiated.

@@ -1,6 +1,6 @@
 ---
 name: forge-synthesis-engine
-description: Shared forge-purview classification + learned-preferences engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, the learned-preferences model (single-sourced preferences.md, co-located with this core), the suggestion/feedback learning loop, and the source-tagged self-observation trace at skills/forge-synthesis-engine/tweaks-log.md. Charter is brain, not hands - it produces the routing decision + learns from feedback; consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows the AGENTS.md Forge Purview Constitution; human direction overrides.
+description: Shared forge-purview classification + learned-preferences engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, the learned-preferences model (single-sourced preferences.md, co-located with this core), the suggestion/feedback learning loop, and the source-tagged self-observation trace at skills/forge-synthesis-engine/tweaks-log.md. Charter is brain, not hands - it produces the routing decision + learns from feedback; consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows `templates/vault.md`; human direction overrides.
 ---
 
 > Product core (`skills/forge-synthesis-engine/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
@@ -16,7 +16,7 @@ The shared **classification + learned-preferences brain** for the **forge purvie
 
 This is the `-engine` of the **Tool Structure Convention** (`templates/schema.md`): shared logic consumed by 2+ commands, not itself a user invocation. (Per `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md`.)
 
-## Non-Negotiables (from the AGENTS.md Forge Purview Constitution)
+## Non-Negotiables (from `templates/vault.md`)
 
 - **Integration over proliferation.** Strong default: update an existing page (especially the relevant high-level hub) rather than create a new one. New pages stay intentional and rare.
 - **Lightweight provenance is required** on every contribution the consumer applies: `Source: [[raw/YYYYMM/YYYYMMDD-filename.md]]` (or `#section`). The engine includes the provenance line(s) in its decision.

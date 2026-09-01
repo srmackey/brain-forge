@@ -31,10 +31,10 @@ The matrix in `templates/schema.md` is the canonical home. Tools reference it. T
 | Category | What | Update may touch |
 |---|---|---|
 | Installed framework | `skills/*/SKILL.md`, `scripts/` | Yes, overwrite |
-| User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, adapted templates, learned preferences, chair overlay, instance-authored skills | Never |
+| User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, adapted templates, learned `preferences.md`, the vault's own constitution and inbox, instance-authored skills | Never |
 | Product source | Not in this vault. Lives in the Brain Forge product repo. | n/a |
 
-Learned `preferences.md` sits next to the installed skill (`skills/<name>/preferences.md`). It is user-owned.
+A skill may keep a `preferences.md` next to its `SKILL.md` for learned corrections (for example the synthesis engine's classification model). That file is user-owned and is not overwritten on update.
 
 ## Non-negotiables
 

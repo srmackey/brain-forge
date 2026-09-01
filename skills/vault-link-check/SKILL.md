@@ -97,7 +97,7 @@ If everything resolves, say so concisely.
 
 ## Eval log
 
-After presenting the report (core work complete), append a minimal compliant entry to `_system/eval-logs/vault-link-check-log.md` (create on first use) per the Eval Logs Convention (see the `brain-engine` skill and `brain-maintain` step 7): `## YYYY-MM-DD — /vault-link-check [<scope>] — <descriptor>`, key metadata (scope, counts of auto-repaired / dead / ambiguous), and a summary excerpt. This supports later analyzer review of how well the tool followed its own instructions. Do not write link-check activity to `raw/_log.md`.
+If the instance keeps an eval log for this skill, append a minimal entry after presenting the report: date, scope, counts of auto-repaired / dead / ambiguous, and a summary excerpt. Do not write link-check activity to `raw/_log.md`.
 
 ## Non-negotiables
 
@@ -113,7 +113,7 @@ After presenting the report (core work complete), append a minimal compliant ent
 ## Relationship to other tools
 
 - `/forge-signal-check` **delegates** its `wiki/` link step to this skill (it does not duplicate link logic). The forge pass calls `vault-link-check` scoped to `wiki/` and folds the result into its summary.
-- `/brain-maintain` may surface link issues it notices on system surfaces but defers actual link resolution/repair to this engine.
+- Other tools that notice link issues on system surfaces defer actual resolution and repair to this engine.
 - `graphify` / `/vault-graph-refresh` are complementary (relationship discovery), not a substitute — they cannot see dangling links.
 
 This skill is the canonical link-integrity doctrine for the vault; keep it general, conservative, and high-leverage. Update it (and the thin command descriptor) when the resolution or drift rules evolve. Single-sourced at the canonical core `skills/vault-link-check/SKILL.md` since 2026-07-06 (re-arch Phase 3); per-agent copies are generated.

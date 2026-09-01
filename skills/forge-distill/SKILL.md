@@ -1,6 +1,6 @@
 ---
 name: forge-distill
-description: "In-system session distill (forge purview): writes a durable source capture to raw/ when the current agent session is itself the genesis of substantive information from outside the system (repo/tool reviews, web research, novel in-session brainstorms) — keeping wiki/ rebuildable from raw/ and the content portable. The in-system sibling of the web primers/distill-ai-session.md: one distill format, two producers, one consumer (forge-ingest). Trigger on /forge-distill, 'distill this session (to raw)', or before any Query→File Back of substantive external-genesis material. Describes only — routing/synthesis decisions stay with the engines. Follows AGENTS.md Forge Purview Constitution; human direction overrides."
+description: "In-system session distill (forge purview): writes a durable source capture to raw/ when the current agent session is itself the genesis of substantive information from outside the system (repo/tool reviews, web research, novel in-session brainstorms) — keeping wiki/ rebuildable from raw/ and the content portable. The in-system sibling of the web primers/distill-ai-session.md: one distill format, two producers, one consumer (forge-ingest). Trigger on /forge-distill, 'distill this session (to raw)', or before any Query→File Back of substantive external-genesis material. Describes only — routing/synthesis decisions stay with the engines. Follows `templates/vault.md`; human direction overrides."
 argument-hint: "[optional: topic focus or target filename slug]"
 ---
 

@@ -43,15 +43,15 @@ The graph is primarily a supporting tool for the **forge purview** working in `w
 - For normal work (ingest from raw/, Query → File Back, /forge-signal-check on wiki pages): prefer a focused scope or rely on the tightened `.graphifyignore`.
 - For full lint/health checks or migration review (porting from legacy domains/archive): use a broader or full run.
 - Recommended focused invocations (these are passed to the graphify skill; the AI executes the integrated skill path, not the CLI):
-  - `graphify wiki raw AGENTS.md`
-  - `graphify wiki raw AGENTS.md primers focus _system/ARCHITECTURE.md _system/system-log.md`
+  - `graphify wiki raw`
+  - `graphify wiki raw primers`
 - The `.graphifyignore` (at root) now aggressively excludes archive/, journal/, domains/ (legacy), old constitution drafts, etc., while carving back the key active `_system/` files. This keeps communities and god nodes high-signal around the living `raw/` + `wiki/` layer.
 
-See also the active Graphify guidance in `AGENTS.md`.
+See also the Graphify notes in `templates/vault.md` if that vault adapted them.
 
 ## When to run
 
-- Before any full lint/health check on the wiki layer (mandatory per AGENTS.md)
+- Before any full lint/health check on the wiki layer
 - After a major batch of new raw material or significant wiki changes
 - Anytime you want fresh wikilink suggestions or relationship discovery during synthesis work
 
@@ -61,4 +61,4 @@ See also the active Graphify guidance in `AGENTS.md`.
 - The output directory (`_graphify-out/`) is overwritten on each run — that is expected behavior.
 - **Invocation path**: AI-driven runs (the normal case when you type `/vault-graph-refresh` inside an AI session) must use the integrated skill execution path so the calling LLM performs semantic extraction via subagents. Direct use of the `graphify` package CLI `extract` path is the headless mode and will require an external LLM key — avoid it for normal use inside this system.
 - A local patch was applied to the graphify skill on this machine so AI-driven runs (including /vault-graph-refresh) consistently use the vault's preferred `_graphify-out/` location (hidden, matching other system folders). Direct CLI usage of the package may still default to `graphify-out/` (the env var GRAPHIFY_OUT=_graphify-out in your profile can keep CLI aligned too). .gitignore and .graphifyignore ignore the other variants defensively.
-- After completing the rebuild and recording (core work), append a minimal compliant entry to `_system/eval-logs/vault-graph-refresh-log.md` (create if needed) per the Eval Logs Convention. Supports analyzer review of graph freshness handling, scoping, and output recording.
+- If the instance keeps an eval log for this skill, append a minimal entry after the rebuild: date, scope, node/edge counts.

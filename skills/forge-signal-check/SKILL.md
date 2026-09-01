@@ -1,6 +1,6 @@
 ---
 name: forge-signal-check
-description: "Graph-informed maintenance + lint/health-check pass on the wiki/ synthesis layer plus the slim primers catalog (primers/_index.md). Enriches natural wikilinks, surfaces contradictions/duplication/orphans/stale claims/large-or-unfocused pages, light frontmatter hygiene per the Frontmatter Constitution, and — as consumer #2 of forge-synthesis-engine — runs an engine-driven restructure/de-duplication/canonical-home/re-scope pass (propose-only). Delegates link integrity to vault-link-check; requires fresh Graphify for full passes. Follows the AGENTS.md Forge Purview Constitution: strong preference for updating existing pages, always add provenance, present findings + proposals rather than large autonomous refactors. Human direction overrides."
+description: "Graph-informed maintenance + lint/health-check pass on the wiki/ synthesis layer plus the slim primers catalog (primers/_index.md). Enriches natural wikilinks, surfaces contradictions/duplication/orphans/stale claims/large-or-unfocused pages, light frontmatter hygiene per the Frontmatter Constitution, and — as consumer #2 of forge-synthesis-engine — runs an engine-driven restructure/de-duplication/canonical-home/re-scope pass (propose-only). Delegates link integrity to vault-link-check; requires fresh Graphify for full passes. Follows `templates/vault.md`: strong preference for updating existing pages, always add provenance, present findings + proposals rather than large autonomous refactors. Human direction overrides."
 argument-hint: "[optional: specific wiki page path (e.g. wiki/ai-skills.md) or 'all' or 'primers-index']"
 ---
 
@@ -8,11 +8,11 @@ argument-hint: "[optional: specific wiki page path (e.g. wiki/ai-skills.md) or '
 
 # forge-signal-check Skill
 
-The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of the `wiki/` (LLM-maintained synthesis) layer, plus maintenance of the slim human-readable catalog in `primers/_index.md`. This is the "forge" side of the architecture (forging the synthesis), distinct from the "brain" side handled by `/brain-maintain`. The `/forge-signal-check` command is a thin, human-facing entry point.
+The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of the `wiki/` (LLM-maintained synthesis) layer, plus maintenance of the slim human-readable catalog in `primers/_index.md`. This is wiki-layer maintenance (forging the synthesis). The `/forge-signal-check` command is a thin, human-facing entry point.
 
-**Brain vs. hands.** This skill is **consumer #2 of `forge-synthesis-engine`** (canonical core: `skills/forge-synthesis-engine/SKILL.md`): it calls the engine's classification + learned-preferences brain to drive **restructure / de-duplication / canonical-home / re-scope proposals** over *existing* wiki content (step 6), and owns its own gated edit path. It also delegates **link integrity** to the `vault-link-check` engine (step 4). Two delegations, two concerns: link integrity = a filesystem check; restructure = a classification check. (Engine consumer per `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md`, Phase 2.)
+**Brain vs. hands.** This skill is **consumer #2 of `forge-synthesis-engine`** (canonical core: `skills/forge-synthesis-engine/SKILL.md`): it calls the engine's classification + learned-preferences brain to drive **restructure / de-duplication / canonical-home / re-scope proposals** over *existing* wiki content (step 6), and owns its own gated edit path. It also delegates **link integrity** to the `vault-link-check` engine (step 4). Two delegations, two concerns: link integrity = a filesystem check; restructure = a classification check. (Engine consumer of `forge-synthesis-engine`.)
 
-**Purpose (per AGENTS.md):** Keep the wiki high-signal, well-connected, and navigable without unnecessary page proliferation. The forge purview is conservative by default and favors integration and enrichment over creation or large structural changes.
+**Purpose:** Keep the wiki high-signal, well-connected, and navigable without unnecessary page proliferation. The forge purview is conservative by default and favors integration and enrichment over creation or large structural changes.
 
 **When to run:**
 - Periodically (e.g. after batches of raw ingest or significant wiki evolution).
@@ -21,8 +21,7 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 - On explicit request: "run maintenance on the wiki", "lint the wiki", "health check wiki/", "find duplication / restructure", etc.
 
 **Prerequisites:**
-- A fresh graph is **mandatory** for any full pass (per AGENTS.md). Run `/vault-graph-refresh` first if the output in `_graphify-out/` is stale (> ~24h or after substantial changes). Recommended focused scope:
-  `graphify wiki raw AGENTS.md primers focus _system/ARCHITECTURE.md _system/system-log.md`
+- A fresh graph is **mandatory** for any full pass. Run `/vault-graph-refresh` first if the output in `_graphify-out/` is stale (> ~24h or after substantial changes). Recommended focused scope: `graphify wiki raw`
 - Consult `wiki/_index.md` and recent `raw/_log.md` for orientation on what is current vs. legacy.
 
 **Scope and philosophy:**
@@ -74,7 +73,7 @@ Surface (never silently fix):
 - Contradictions, stale claims, or outdated references.
 - Legacy-namespace references in *out-of-scope* surfaces (e.g. `journal/`, archived notes) — note for human cleanup.
 - Weak overall connectivity or missing updates to `wiki/_index.md` for core areas / recent activity.
-- Any drift from the current raw + wiki model or the AGENTS.md constitution.
+- Any drift from the current raw + wiki model or `templates/vault.md`.
 
 (Duplication and over-large/unfocused pages are now handled with model-driven rigor in step 6 — surface anything here that the engine pass doesn't, but prefer routing structural findings through step 6.)
 
@@ -93,8 +92,8 @@ The distinctive new value: drive consolidation/dedup/re-scope from the **learned
 
 ### 7. Index and activity recording
 - If the pass reveals the need for catalog updates (new core area, major page, significant recent activity), prepare a concise proposed diff for `wiki/_index.md`.
-- When touching `primers/_index.md`, keep it a slim, human-readable catalog only. Record non-trivial maintenance outcomes in `_system/system-log.md` (or directly on the affected wiki page). Do **not** append to `raw/_log.md` unless the work also involved ingesting new raw material.
-- **Primer-catalog lint** (`/forge-signal-check` owns this; `/brain-maintain` does not): diff tracked primer files against the catalog. Compare `git ls-files "primers/*.md"` (tracked only — gitignored personal primers like `_me.md` are naturally excluded; also ignore `primers/_index.md` itself) against the entries under "Tracked System Primers" in `primers/_index.md`. Flag any tracked primer missing from the catalog and any catalog entry whose file no longer exists. Propose additions/removals; do not silently rewrite the catalog.
+- When touching `primers/_index.md`, keep it a slim, human-readable catalog only. Record non-trivial maintenance outcomes on the affected wiki page (or an instance system log, if it keeps one). Do **not** append to `raw/_log.md` unless the work also involved ingesting new raw material.
+- **Primer-catalog lint:** diff tracked primer files against the catalog. Compare `git ls-files "primers/*.md"` (tracked only — gitignored personal primers like `_me.md` are naturally excluded; also ignore `primers/_index.md` itself) against the entries under "Tracked System Primers" in `primers/_index.md`. Flag any tracked primer missing from the catalog and any catalog entry whose file no longer exists. Propose additions/removals; do not silently rewrite the catalog.
 
 ### 8. Present compact summary + proposals
 Always end with a clear, scannable report. Example structure:
@@ -118,18 +117,18 @@ No material issues on: wiki/harbor.md, ...
 ```
 
 ### 9. Log the run (minimal structured transcript — Eval Logs Convention)
-After presenting the summary, append a minimal compliant entry to `_system/eval-logs/forge-signal-check-log.md` (create on first use). Follow the Eval Logs Convention (brain-engine skill + brain-maintain):
+If the instance keeps an eval log for this skill, append a minimal entry after presenting the summary:
 - Append at the end (oldest-first reading order).
 - Use the recommended skeleton (## date header, key metadata like Changeset/Graph/Auto-applied/Findings, canonical summary excerpt).
 - **Live step call-outs required:** a "**Step call-outs observed during this execution:**" section with explicit "Step 1: ...", "Step 4: delegated to vault-link-check", "Step 6: engine-driven restructure pass", etc. for the major phases.
 - Include a timing marker: "**Core log written at:** after presenting the summary (before any direction or ephemeral handling)."
-- **Strict separation:** the eval-log is *tool-performance only* (consumed by `/brain-tool-eval`). The engine's *learning* content (restructure proposal → feedback → delta) goes to `skills/forge-synthesis-engine/tweaks-log.md` as `source: forge-signal-check`. Never mix.
+- **Strict separation:** the eval-log is *tool-performance only*. The engine's *learning* content (restructure proposal → feedback → delta) goes to `skills/forge-synthesis-engine/tweaks-log.md` as `source: forge-signal-check`. Never mix.
 
 If the pass is clean across the targets, say so concisely.
 
 ---
 
-## Non-negotiables (AGENTS.md + schema)
+## Non-negotiables (`templates/vault.md` + schema)
 
 - **Fresh graph required** for full lint/health. Explicitly call out when operating on stale data and recommend `/vault-graph-refresh`.
 - **Provenance on every meaningful contribution** to a wiki page.
@@ -141,7 +140,7 @@ If the pass is clean across the targets, say so concisely.
 - **Link integrity on every full pass — delegated to `vault-link-check`** scoped to `wiki/`. Do not duplicate the resolution logic here.
 - **Respect protections.** Read and obey any `ai-behavior` + AI Instructions callout on protected pages.
 - **No legacy model artifacts.** Do not reference, create, or maintain synthesis/, domains/, old maturity promotion flows.
-- **Logging split:** Raw ingest activity → only `raw/_log.md`. Wiki maintenance/schema/index/health findings → `_system/system-log.md` or the wiki pages. Tool-performance transcript → `_system/eval-logs/forge-signal-check-log.md`. Restructure learning → the engine trace (`source: forge-signal-check`).
+- **Logging split:** Raw ingest activity → only `raw/_log.md`. Wiki maintenance findings → the wiki pages (or an instance system log, if it keeps one). Tool-performance transcript → the instance eval log, if it keeps one. Restructure learning → the engine trace (`source: forge-signal-check`).
 - **Update `wiki/_index.md`** for significant structural or catalog changes.
 - Keep `primers/_index.md` as a pure human-readable catalog.
 - Human direction takes precedence over any automation.
@@ -150,9 +149,8 @@ If the pass is clean across the targets, say so concisely.
 
 ## Related
 - `skills/forge-synthesis-engine/SKILL.md` — the classification brain this skill consumes for the restructure pass (step 6).
-- `AGENTS.md` (Forge Purview Constitution — primary source of truth; Lint/Health Check, Core Philosophy, Provenance, Graphify, Non-Negotiables).
+- `templates/vault.md` — vault operations (non-negotiables, provenance, lint/health).
 - `templates/schema.md` (authoritative frontmatter + AI steering rules; capability matrix; Tool Structure Convention).
-- `_system/plans/20260628-forge-synthesis-engine-restructure-pass.md` — the governing plan (Phase 2).
 - `skills/vault-link-check/SKILL.md` — the vault-purview link-integrity engine (step 4 delegates here, scoped to `wiki/`).
 - `/vault-graph-refresh` (required prerequisite for serious passes; post-restructure refresh).
 - `wiki/_index.md` (living catalog you help maintain).

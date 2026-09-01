@@ -143,7 +143,7 @@ Every Brain Forge tool is a skill with a single canonical core at `skills/<name>
 - **`*-engine` skill.** Shared logic consumed by two or more skills, not itself user-invoked (`forge-synthesis-engine`).
 - **Tie-breaker.** A skill that is itself user-invocable keeps its natural name even when shared (`vault-link-check`).
 
-Learned `preferences.md` is instance overlay, co-located with the installed skill, never overwritten by update.
+A skill may keep a `preferences.md` next to its installed `SKILL.md` for learned corrections. That file is user-owned and is not overwritten on update.
 
 Imported third-party skills are external artifacts, not authored cores.
 
