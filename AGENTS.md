@@ -29,10 +29,6 @@ The capability matrix in `templates/schema.md` is the canonical home for tool pe
 
 Install copies `skills/` and `templates/` into a vault as ordinary files. It does not write host skill directories, `AGENTS.md`, or `README.md`. Exposing a skill to a coding agent is the vault owner's choice.
 
-A skill may keep a `preferences.md` beside its `SKILL.md` for learned corrections. That file belongs to the instance. Do not add one here.
-
-Graphify, and the Obsidian-adjacent host skills (defuddle, json-canvas, obsidian-*), are dependencies an instance is expected to have. This repo does not vendor them.
-
 ## Skills
 
 **Forge:** `forge-distill`, `forge-ingest`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
@@ -49,7 +45,7 @@ New skills follow the shape of the files in `skills/`. Vault operations they mus
 |---|---|---|
 | Product source | This repo | Tracked here |
 | Installed framework | Instance `skills/*/SKILL.md`, `scripts/` | Untracked. Overwritten on update. |
-| User-owned | Instance `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, adapted templates, learned `preferences.md`, the vault's own constitution and inbox, instance-authored skills | Tracked there. Never overwritten. |
+| User-owned | Instance `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, adapted templates, the vault's own constitution and inbox, instance-authored skills | Tracked there. Never overwritten. |
 
 ## Public repo
 
@@ -72,7 +68,3 @@ Attribution in LICENSE and commit authorship is the intended exception.
 | `skills/` | Framework cores |
 | `templates/` | What install copies into a vault |
 | `scripts/` | Helper scripts |
-
-## Human-sounding
-
-All agent output must read like a competent human wrote it. No em-dashes or en-dashes as rhetorical separators. No stock model cadence.

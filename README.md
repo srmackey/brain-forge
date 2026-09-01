@@ -10,8 +10,6 @@ This repository is the **product**. A vault that installed it is an **instance**
 
 Install copies `skills/` and `templates/` into a vault as ordinary files. It does not write host skill directories or the vault's `AGENTS.md`. Exposing a skill to a coding agent is the vault owner's choice. User-owned files are never overwritten.
 
-A skill may keep a `preferences.md` beside its `SKILL.md` for learned corrections. That file belongs to the instance.
-
 ## This repo
 
 | Path | Role |
@@ -31,7 +29,7 @@ A skill may keep a `preferences.md` beside its `SKILL.md` for learned correction
 
 `forge-ingest` decides wiki vs hold. Hold when directed, or when the capture is not vault material.
 
-Dependencies an instance is expected to have: Graphify, and the Obsidian-adjacent host skills (defuddle, json-canvas, obsidian-*) if that vault uses them. This repo does not vendor them.
+`vault-graph-refresh` expects Graphify in the vault. This repo does not vendor it.
 
 ## Status
 
