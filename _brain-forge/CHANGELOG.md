@@ -8,6 +8,23 @@ An entry says what changed and, where it matters, what an owner has to
 reconcile in their own adopted copy. Framework-internal changes that touch no
 adopted file say so, because that tells the owner they can skip the pass.
 
+## 0.1.1 (2026-09-02)
+
+Two defects in `vault-update`'s own instructions, found by running the install
+for the first time. Text only; no behavior the product performs has changed.
+Reconcile the host copy of `vault-update` if you adopted one.
+
+- Install's step order was impossible as written. Seeding placed files in
+  `primers/`, which the next step created. Layout creation is step 2 now and
+  seeding is step 3.
+- The layout section claimed install "leaves exactly one visible thing at the
+  vault root." It leaves four: the framework folder plus the vault's own
+  `raw/`, `wiki/`, and `primers/`. The claim was about framework files not
+  scattering, and it now says that instead.
+- Said outright that the scaffolding headings are the installer's wording and
+  the owner's file thereafter. The old phrasing left an agent inventing a
+  convention and unsure whether a later run would judge it.
+
 ## 0.1.0 (2026-09-01)
 
 First framework release. Nothing to reconcile; there is no earlier version.

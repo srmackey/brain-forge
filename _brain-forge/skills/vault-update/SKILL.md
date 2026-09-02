@@ -47,7 +47,7 @@ Everything outside `_brain-forge/` is the owner's without qualification. Install
 | `raw/` `wiki/` `primers/` `journal/` `archive/` | Vault contents | Never |
 | Adopted constitution, host skill copies | Wherever the owner put them | Never |
 
-Install leaves exactly one visible thing at the vault root, `_brain-forge/`. The seeded ignore is a dotfile and the seeded primers go inside `primers/`. Excluding the framework folder from Obsidian search and graph is one entry in that vault's settings.
+Install leaves exactly one framework-owned thing visible at the vault root, `_brain-forge/`. The rest of what appears there is the vault's own: `raw/`, `wiki/`, and `primers/`, made on a first install and never touched again. The seeded ignore is a dotfile and the seeded primers go inside `primers/`. Excluding the framework folder from Obsidian search and graph is one entry in that vault's settings.
 
 ## Adoption (what the owner does, not what install does)
 
@@ -63,17 +63,19 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 ## Install (no `_brain-forge/` present)
 
 1. **Copy** the product's `_brain-forge/` to this vault's root.
-2. **Seed the outside files**, only where absent. Never overwrite any of them.
+2. **Create the starting layout**, only for what is absent. These are the owner's from birth and are never touched again. This comes before seeding, because the seeded primers land in a directory this step makes.
+   - Directories `raw/`, `wiki/`, `primers/`.
+   - `raw/_log.md`, the raw-processing memory. `forge-ingest` treats reading it as a hard precondition, so an absent file makes ingest fail on its first step. Give it a heading and nothing else.
+   - `wiki/_index.md`, the living catalog.
+   - `primers/_index.md`, the slim human-readable primer catalog.
+   - `_brain-forge/eval.md` and `_brain-forge/system-log.md`, the two owner records. A heading line and nothing else. Both sit inside the framework folder and neither is on the manifest, so update never touches them again.
+
+   A heading and nothing else means exactly that. The wording is yours, the file is the owner's from here, and no run of this skill will look at it again.
+3. **Seed the outside files**, only where absent. Never overwrite any of them.
    - `_brain-forge/.graphifyignore` to `.graphifyignore` at the vault root. Graphify reads it from the root it scans and cannot be pointed inside the framework folder.
    - `_brain-forge/primers/distill.md` to `primers/distill.md`, so the owner finds it beside their own primers.
    - `_brain-forge/primers/_system.md` to `primers/_system.md`, the shipped surface primer for working on the vault's own design.
    - `_brain-forge/primers/_me.md` to `primers/_me.md`. It arrives empty with instructions in it. Say plainly that filling it in is the first thing to do: it is the seed of the primer layer, and most composition examples pull sections from it.
-3. **Create the starting layout**, only for what is absent. These are the owner's from birth and are never touched again.
-   - Directories `raw/`, `wiki/`, `primers/`.
-   - `raw/_log.md`, the raw-processing memory. `forge-ingest` treats reading it as a hard precondition, so an absent file makes ingest fail on its first step. Seed it with a heading and nothing else.
-   - `wiki/_index.md`, the living catalog.
-   - `primers/_index.md`, the slim human-readable primer catalog.
-   - `_brain-forge/eval.md` and `_brain-forge/system-log.md`, the two owner records. A heading line and nothing else. Both sit inside the framework folder and neither is on the manifest, so update never touches them again.
 4. **Report** the adoption steps above. Nothing works until the owner does them: no skill is exposed to a host and no constitution is loaded.
 
 ## Update (`_brain-forge/` already present)
@@ -103,7 +105,7 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 - **Manifest only.** An update writes the files the product ships and nothing else, inside the framework folder or out of it. If a fix seems to need writing beyond that, it is a design problem in the product, not a case for an exception here.
 - **Never delete.** Not on update, not to tidy orphans, not to reconcile. Report and leave.
 - **Seed once, never re-seed.** The two outside files are placed only when absent. A present file is the owner's, whatever it now contains.
-- **Never create vault content.** Step 3 of install makes empty scaffolding. It does not write captures, wiki pages, or primers.
+- **Never create vault content.** Step 2 of install makes empty scaffolding. It does not write captures, wiki pages, or primers.
 - **Never apply a reconcile.** Adopted copies are reported, never edited. The owner may have changed them deliberately.
 - **Report honestly.** If a copy step failed or a path was unwritable, say so. A partial install that reports success is worse than a failed one.
 - **Human direction overrides.** An owner who wants a different destination gets it.
