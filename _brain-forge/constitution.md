@@ -46,6 +46,23 @@ Synthesis steering is optional and off unless you create `_brain-forge/skills/fo
 
 The reusable context layer. `_brain-forge/primers.md` is the manual: the kinds of primer, the reserved headings, how composition works, and when to use `forge-primer` instead of transclusion. `primers/_me.md` is where a new vault starts.
 
+## Records
+
+Four files record different things about this vault. They are kept apart on purpose, because a log that holds two kinds of thing is useful for neither.
+
+| File | Holds | Written by |
+|---|---|---|
+| `raw/_log.md` | What happened to each capture | `forge-ingest` |
+| `_brain-forge/eval.md` | How the skills behaved: steps taken, gates fired, policy invented | Every skill, after its run |
+| `_brain-forge/system-log.md` | What changed in the shape of your system, and why | You, and agents on your direction |
+| A `wiki/` evolution page | Why your thinking about the system changed | Proposed by agents, never appended |
+
+`system-log.md` is yours. When you add a skill, rewrite a row of the capability matrix, or change what a folder means, that is a shape change and it belongs there. Dated entries, newest first. Install seeds it empty and nothing writes it on your behalf without you asking.
+
+The evolution page is the narrative counterpart: not what the shape is now, but why you stopped believing the old one. Give it `type: evolution` and `ai-behavior: historical-evolution` so agents propose additions rather than appending. Create it when you have something to put in it. Install will not, because install does not write vault content.
+
+The synthesis engine keeps a fifth, `tweaks-log.md`, but only when steering is on, and it is that engine's own trace rather than a record of the vault.
+
 ## Non-negotiables
 
 - Provenance on every wiki contribution: `Source: [[raw/…]]`.

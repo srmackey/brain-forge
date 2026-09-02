@@ -30,7 +30,7 @@ Install does not write host skill directories, a constitution, or `README.md`. A
 
 **Forge:** `forge-distill`, `forge-ingest`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
 
-**Vault:** `vault-graph-refresh`, `vault-link-check`, `vault-update`
+**Vault:** `vault-graph-refresh`, `vault-link-check`, `vault-surfaces`, `vault-update`
 
 `forge-ingest` decides wiki vs hold. Hold when the user directed it, or the capture is not this vault's material. Otherwise wiki.
 

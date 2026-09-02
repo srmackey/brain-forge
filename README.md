@@ -16,7 +16,7 @@ Everything under `_brain-forge/`, and nothing else.
 |---|---|
 | `constitution.md` | The vault constitution. You adopt this. |
 | `schema.md` | Frontmatter, capability matrix, producer boundary, tool conventions |
-| `skills/` | The eight skill cores |
+| `skills/` | The nine skill cores |
 | `primers.md` | How the primer layer works. The manual. |
 | `primers/distill.md` | The web distill format |
 | `primers/_system.md` | Surface primer for working on your vault's design |
@@ -52,7 +52,7 @@ Full contract: `_brain-forge/skills/vault-update/SKILL.md`.
 
 **Forge:** `forge-distill`, `forge-ingest`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
 
-**Vault:** `vault-graph-refresh`, `vault-link-check`, `vault-update`
+**Vault:** `vault-graph-refresh`, `vault-link-check`, `vault-surfaces`, `vault-update`
 
 `forge-ingest` decides wiki vs hold. Hold when directed, or when the capture is not vault material.
 
@@ -64,7 +64,7 @@ The agent layer does not assume it. Everything on disk is plain markdown, and th
 
 Plugins, all optional:
 
-- **Templates** or **Templater**, pointed at `_brain-forge/templates/`.
+- **Templater**, pointed at `_brain-forge/templates/`.
 - **QuickAdd**, for the macro in `_brain-forge/obsidian/`, which creates a dated file in `raw/` ready to paste into.
 - **Dataview**, for the one query block in the journal template. Without it that block renders as inert text and nothing else changes.
 

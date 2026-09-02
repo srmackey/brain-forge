@@ -38,6 +38,7 @@ Any rule that more than one purview, surface, or tool must consult lives in exac
 | Vault operations | the vault constitution |
 | Capture-describe vs classify-decide | this file — Producer Boundary |
 | Tool-performance logging | this file — Eval log |
+| Derived surfaces, stamps, staleness | `vault-surfaces` |
 
 ---
 

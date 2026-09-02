@@ -20,9 +20,9 @@ First framework release. Nothing to reconcile; there is no earlier version.
 - `schema.md` holds frontmatter, the capability matrix, the producer boundary,
   and the tool structure convention. Read by the skills at its framework path,
   so it is the one file that is not adopted.
-- Eight skill cores: `forge-distill`, `forge-ingest`, `forge-primer`,
+- Nine skill cores: `forge-distill`, `forge-ingest`, `forge-primer`,
   `forge-signal-check`, `forge-synthesis-engine`, `vault-graph-refresh`,
-  `vault-link-check`, `vault-update`.
+  `vault-link-check`, `vault-surfaces`, `vault-update`.
 - The web distill format ships as a primer. Install seeds a copy at
   `primers/distill.md` beside your own.
 - `primers.md` is the manual for the primer layer: kinds, reserved headings,
@@ -49,6 +49,15 @@ First framework release. Nothing to reconcile; there is no earlier version.
   with its convention in `schema.md`. Six skills already instructed agents to
   write one and nothing said what it was. Writing is unconditional: a clean run
   is the baseline that makes a bad one legible.
+- `vault-surfaces` keeps derived surfaces aligned with their sources: host
+  skill copies via header stamps, the constitution against the system primer,
+  and rule text duplicated out of the schema. Check is the default and writes
+  nothing; regenerate only touches stamped copies whose source moved. An
+  unstamped file is never overwritten, which is what makes the rest safe.
+- Four records, kept apart: `raw/_log.md` for captures, `_brain-forge/eval.md`
+  for how skills behaved, `_brain-forge/system-log.md` for shape changes, and a
+  `wiki/` evolution page for why the thinking moved. Install seeds the two
+  framework-folder ones empty and never writes them again.
 - Obsidian is assumed by the human layer only: wikilinks, transclusion, Reading
   view, and callouts. The skills are host-agnostic and run without it. Optional
   plugins named in the README: Templates or Templater, QuickAdd, Dataview.

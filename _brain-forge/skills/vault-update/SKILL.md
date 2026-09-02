@@ -29,7 +29,7 @@ Everything outside `_brain-forge/` is the owner's without qualification. Install
 |---|---|---|
 | `_brain-forge/constitution.md` | Vault constitution | Written |
 | `_brain-forge/schema.md` | Frontmatter, capability matrix, conventions | Written |
-| `_brain-forge/skills/` | Skill cores | Written |
+| `_brain-forge/skills/` | Skill cores (nine) | Written |
 | `_brain-forge/primers.md` | The primer layer manual | Written |
 | `_brain-forge/primers/` | Shipped primers: distill format, vault-design primer, personal skeleton | Written |
 | `_brain-forge/templates/` | Obsidian stationery | Written |
@@ -40,6 +40,7 @@ Everything outside `_brain-forge/` is the owner's without qualification. Install
 | `_brain-forge/skills/forge-synthesis-engine/preferences.md` | Learned synthesis model | Never. Not on the manifest. |
 | `_brain-forge/skills/forge-synthesis-engine/tweaks-log.md` | Its trace | Never. Not on the manifest. |
 | `_brain-forge/eval.md` | Tool-performance log | Never. Not on the manifest. |
+| `_brain-forge/system-log.md` | Shape-change record, yours | Never. Not on the manifest. |
 | `primers/_system.md`, `primers/_me.md` | Seeded copies, beside the owner's own primers | Never |
 | `primers/distill.md` | Seeded copy, beside the owner's primers | Never |
 | `.graphifyignore` (vault root) | Seeded copy, where Graphify reads it | Never |
@@ -72,6 +73,7 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
    - `raw/_log.md`, the raw-processing memory. `forge-ingest` treats reading it as a hard precondition, so an absent file makes ingest fail on its first step. Seed it with a heading and nothing else.
    - `wiki/_index.md`, the living catalog.
    - `primers/_index.md`, the slim human-readable primer catalog.
+   - `_brain-forge/eval.md` and `_brain-forge/system-log.md`, the two owner records. A heading line and nothing else. Both sit inside the framework folder and neither is on the manifest, so update never touches them again.
 4. **Report** the adoption steps above. Nothing works until the owner does them: no skill is exposed to a host and no constitution is loaded.
 
 ## Update (`_brain-forge/` already present)
@@ -86,7 +88,7 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
    | Changed | Tell the owner |
    |---|---|
    | `constitution.md` | Their adopted constitution needs the diff applied |
-   | `skills/<name>/SKILL.md` | Their host copy of that skill is stale, re-copy or re-map it |
+   | `skills/<name>/SKILL.md` | Their host copy is stale. Point them at `vault-surfaces`, which repairs it. |
    | `primers/distill.md` | Their `primers/distill.md` is behind, show the diff |
    | `primers/_system.md` | Their seeded copy is behind, show the diff |
    | `primers/_me.md` | Never report. It shipped empty and whatever is there now is theirs. |
