@@ -66,11 +66,13 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 2. **Create the starting layout**, only for what is absent. These are the owner's from birth and are never touched again. This comes before seeding, because the seeded primers land in a directory this step makes.
    - Directories `raw/`, `wiki/`, `primers/`.
    - `raw/_log.md`, the raw-processing memory. `forge-ingest` treats reading it as a hard precondition, so an absent file makes ingest fail on its first step. Give it a heading and nothing else.
-   - `wiki/_index.md`, the living catalog.
-   - `primers/_index.md`, the slim human-readable primer catalog.
    - `_brain-forge/eval.md` and `_brain-forge/system-log.md`, the two owner records. A heading line and nothing else. Both sit inside the framework folder and neither is on the manifest, so update never touches them again.
+   - `wiki/_index.md`, the living catalog. Frontmatter (`type: reference`, `signal: true`, `status: active`, `created:`), a heading, and the two sections the skills that maintain it expect: **Pages**, a pointer per wiki page, and **Recent activity**, dated lines newest first. Both empty. `forge-ingest` writes to those two headings by name, so a catalog without them makes its step 8 invent a shape.
+   - `primers/_index.md`, the slim human-readable primer catalog. Same frontmatter, plus a line for each catalog-eligible primer this install seeds. Eligibility is `signal: true` in the primer's own frontmatter, so `distill.md` and `_system.md` go in and `_me.md` does not.
 
-   A heading and nothing else means exactly that. The wording is yours, the file is the owner's from here, and no run of this skill will look at it again.
+   **The three logs get a heading and nothing else,** and the wording there is yours; no run of this skill will look at them again. **The two catalogs are different.** They live in folders the schema governs and the graph indexes, other skills read them by structure, and `forge-signal-check` lints the primer catalog against the primers on disk. A catalog seeded empty beside two catalog-eligible primers fails that lint the first time it runs, on a vault where nothing is wrong.
+
+   Listing files this install just placed is not creating vault content. The non-negotiable below bars writing the owner's captures, wiki pages and primers; a catalog line describing a file install itself seeded is scaffolding that happens to be accurate.
 3. **Seed the outside files**, only where absent. Never overwrite any of them.
    - `_brain-forge/.graphifyignore` to `.graphifyignore` at the vault root. Graphify reads it from the root it scans and cannot be pointed inside the framework folder.
    - `_brain-forge/primers/distill.md` to `primers/distill.md`, so the owner finds it beside their own primers.

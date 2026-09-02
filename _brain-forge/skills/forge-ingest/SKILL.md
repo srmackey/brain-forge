@@ -86,7 +86,9 @@ Before integrating, so that provenance points at a file that is already there: i
 Append a concise entry (most recent first): file reference (with subfolder), what happened, notable decisions / provenance added, and the capture-quality verdict when flagged (patterns found + how they were handled).
 
 ### Step 8 — Update `wiki/_index.md`
-For significant changes, update Recent Activity + relevant page pointers.
+For significant changes, update **Recent activity** (a dated line, newest first) and the **Pages** pointer for any page this run created or substantially changed. Install seeds both headings, so they are there to write into.
+
+This step is not optional on a run that created a page or changed what a page is about. The catalog is the only place a human sees the shape of the wiki without opening it, and it is the one file that goes stale silently: nothing else in the vault contradicts it, so a stale catalog reads as current until `forge-signal-check` happens to run.
 
 ### Step 9 — Eval log
 Append a performance entry to `_brain-forge/eval.md` after core work (unconditional; format and charter in `_brain-forge/schema.md`): flow adherence, `raw/_log.md` consultation, capture-quality screening, provenance, preference for existing pages, permitted moves only. Do not mix learning content (proposals, preference deltas) into that log. Those belong with the engine's trace next to `_brain-forge/skills/forge-synthesis-engine/`.

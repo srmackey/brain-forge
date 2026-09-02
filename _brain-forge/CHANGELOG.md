@@ -14,6 +14,29 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.1.5 (2026-09-02)
+
+Install stops seeding a vault that fails its own lint. Reconcile your host copies
+of `vault-update` and `forge-ingest`. Existing vaults keep the catalogs they have;
+this only changes what a first install writes.
+
+- **Install seeds `primers/_index.md` with the primers it also seeds.** It placed
+  `distill.md` and `_system.md`, both carrying `signal: true`, next to an empty
+  catalog, and `forge-signal-check` lints that catalog against exactly those
+  primers. Every new vault failed that lint on its first pass with nothing
+  actually wrong. `_me.md` stays out, because it ships `signal: false`.
+- **Both catalogs are seeded with frontmatter** (`type: reference`, `signal: true`,
+  `status: active`, `created:`). They sit in folders the schema governs and the
+  graph indexes, unlike the three logs, which still get a heading and nothing
+  else because nothing reads them by structure.
+- **`wiki/_index.md` is seeded with the two headings its writers expect**, Pages
+  and Recent activity. `forge-ingest` step 8 has always written to those by name
+  and install created the file empty, so the first agent to touch a fresh
+  catalog invented a shape and the next one had to match the invention.
+- **`forge-ingest` step 8 says when it is mandatory.** A run that creates a page
+  or changes what a page is about updates the catalog. A stale catalog is the
+  one kind of staleness nothing else in the vault contradicts.
+
 ## 0.1.4 (2026-09-02)
 
 Three checks stop guessing. Reconcile your adopted constitution: it gains a
