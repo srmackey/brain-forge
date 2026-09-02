@@ -66,6 +66,8 @@ A `layers:` tag on a distill (`durable-reasoning` / `reference` / `system-intent
 | `last-updated` | `YYYY-MM-DD` | Last substantive update. |
 | `date` | `YYYY-MM-DD` | When the item's identity is the date (journal, dated capture). |
 
+| `source` | free text | Where a capture came from. `manual`, `voice`, `web`, `screenshot`, or a quoted description such as `"Claude conversation, 2026-09-02"`. Read as provenance by `forge-ingest`. |
+
 **`title:` is deprecated.** The H1 and filename are authoritative. Remove on sight during hygiene on unprotected pages.
 
 **Date discipline.** Every stamp is the real current date. Never infer a future date.

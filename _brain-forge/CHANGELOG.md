@@ -58,6 +58,12 @@ First framework release. Nothing to reconcile; there is no earlier version.
   for how skills behaved, `_brain-forge/system-log.md` for shape changes, and a
   `wiki/` evolution page for why the thinking moved. Install seeds the two
   framework-folder ones empty and never writes them again.
+- Frontmatter agrees with itself now. `source` is documented where it was
+  already used, `status: captured` is gone from the raw template (a raw file has
+  no lifecycle and the schema requires every key to have a consumer), the
+  `maintainer-mode` alias is dropped in favour of `ai-behavior: propose-only`,
+  and the raw template date placeholder is lowercase like the journal one, so
+  it will actually expand.
 - Obsidian is assumed by the human layer only: wikilinks, transclusion, Reading
   view, and callouts. The skills are host-agnostic and run without it. Optional
   plugins named in the README: Templates or Templater, QuickAdd, Dataview.

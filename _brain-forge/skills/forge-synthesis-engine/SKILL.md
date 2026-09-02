@@ -21,7 +21,7 @@ This is the `-engine` of the **Tool Structure Convention** (`_brain-forge/schema
 - **Integration over proliferation.** Strong default: update an existing page (especially the relevant high-level hub) rather than create a new one. New pages stay intentional and rare.
 - **Lightweight provenance is required** on every contribution the consumer applies: `Source: [[raw/YYYYMM/YYYYMMDD-filename.md]]` (or `#section`). The engine includes the provenance line(s) in its decision.
 - **Preserve the user's voice.** Decisions integrate, quote, or summarize with attribution; never rewrite the user's prose.
-- **Respect protected pages** (`ai-behavior: append-only`, `historical-evolution`, `maintainer-mode: propose-only`, `[!ai-instructions]` callouts) — the engine marks these *propose-only* in its decision; the consumer never auto-appends where the page demands a proposal.
+- **Respect protected pages** (`ai-behavior: append-only`, `historical-evolution`, or `propose-only`, plus the `[!ai-instructions]` callout) — the engine marks these *propose-only* in its decision; the consumer never auto-appends where the page demands a proposal.
 - **Real-date discipline:** every stamp uses the real current date from the environment; never inferred from filenames or existing content.
 - **Human direction overrides** any automation instinct. Surface; do not perform large autonomous refactors.
 

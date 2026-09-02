@@ -1,8 +1,7 @@
 ---
 type: raw
 signal: false
-status: captured
-date: {{DATE:YYYY-MM-DD}}
+date: {{date:YYYY-MM-DD}}
 source: manual
 ---
 

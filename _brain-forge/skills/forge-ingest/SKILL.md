@@ -25,7 +25,7 @@ Acting in the forge purview, transform raw material into a clean, evolving wiki.
 - **Lightweight provenance is required** on every meaningful contribution to a wiki page: `Source: [[raw/YYYYMM/YYYYMMDD-filename.md]]` (or `#section` for precision).
 - **Log raw processing only to `raw/_log.md`** (most recent first). Do not mix architecture notes into that log.
 - **Maintain `wiki/_index.md`** for significant changes.
-- **Respect protected pages** (`ai-behavior: append-only`, `historical-evolution`, `maintainer-mode: propose-only`, `[!ai-instructions]` callouts) — propose, never auto-append, where the page demands it.
+- **Respect protected pages** (`ai-behavior: append-only`, `historical-evolution`, or `propose-only`, plus the `[!ai-instructions]` callout) — propose, never auto-append, where the page demands it.
 - **Real-date discipline:** every stamp uses the real current date from the environment; never inferred from filenames or existing content.
 - **Human direction overrides** any automation instinct. Surface; do not perform large autonomous refactors.
 
