@@ -64,6 +64,9 @@ First framework release. Nothing to reconcile; there is no earlier version.
   `maintainer-mode` alias is dropped in favour of `ai-behavior: propose-only`,
   and the raw template date placeholder is lowercase like the journal one, so
   it will actually expand.
+- The starting graph ignore excludes the seeded framework primers and any
+  personal `_me.md` / `_<person>.md`. Doctrine is read at its path, and indexing
+  it makes a dominant hub that distorts the graph over your actual material.
 - Obsidian is assumed by the human layer only: wikilinks, transclusion, Reading
   view, and callouts. The skills are host-agnostic and run without it. Optional
   plugins named in the README: Templates or Templater, QuickAdd, Dataview.

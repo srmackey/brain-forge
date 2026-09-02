@@ -8,8 +8,12 @@
 # Installed framework (not vault knowledge)
 _brain-forge/
 
-# Seeded framework file living beside your own primers
+# Seeded framework files living beside your own primers. Not your knowledge.
 primers/distill.md
+primers/_system.md
+
+# Personal context rather than vault knowledge. Same for any _<person>.md.
+primers/_me.md
 
 # Host / runtime
 .obsidian/
@@ -25,7 +29,10 @@ inbox/
 PROTOCOL.md
 _system/
 
-# Constitution is read directly. Indexing it creates a dominant hub.
+# Constitution is read directly. Indexing it creates a dominant hub, and the
+# same is true of the schema and the primer manual inside _brain-forge/, which
+# the blanket rule above already covers. Doctrine is read at its path, never
+# discovered through the graph.
 AGENTS.md
 CLAUDE.md
 

@@ -1,0 +1,5 @@
+# Line endings are repo-controlled, not clone-controlled. Without this, a
+# contributor whose global core.autocrlf is true checks the tree out as CRLF,
+# which produces diff noise against everyone else and breaks .githooks/pre-commit
+# outright, since a shell script with CRLF fails at the shebang.
+* text=auto eol=lf
