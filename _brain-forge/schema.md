@@ -56,7 +56,7 @@ A `layers:` tag on a distill (`durable-reasoning` / `reference` / `system-intent
 
 | Property | Use | Notes |
 |---|---|---|
-| `type` | `raw`, `primer`, `journal`, `system`, `project`, `person`, `concept`, `topic`, `reference`, `log` | Primary nature of the item. |
+| `type` | `raw`, `primer`, `journal`, `system`, `project`, `person`, `concept`, `topic`, `reference`, `log`, `evolution` | Primary nature of the item. |
 | `signal` | `true` or `false` | Active knowledge graph and AI attention. Graphify inclusion is `.graphifyignore`, not this flag. |
 | `ai-behavior` | `append-only`, `historical-evolution`, `propose-only` | Page-level constraint. Always paired with an AI Instructions callout immediately after frontmatter. Absence = default behavior. Do not write `ai-behavior: full`. |
 | `status` | `active`, `draft`, `archived`, `completed`, `review` | Lightweight filter. |

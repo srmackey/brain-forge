@@ -41,6 +41,10 @@ First framework release. Nothing to reconcile; there is no earlier version.
   Update never overwrites it.
 - Graphify is a user install and is not vendored. `vault-graph-refresh` carries
   the steps.
+- Shipped text no longer names one vault's wiki hubs as if they were product
+  taxonomy, carries `forge-primer`'s authoring history, or references a frontmatter
+  migration that only the original vault had. `evolution` joins the schema type
+  list, where two skills already assumed it was.
 - Obsidian is assumed by the human layer only: wikilinks, transclusion, Reading
   view, and callouts. The skills are host-agnostic and run without it. Optional
   plugins named in the README: Templates or Templater, QuickAdd, Dataview.

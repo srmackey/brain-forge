@@ -10,7 +10,7 @@ argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  
 
 The primer layer manual is `_brain-forge/primers.md`: what the kinds are, how composition works, and why a transcluded primer does not copy cleanly out of Obsidian. This skill is the engine that implements it, and the canonical home for the discovery rules below. Read the manual for the model, read here for the mechanics.
 
-Reusable engine for **dynamic primer composition** (default) **and static primer authoring** (`static` mode). This is the single general-purpose "Context Composer" for Brain Forge. In compose mode it replaces the need for per-pattern custom skills by using human-curated `## Primer - Codex - Name` instruction sets (plus Steering and Continuity blocks) to assemble the right context for a given goal. In static mode it authors a new hand-crafted primer file in `primers/` (the former `new-ai-context`, merged here — see **Static Authoring Mode** at the end).
+Reusable engine for **dynamic primer composition** (default) **and static primer authoring** (`static` mode). This is the single general-purpose "Context Composer" for Brain Forge. In compose mode it replaces the need for per-pattern custom skills by using human-curated `## Primer - Codex - Name` instruction sets (plus Steering and Continuity blocks) to assemble the right context for a given goal. In static mode it authors a new hand-crafted primer file in `primers/` (see **Static Authoring Mode** at the end).
 
 ## Role & Purpose
 
@@ -33,7 +33,7 @@ This supports both web AI paste sessions and agentic work while keeping the huma
 - **Continuity** (`## Primer - Continuity` in raw/distill files): High-signal snapshot (decisions, state, constraints, open questions, signals) intended primarily to "continue this exact conversation." Usually plain heading.
 - **Static content**: Normal descriptive headings/blocks in primer files (no special `## Primer - Static` prefix needed).
 
-The qualified heading text (e.g. `## Primer - Codex - Harbor Movies`) is the key the composer looks for. Callout wrappers are required only for wiki Steering (per clarification); plain qualified headings are preferred in primers/ and raw for clean transclusion and readability.
+The qualified heading text (e.g. `## Primer - Codex - Harbor Movies`) is the key the composer looks for. Callout wrappers are required only for wiki Steering; plain qualified headings are preferred in primers/ and raw for clean transclusion and readability.
 
 ## How to Accept & Process Caller Input
 
@@ -51,7 +51,7 @@ The caller (user or another agent) will typically provide:
 
 You may need to read multiple sources (a primer file for its codex + a wiki page for its Steering + a raw file for its Continuity).
 
-## Core Composition Rules (Mandatory — from spec §6, expanded for this vault)
+## Core Composition Rules (mandatory)
 
 When assembling a primer, follow these rules in order:
 
@@ -96,9 +96,9 @@ Keep the result concise yet complete for the stated goal.
 - `Compose a primer for [goal] using the Harbor Movies codex`
 - "Continue from [specific raw file that has a Continuity block]"
 
-The skill/command should be easy to invoke directly with natural language goals plus references. A lightweight listing of available codex names (in `primers/_index.md` or via a future helper) is desirable but not required for v0.1.
+The skill/command should be easy to invoke directly with natural language goals plus references.
 
-## Non-Negotiables (from Codex spec + the vault constitution)
+## Non-Negotiables (from the vault constitution)
 
 - Do not pollute wiki pages with dense context blocks — keep them human-readable. Steering lives in the callout on wiki; the qualified name is what matters for discovery.
 - Avoid creating large numbers of new files or parallel maintenance surfaces. Codex sections belong inside existing primer files.
@@ -124,18 +124,17 @@ Composer behavior:
 
 **Simple static fallback**
 
-Caller provides goal + a wiki page with no codex ref and no raw. Use the `## Primer - Steering` (or legacy `## Primer`) content + any directly supplied static sections. Attribute the sources.
+Caller provides goal + a wiki page with no codex ref and no raw. Use the `## Primer - Steering` content plus any directly supplied static sections. Attribute the sources.
 
 ## Composition & Extensibility
 
 - This skill is intended to be invoked directly (`/forge-primer`) or composed into larger workflows (e.g. inside vault sittings, web prompt generation, or other skills).
 - Authors new static primers directly in its `static` mode (see **Static Authoring Mode** below), and pairs with `/forge-ingest` (Continuity blocks arrive via distill-this + raw ingest).
-- Future: numeric aliases or a simple registry/listing helper (per spec priority 6, optional later).
 - The detailed composer logic lives here (the skill) so it can be reliably loaded and evolved without duplicating rules across surfaces.
 
 ## Static Authoring Mode (`static`)
 
-When the caller invokes with the `static` keyword (`/forge-primer static <description>`), author a *new* hand-crafted primer file instead of composing one. (This is the former `new-ai-context`, merged into this skill.)
+When the caller invokes with the `static` keyword (`/forge-primer static <description>`), author a *new* hand-crafted primer file instead of composing one.
 
 1. **Determine intent** — extract from the current conversation, author from a description, or adapt external pasted content (Grok/ChatGPT custom instructions, etc.).
 2. **Elicit identifying info (filename only; ask only if not derivable):** AI tool (`claude | grok | cursor | any`), purpose (`coaching | code-review | brainstorm | system-prompt | …`), display title (the H1), slug `<tool>-<purpose>`. Tool + purpose live in the slug, not in frontmatter.
@@ -147,7 +146,7 @@ When the caller invokes with the `static` keyword (`/forge-primer static <descri
 
 ## Version & Provenance
 
-v0.1 — Codex / Context Composer: qualified headers (`## Primer - Steering` / `Continuity` / `Codex - Name`), caller input handling, and static authoring mode. Callouts required only on wiki Steering.
+Codex and Context Composer: qualified headers (`## Primer - Steering`, `Continuity`, `Codex - Name`), caller input handling, and static authoring mode. Callouts required only on wiki Steering.
 
 Update this file whenever the composition rules or header conventions evolve.
 

@@ -30,13 +30,13 @@ This is the `-engine` of the **Tool Structure Convention** (`_brain-forge/schema
 Top-down classification. Do **not** start from "what's narrowly in this material and where could it just fit?" Instead reason top-down (if steering is on, consult `preferences.md` for learned biases):
 
 1. **What is this *really about*** at the highest useful level?
-2. **What broad category / life domain** does it belong to? (craft, learning, skills, personal practices, relationships, health, PKM, privacy/security, AI tooling, etc.)
+2. **What broad category / life domain** does it belong to? (the broad areas this vault actually covers: a practice, a field of study, a relationship, a health thread, a tooling area, and so on)
 3. **Is there — or should there be — a high-level page** for that domain? Prefer high-level pages as homes, especially while volume is low.
 4. **Only then:** is the content substantial enough (or likely to grow enough) that a focused sub-page is warranted *now*?
 
 **Page-type taxonomy** (pick the right home):
-- **High-level synthesis hubs** — e.g. [[wiki/pkm]] (personal knowledge), [[wiki/ai-tooling]] (tools and agents), [[wiki/craft]] (practice). Always wire new signal here with links + short synthesis.
-- **Broad domain pages** — craft, skills, learning, privacy-and-security, etc.
+- **High-level synthesis hubs** — one page per broad area this vault covers, which are the vault owner's to name and will differ in every vault. Always wire new signal into the relevant hub with links + short synthesis.
+- **Broad domain pages** — a level under the hubs, where a domain has enough material to stand alone but not enough to fragment.
 - **Project / implementation pages** — current state of a specific effort ([[wiki/harbor]], [[wiki/river-ledger]]).
 - **Evolution pages** — history + "why" (e.g. [[wiki/harbor-evolution]], protected `historical-evolution` — propose only).
 - **Dedicated reference / catalog / log pages** — justified when content is for repeated lookup (catalogs, append-only logs like [[wiki/tools-log]], [[wiki/movie-log]], [[wiki/book-log]]). Specificity is a feature; these are tools, not synthesis. Use `type: reference` / protected append-only frontmatter as appropriate.

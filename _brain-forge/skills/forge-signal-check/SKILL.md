@@ -22,7 +22,7 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 
 **Prerequisites:**
 - A fresh graph is **mandatory** for any full pass. Run `/vault-graph-refresh` first if `_graphify-out/` (or `graphify-out/`) is stale (> ~24h or after substantial changes). Recommended focused scope: `graphify wiki raw`. Graphify is a user install; `vault-graph-refresh` carries the install steps.
-- Consult `wiki/_index.md` and recent `raw/_log.md` for orientation on what is current vs. legacy.
+- Consult `wiki/_index.md` and recent `raw/_log.md` for orientation on what is current.
 
 **Scope and philosophy:**
 - Primary target: pages under `wiki/`, plus the slim catalog in `primers/_index.md`.
@@ -42,12 +42,12 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 
 ### 2. Frontmatter hygiene (light, schema-aligned)
 Apply only safe, current-schema fixes per the Frontmatter Constitution (Core table + Canonical Frontmatter Blocks + rules) in `_brain-forge/schema.md`:
-- Ensure appropriate `type:` (e.g. `concept`, `topic`, `reference`, `project`, `evolution`, `log`, `primer` — never legacy values).
+- Ensure `type:` is one of the values in the schema core table. Do not invent one.
 - `signal: true` on high-value living content that should participate in the graph and AI attention.
 - `status: active|draft|archived|...` where it adds orientation value.
 - `created:` and `last-updated:` (YYYY-MM-DD) present and reasonable.
 - For pages with `ai-behavior`: confirm the matching collapsed `> [!ai-instructions]- AI Instructions (Strict)` callout exists immediately after the frontmatter block.
-- Clean deprecated fields on regular (non-protected) pages: `maturity:`, `domains:`, old `tags: [signal]`, stray `title:`. Stamp `last-updated:` on any change.
+- Clean deprecated fields on regular (non-protected) pages: any frontmatter key the schema core table does not define, plus stray `title:`. Stamp `last-updated:` on any change.
 - Align toward the canonical ordering defined in schema. Do not invent new properties. When in doubt, leave it or propose.
 
 Auto-apply low-risk hygiene. Surface anything that requires judgment.
@@ -104,10 +104,10 @@ Always end with a clear, scannable report. Example structure:
 Graph: fresh (2026-06-28, 281 nodes)   [or: stale — run /vault-graph-refresh first]
 
 Auto-applied (small, low-risk):
-  wiki/ai-skills.md — added natural [[wikilink]]s (2); removed legacy maturity: field; stamped last-updated
+  wiki/harbor.md — added natural [[wikilink]]s (2); removed a deprecated frontmatter field; stamped last-updated
 
 Restructure / dedup proposals (engine-driven; propose-only — canonical home + concrete edits):
-  [merge] wiki/pkm.md §X duplicates wiki/ai-tooling.md §Y → canonical home: ai-tooling; cross-link from pkm. Provenance: <sources>. Reversible.
+  [merge] wiki/harbor.md §X duplicates wiki/river-ledger.md §Y → canonical home: river-ledger; cross-link from harbor. Provenance: <sources>. Reversible.
   [re-scope] wiki/some-large-page.md (~2100 words) → extract "X protocol" into [[related-concept]].
 
 Findings (qualitative — review & direct):
