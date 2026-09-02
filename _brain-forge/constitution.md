@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.1.4
+framework: 0.1.6
 
 The constitution for a vault that installed Brain Forge.
 
@@ -16,6 +16,7 @@ The vault is a store: capture, catalog, link, graph, synthesize. It is not an op
 
 - `raw/` is a dumb drop zone. New material lands here with minimal overhead. It is immutable after capture.
 - `wiki/` is the living synthesis layer. The forge purview maintains it.
+- **The graph maps the corpus, not what this vault knows.** It spans `raw/` and `wiki/` together, which is the point: connections between unprocessed material and settled synthesis are what it is for. So it indexes captures nobody has judged, captures held back at ingest, and claims the wiki would have tagged as unvalidated, all with no marker separating them from anything else. A graph hit is a pointer into the corpus, never a claim this vault holds. Epistemic status lives in `wiki/`, where a contribution says whose idea it was and whether anyone ever agreed with it. An agent answering from the graph goes to the wiki page before treating anything as true.
 - Human direction always overrides the capability matrix.
 
 ## Purviews

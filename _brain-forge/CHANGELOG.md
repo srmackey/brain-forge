@@ -14,6 +14,24 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.1.6 (2026-09-02)
+
+The constitution says what the graph is. Reconcile your adopted constitution and
+take the new `primers/_system.md`, or at least its marker; both carry the same
+addition and both markers moved.
+
+- **The graph maps the corpus, not what the vault knows.** It spans `raw/` and
+  `wiki/`, which is the point, so it indexes captures nobody has judged, ones
+  held back at ingest, and claims the wiki would have tagged unvalidated, with
+  nothing marking them apart. A graph hit is a pointer into the corpus, never a
+  claim the vault holds, and an agent answering from it reads the wiki page
+  before treating anything as true.
+
+  This is doctrine rather than a mechanism on purpose. Excluding held captures
+  would have fixed the one case you can see and left every unjudged capture in
+  the graph exactly as before. The wiki is where epistemic status lives, and
+  saying so is what makes the graph safe to answer from.
+
 ## 0.1.5 (2026-09-02)
 
 Install stops seeding a vault that fails its own lint. Reconcile your host copies

@@ -6,7 +6,7 @@ status: active
 
 # Vault design primer
 
-framework: 0.1.4
+framework: 0.1.6
 
 > Paste this into a web AI when you want to think about your own vault's design: its structure, conventions, operating model, primers, and workflows. It describes how a Brain Forge vault works so you do not have to explain it first.
 
@@ -29,6 +29,8 @@ I drive direction. You accelerate thinking and surface possibilities. I decide w
 Two layers. `raw/` is an immutable capture layer, a low-friction drop zone where material lands with almost no processing and is never edited afterward. `wiki/` is the synthesis layer an AI maintains, with a strong preference for updating an existing page over creating a new one.
 
 Because `wiki/` is built from `raw/`, it stays rebuildable. Externally sourced material goes to `raw/` first so the wiki is never the only record of it.
+
+A knowledge graph is built over both layers, and it maps the corpus rather than what the vault knows. It indexes captures nobody has judged and claims the wiki would have marked unvalidated, with nothing separating them from settled synthesis. A graph result is a pointer into the corpus, not a claim the vault holds; the wiki page is where a contribution says whose idea it was and whether anyone agreed with it.
 
 Three purviews divide responsibility. **forge** turns arrivals into a corpus: ingest, synthesis, the wiki. **vault** keeps the substrate honest: graph rebuilds, link integrity, structural plumbing. **brain** is the interaction layer where retrieval, query, and analysis happen, and it is the boundary an outside agent operates in, denied the other two.
 
