@@ -8,6 +8,8 @@ argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  
 
 # forge-primer Skill
 
+The primer layer manual is `_brain-forge/primers.md`: what the kinds are, how composition works, and why a transcluded primer does not copy cleanly out of Obsidian. This skill is the engine that implements it, and the canonical home for the discovery rules below. Read the manual for the model, read here for the mechanics.
+
 Reusable engine for **dynamic primer composition** (default) **and static primer authoring** (`static` mode). This is the single general-purpose "Context Composer" for Brain Forge. In compose mode it replaces the need for per-pattern custom skills by using human-curated `## Primer - Codex - Name` instruction sets (plus Steering and Continuity blocks) to assemble the right context for a given goal. In static mode it authors a new hand-crafted primer file in `primers/` (the former `new-ai-context`, merged here — see **Static Authoring Mode** at the end).
 
 ## Role & Purpose
@@ -23,7 +25,7 @@ You do this by:
 
 This supports both web AI paste sessions and agentic work while keeping the human layer (wiki, primers) readable and maintainable.
 
-## Terminology (from Codex spec)
+## Terminology
 
 - **Codex** (`## Primer - Codex - Specific Name`): A set of instructions (inside a primer file) that tells you exactly how to dynamically assemble a primer for a recurring pattern or use case. Human-curated.
 - **Primer file**: Any `.md` in `primers/` that may contain static context, one or more codex sections, or both.

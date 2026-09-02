@@ -17,7 +17,10 @@ Everything under `_brain-forge/`, and nothing else.
 | `constitution.md` | The vault constitution. You adopt this. |
 | `schema.md` | Frontmatter, capability matrix, producer boundary, tool conventions |
 | `skills/` | The eight skill cores |
+| `primers.md` | How the primer layer works. The manual. |
 | `primers/distill.md` | The web distill format |
+| `primers/_system.md` | Surface primer for working on your vault's design |
+| `primers/_me.md` | Empty personal primer. Fill this in first. |
 | `templates/` | Obsidian stationery: journal, primer, raw |
 | `obsidian/` | Obsidian plugin macros |
 | `tools/` | Scripts an agent runs |
@@ -26,7 +29,7 @@ Everything under `_brain-forge/`, and nothing else.
 
 ## Install and update
 
-Install copies `_brain-forge/` to your vault root, seeds two files that only work outside that folder (`.graphifyignore` at the root and `primers/distill.md` beside your own primers), and creates the starting layout: `raw/`, `wiki/`, `primers/`, plus `raw/_log.md`, `wiki/_index.md`, and `primers/_index.md`.
+Install copies `_brain-forge/` to your vault root, seeds the files that only work outside that folder (`.graphifyignore` at the root, and `distill.md`, `_system.md`, and `_me.md` beside your own primers), and creates the starting layout: `raw/`, `wiki/`, `primers/`, plus `raw/_log.md`, `wiki/_index.md`, and `primers/_index.md`.
 
 Update rewrites the files the product ships and deletes nothing, so your own state can live inside the framework folder too: the learned synthesis model sits beside the engine core and survives. Anything you have adopted or edited elsewhere is untouched, which also means it goes stale silently. `vault-update` reports which of your copies are behind after each update. It does not apply them.
 
@@ -38,6 +41,10 @@ Adopting is your step, not install's, because the destination is your choice:
 - Run `_brain-forge/tools/` scripts from there, or put them on a path. `vault-link-check` calls `tools/linkcheck.mjs`, so Node is needed for a full link pass.
 
 `schema.md` is the exception. The skills read it at its framework path, so a forked copy would not be consulted. Per-vault deviation belongs in your constitution, which wins under the stated precedence.
+
+## Start with `primers/_me.md`
+
+It arrives empty. It is the block you would otherwise retype at the start of every AI session, and the primer layer composes from it, so most examples in `_brain-forge/primers.md` pull sections out of it. Fill it in before anything else. If your vault is versioned, gitignore it and any `_<person>.md` beside it.
 
 Full contract: `_brain-forge/skills/vault-update/SKILL.md`.
 

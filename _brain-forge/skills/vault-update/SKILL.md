@@ -1,6 +1,6 @@
 ---
 name: vault-update
-description: "Vault-purview skill that installs or updates the Brain Forge framework in this vault. Copies the framework files, seeds the two that have to live outside the framework folder, creates the vault's own starting layout on a first install, and reports which of the owner's adopted copies are now behind the framework source. Owns the framework layout and the update contract. Invoke for /vault-update, 'install Brain Forge', 'update the framework', or after pulling a new version of the product."
+description: "Vault-purview skill that installs or updates the Brain Forge framework in this vault. Copies the framework files, seeds the ones that have to live outside the framework folder, creates the vault's own starting layout on a first install, and reports which of the owner's adopted copies are now behind the framework source. Owns the framework layout and the update contract. Invoke for /vault-update, 'install Brain Forge', 'update the framework', or after pulling a new version of the product."
 argument-hint: "[optional: path to the Brain Forge product checkout]"
 ---
 
@@ -21,7 +21,7 @@ That has two consequences worth stating outright.
 - **Nothing is deleted.** An update never clears the folder first. A file in the vault that the product does not ship is left where it is, whether it is owner state or a leftover from an older version.
 - **Owner state may live inside the framework folder.** `preferences.md` and `tweaks-log.md` sit beside the engine core because that is where the engine looks for them, and they survive because they are not on the manifest.
 
-Everything outside `_brain-forge/` is the owner's without qualification. Install may place the first copy of two files that have to live outside it to work at all, and after that placement they are the owner's too.
+Everything outside `_brain-forge/` is the owner's without qualification. Install may place the first copy of a few files that have to live outside it to be found or read, and after that placement they are the owner's too.
 
 ## Layout
 
@@ -30,7 +30,8 @@ Everything outside `_brain-forge/` is the owner's without qualification. Install
 | `_brain-forge/constitution.md` | Vault constitution | Written |
 | `_brain-forge/schema.md` | Frontmatter, capability matrix, conventions | Written |
 | `_brain-forge/skills/` | Skill cores | Written |
-| `_brain-forge/primers/distill.md` | Web distill format | Written |
+| `_brain-forge/primers.md` | The primer layer manual | Written |
+| `_brain-forge/primers/` | Shipped primers: distill format, vault-design primer, personal skeleton | Written |
 | `_brain-forge/templates/` | Obsidian stationery | Written |
 | `_brain-forge/obsidian/` | Obsidian plugin macros | Written |
 | `_brain-forge/tools/` | Scripts an agent runs | Written |
@@ -38,12 +39,13 @@ Everything outside `_brain-forge/` is the owner's without qualification. Install
 | `_brain-forge/CHANGELOG.md` | Version record | Written |
 | `_brain-forge/skills/forge-synthesis-engine/preferences.md` | Learned synthesis model | Never. Not on the manifest. |
 | `_brain-forge/skills/forge-synthesis-engine/tweaks-log.md` | Its trace | Never. Not on the manifest. |
+| `primers/_system.md`, `primers/_me.md` | Seeded copies, beside the owner's own primers | Never |
 | `primers/distill.md` | Seeded copy, beside the owner's primers | Never |
 | `.graphifyignore` (vault root) | Seeded copy, where Graphify reads it | Never |
 | `raw/` `wiki/` `primers/` `journal/` `archive/` | Vault contents | Never |
 | Adopted constitution, host skill copies | Wherever the owner put them | Never |
 
-Install leaves exactly one visible thing at the vault root, `_brain-forge/`. The seeded ignore is a dotfile and the seeded primer goes inside `primers/`. Excluding the framework folder from Obsidian search and graph is one entry in that vault's settings.
+Install leaves exactly one visible thing at the vault root, `_brain-forge/`. The seeded ignore is a dotfile and the seeded primers go inside `primers/`. Excluding the framework folder from Obsidian search and graph is one entry in that vault's settings.
 
 ## Adoption (what the owner does, not what install does)
 
@@ -59,9 +61,11 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 ## Install (no `_brain-forge/` present)
 
 1. **Copy** the product's `_brain-forge/` to this vault's root.
-2. **Seed the two outside files**, only if absent. Never overwrite either.
+2. **Seed the outside files**, only where absent. Never overwrite any of them.
    - `_brain-forge/.graphifyignore` to `.graphifyignore` at the vault root. Graphify reads it from the root it scans and cannot be pointed inside the framework folder.
    - `_brain-forge/primers/distill.md` to `primers/distill.md`, so the owner finds it beside their own primers.
+   - `_brain-forge/primers/_system.md` to `primers/_system.md`, the shipped surface primer for working on the vault's own design.
+   - `_brain-forge/primers/_me.md` to `primers/_me.md`. It arrives empty with instructions in it. Say plainly that filling it in is the first thing to do: it is the seed of the primer layer, and most composition examples pull sections from it.
 3. **Create the starting layout**, only for what is absent. These are the owner's from birth and are never touched again.
    - Directories `raw/`, `wiki/`, `primers/`.
    - `raw/_log.md`, the raw-processing memory. `forge-ingest` treats reading it as a hard precondition, so an absent file makes ingest fail on its first step. Seed it with a heading and nothing else.
@@ -73,7 +77,7 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 
 1. **Read the installed version first.** The top entry of `_brain-forge/CHANGELOG.md` is what this vault currently has. Record it before touching anything. There is no separate stamp file; the changelog in the vault's own framework folder is the version.
 2. **Write every file the product ships**, at the same relative path. Do not clear the folder. Do not merge, do not ask per file.
-3. **Write nothing else.** Not the seeded pair, not the vault contents, not any adopted copy, and not anything inside the framework folder that the product does not ship.
+3. **Write nothing else.** Not the seeded files, not the vault contents, not any adopted copy, and not anything inside the framework folder that the product does not ship.
 4. **Report what changed**: every changelog entry newer than the version recorded in step 1.
 5. **Report orphans.** Anything under `_brain-forge/` that the product no longer ships, minus the known owner state (`preferences.md`, `tweaks-log.md`). Cross-check the changelog, which names removals. Report them and leave them in place. Deleting is the owner's call, and a file you do not recognize is more likely theirs than stale.
 6. **Report which adopted copies are behind.** This is the point of the skill. An update refreshes the source and leaves every derived copy silently stale. For each framework file that changed, name where the owner's copy of it probably lives:
@@ -83,6 +87,8 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
    | `constitution.md` | Their adopted constitution needs the diff applied |
    | `skills/<name>/SKILL.md` | Their host copy of that skill is stale, re-copy or re-map it |
    | `primers/distill.md` | Their `primers/distill.md` is behind, show the diff |
+   | `primers/_system.md` | Their seeded copy is behind, show the diff |
+   | `primers/_me.md` | Never report. It shipped empty and whatever is there now is theirs. |
    | `templates/*`, `obsidian/*` | Stale only if they copied rather than pointed a plugin at the folder |
    | `tools/*` | Stale only if they copied it onto a path |
    | `.graphifyignore` | Their root copy is theirs; name any new framework line worth adding |

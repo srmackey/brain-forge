@@ -33,7 +33,7 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 | Category | What | Update |
 |---|---|---|
 | Framework | The files the product ships under `_brain-forge/` | Overwritten |
-| Adopted | Your constitution, host skill copies, whatever path your template plugin reads, `primers/distill.md`, root `.graphifyignore` | Never touched. `vault-update` reports when the framework source moved ahead. |
+| Adopted | Your constitution, host skill copies, whatever path your template plugin reads, the seeded primers in `primers/`, root `.graphifyignore` | Never touched. `vault-update` reports when the framework source moved ahead. |
 | User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, `preferences.md` and `tweaks-log.md` beside the engine core, your inbox, instance-authored skills | Never touched |
 
 Update writes the files the product ships and never deletes anything, so your own state may sit inside the framework folder as long as it does not use a shipped filename. That is why the learned synthesis model lives beside the engine core.
@@ -41,6 +41,10 @@ Update writes the files the product ships and never deletes anything, so your ow
 Framework skills live at `_brain-forge/skills/<name>/SKILL.md`. Exposing one to a coding agent means copying or mapping it into that host's discovery path (`.claude/skills`, `.grok/skills`, and so on), and that is your job, not install's. Re-do it after an update, or run `vault-update`, which tells you which copies are behind.
 
 Synthesis steering is optional and off unless you create `_brain-forge/skills/forge-synthesis-engine/preferences.md`. `forge-synthesis-engine` carries the instruction.
+
+## Primers
+
+The reusable context layer. `_brain-forge/primers.md` is the manual: the kinds of primer, the reserved headings, how composition works, and when to use `forge-primer` instead of transclusion. `primers/_me.md` is where a new vault starts.
 
 ## Non-negotiables
 

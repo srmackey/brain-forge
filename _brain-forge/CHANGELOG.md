@@ -25,6 +25,12 @@ First framework release. Nothing to reconcile; there is no earlier version.
   `vault-link-check`, `vault-update`.
 - The web distill format ships as a primer. Install seeds a copy at
   `primers/distill.md` beside your own.
+- `primers.md` is the manual for the primer layer: kinds, reserved headings,
+  composition, and the catch that a transcluded primer does not copy cleanly
+  out of Obsidian, which is the reason `forge-primer` exists.
+- Two more shipped primers, seeded beside your own on first install:
+  `_system.md` for working on your vault's design, and `_me.md`, which arrives
+  empty and is the seed the rest of the primer layer composes from.
 - Obsidian stationery in `templates/`, plugin macros in `obsidian/`, and
   agent-run scripts in `tools/`. `vault-link-check` calls `tools/linkcheck.mjs`
   rather than re-deriving link resolution each run.
