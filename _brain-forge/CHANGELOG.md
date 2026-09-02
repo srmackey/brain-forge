@@ -8,6 +8,32 @@ An entry says what changed and, where it matters, what an owner has to
 reconcile in their own adopted copy. Framework-internal changes that touch no
 adopted file say so, because that tells the owner they can skip the pass.
 
+## 0.1.3 (2026-09-02)
+
+Three fixes found by running the tools against a vault with real material in
+it. Reconcile your host copy of `forge-ingest`; `vault-surfaces` will tell you.
+If you copied `linkcheck.mjs` onto a path, take the new one.
+
+- `linkcheck.mjs` skips host overlay (`.claude`, `.cursor`, `.grok`). Those hold
+  copies of the skill cores it already skips under `_brain-forge/`, so it was
+  reading the framework's own documentation examples and reporting them as your
+  vault's dead links. The more skills you expose, the worse it got.
+- `linkcheck.mjs` implements the frozen-surface suppression `vault-link-check`
+  has always specified: `raw/` and `archive/` findings are counted rather than
+  listed on a broad scan, and enumerated when you scope the run to one. The
+  doctrine was written and the code did not do it.
+- `linkcheck.mjs` takes an optional scope argument, which the skill also already
+  described. `node linkcheck.mjs wiki/` scans wiki links only. The file
+  inventory stays whole-vault either way, so a link out of the scope still
+  resolves against a file outside it.
+- `forge-ingest` tidies the capture into `raw/YYYYMM/` **before** integrating,
+  not after. Provenance is written during integration and points at the dated
+  path, so the old order wrote links to a file that had not moved yet. Same
+  defect as the installer's in 0.1.1.
+- A held capture is not tidied. It stays where you last saw it until you decide.
+  The old wording moved a file "after integration or a decision to defer", and a
+  hold is neither.
+
 ## 0.1.2 (2026-09-02)
 
 First adoption gets a tool, and the staleness check stops stranding the copies

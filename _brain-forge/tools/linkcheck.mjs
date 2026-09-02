@@ -6,9 +6,23 @@ const SKIP_DIRS = new Set([
   '.git', 'node_modules', '.obsidian', '.vscode',
   '_graphify-out', 'graphify-out', '__graphify-out',
   '_brain-forge',
+  // host overlay: copies of the skill cores already skipped above, whose
+  // documentation examples are the product's prose and not this vault's links
+  '.claude', '.cursor', '.grok',
   // chair overlay, when the vault is also a project chair
   '_system', '_status', 'inbox',
 ]);
+
+// Frozen surfaces. Their links are historical and this vault does not repair
+// them, so a broad scan counts them instead of listing them. Scoping the run
+// to one un-suppresses it.
+const FROZEN = ['raw/', 'archive/'];
+
+// Optional scope: a folder or path prefix to limit which files are scanned.
+const SCOPE = (process.argv[2] || '').replace(/^\.\//, '').replace(/\\/g, '/');
+const inScope = f => !SCOPE || f === SCOPE || f.startsWith(SCOPE.endsWith('/') ? SCOPE : SCOPE + '/');
+const isFrozen = f => FROZEN.some(p => f.startsWith(p));
+const scopeIsFrozen = !!SCOPE && FROZEN.some(p => SCOPE.startsWith(p) || p.startsWith(SCOPE));
 
 // 1. Inventory the real file tree
 const allFiles = [];
@@ -56,7 +70,10 @@ function stripCode(text) {
   return text;
 }
 
-const mdFiles = allFiles.filter(f => f.endsWith('.md'));
+// The inventory above stays whole-vault: a link out of wiki/ must still resolve
+// against a file in raw/. Scope narrows which files are read for links, not
+// which files count as targets.
+const mdFiles = allFiles.filter(f => f.endsWith('.md') && inScope(f));
 const results = { autorepair: [], dead: [], ambiguous: [], scanned: 0 };
 
 function resolveTarget(rawTarget, srcFile) {
@@ -132,11 +149,21 @@ for (const f of mdFiles) {
   }
 }
 
-console.log(`Inventory: ${allFiles.length} files (${mdFiles.length} markdown)`);
+// Suppression is reporting only. It never changes what was resolved, and it
+// lifts entirely when the run is scoped to a frozen path.
+const suppress = x => !scopeIsFrozen && isFrozen(x.src);
+const shown = k => results[k].filter(x => !suppress(x));
+const hidden = ['autorepair', 'ambiguous', 'dead']
+  .reduce((n, k) => n + results[k].filter(suppress).length, 0);
+
+console.log(`Inventory: ${allFiles.length} files (${mdFiles.length} markdown${SCOPE ? `, scope ${SCOPE}` : ''})`);
 console.log(`Links scanned: ${results.scanned}`);
-console.log(`\n=== AUTO-REPAIR CANDIDATES (unambiguous drift): ${results.autorepair.length} ===`);
-for (const x of results.autorepair) console.log(`  [${x.src}]  ${x.kind}:[[${x.link}]]  ->  ${x.target}`);
-console.log(`\n=== AMBIGUOUS (multiple candidates): ${results.ambiguous.length} ===`);
-for (const x of results.ambiguous) console.log(`  [${x.src}]  ${x.kind}:[[${x.link}]]  ->  ${x.candidates.join(' | ')}`);
-console.log(`\n=== DEAD (no target): ${results.dead.length} ===`);
-for (const x of results.dead) console.log(`  [${x.src}]  ${x.kind}:[[${x.link}]]`);
+console.log(`\n=== AUTO-REPAIR CANDIDATES (unambiguous drift): ${shown('autorepair').length} ===`);
+for (const x of shown('autorepair')) console.log(`  [${x.src}]  ${x.kind}:[[${x.link}]]  ->  ${x.target}`);
+console.log(`\n=== AMBIGUOUS (multiple candidates): ${shown('ambiguous').length} ===`);
+for (const x of shown('ambiguous')) console.log(`  [${x.src}]  ${x.kind}:[[${x.link}]]  ->  ${x.candidates.join(' | ')}`);
+console.log(`\n=== DEAD (no target): ${shown('dead').length} ===`);
+for (const x of shown('dead')) console.log(`  [${x.src}]  ${x.kind}:[[${x.link}]]`);
+if (hidden) {
+  console.log(`\nSuppressed (frozen surfaces): ${hidden} unresolved links in ${FROZEN.join(', ')} — not enumerated (scope a frozen path directly to audit).`);
+}

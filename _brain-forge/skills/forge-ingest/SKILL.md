@@ -52,7 +52,7 @@ Before triage, screen each capture — AI-session distills especially — for th
 4. **Missing origin attribution** — no record of who originated significant ideas/direction-changes or how the user engaged.
 5. **AI-voice narration / editorializing** — third-person framing of the user, advice-column tone, outside knowledge beyond the session.
 
-Output a per-capture verdict — `capture-quality: clean` or `capture-quality: flagged (patterns N, …)` — that **travels with the capture** through routing and synthesis and **must appear** in the human digest and the Step 7 `raw/_log.md` entry. The screen never blocks ingest by itself; default handling is flag + neutralize (Step 5). **Severe case** (untagged AI-suggested conclusions dominate the capture, so a faithful wiki write would require guesswork): propose **`hold`** and a cleaned sibling capture in `raw/` (same date, marked as a replacement). Do not ingest until the user decides.
+Output a per-capture verdict — `capture-quality: clean` or `capture-quality: flagged (patterns N, …)` — that **travels with the capture** through routing and synthesis and **must appear** in the human digest and the Step 7 `raw/_log.md` entry. The screen never blocks ingest by itself; default handling is flag + neutralize (Step 6). **Severe case** (untagged AI-suggested conclusions dominate the capture, so a faithful wiki write would require guesswork): propose **`hold`** and a cleaned sibling capture in `raw/` (same date, marked as a replacement). Do not ingest until the user decides.
 
 ### Step 3.5 — Wiki or hold
 Before any wiki classification, decide destination for each capture:
@@ -63,7 +63,12 @@ Bundle all hold / propose cases into **one grouped digest** rather than per-item
 ### Step 4 — Classify the wiki-bound capture (delegated to `forge-synthesis-engine`)
 For each wiki-bound capture, call the **`forge-synthesis-engine`** skill — module `classify` (or `learn` when synthesis steering is on). The engine returns the **page decision**: target page(s) each marked *update* or *new page*, the top-down rationale, which high-level hub(s) get a pointer + short synthesis, any new-page / reference-surface recommendation + criterion, the provenance line(s), and a lifecycle-visibility note when relevant. **This skill does not re-derive the classification** — it consumes the engine's decision. (Full classification doctrine: the engine's `classify` module, plus `preferences.md` when steering is on.)
 
-### Step 5 — Integrate the signal (update existing > create new)
+### Step 5 — Tidy the source file into its dated folder
+Before integrating, so that provenance points at a file that is already there: if a wiki-bound file is at `raw/` root or in the wrong subfolder, **move it** into `raw/YYYYMM/` (derived from its date), keeping the filename. If already correct, leave it. This is the *only* permitted reorganization inside `raw/`.
+
+**A held capture is not moved.** It stays where the human will see it, at whatever path they last saw it, until they decide. Tidying is for material that has been dealt with.
+
+### Step 6 — Integrate the signal (update existing > create new)
 - **Default:** update the most appropriate *existing* page(s), and **always wire the relevant high-level hub** (the relevant domain hub, the practice hub, and so on) with links + short synthesis so cross-cutting signal is not lost.
 - **Create a new page** only when the topic is a distinct concept/domain with no natural home **and** it is substantial / likely to grow **or** it is recurring territory the human explicitly wants to track as a dedicated surface. New pages stay intentional and rare.
 - **Project/idea lifecycle visibility:** ensure active, past, deferred, and unmanifested projects/ideas stay findable from a hub or [[wiki/projects]] with a status note — never let them disappear after they stop being the focus.
@@ -71,9 +76,6 @@ For each wiki-bound capture, call the **`forge-synthesis-engine`** skill — mod
 - **Never propagate capture noise (Step 3.4 flags).** When integrating from a flagged capture: write wiki contributions in neutral register (drop appraising language about the user), and carry epistemic status — claims that trace to AI suggestions the user never explicitly adopted (especially numbers) enter the wiki tagged `(AI-suggested, unvalidated)`, never as settled fact. Downgrade-only: never promote a suggestion toward decided; if origin is undeterminable, tag `(origin unclear — treat as unvalidated)`.
 - **Messy / multi-topic captures:** extract and distribute the pieces across the best existing homes rather than forcing one new page.
 - Add lightweight provenance on every contribution.
-
-### Step 6 — Tidy the source file into its dated folder
-After integration (or a decision to defer): if the file is at `raw/` root or in the wrong subfolder, **move it** into `raw/YYYYMM/` (derived from its date), keeping the filename. If already correct, leave it. This is the *only* permitted reorganization inside `raw/`.
 
 ### Step 7 — Log to `raw/_log.md`
 Append a concise entry (most recent first): file reference (with subfolder), what happened, notable decisions / provenance added, and the capture-quality verdict when flagged (patterns found + how they were handled).
