@@ -38,7 +38,7 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 
 Update writes the files the product ships and never deletes anything, so your own state may sit inside the framework folder as long as it does not use a shipped filename. That is why the learned synthesis model lives beside the engine core.
 
-Framework skills live at `_brain-forge/skills/<name>/SKILL.md`. Exposing one to a coding agent means copying or mapping it into that host's discovery path (`.claude/skills`, `.grok/skills`, and so on), and that is your job, not install's. Re-do it after an update, or run `vault-update`, which tells you which copies are behind.
+Framework skills live at `_brain-forge/skills/<name>/SKILL.md`. Exposing one to a coding agent means putting a copy in that host's discovery path (`.claude/skills`, `.grok/skills`, and so on). Which skills you expose is your call, not install's; making the copies is `vault-surfaces expose`, which stamps them so it can keep them current for you afterwards. `vault-update` tells you which copies an update left behind.
 
 Synthesis steering is optional and off unless you create `_brain-forge/skills/forge-synthesis-engine/preferences.md`. `forge-synthesis-engine` carries the instruction.
 

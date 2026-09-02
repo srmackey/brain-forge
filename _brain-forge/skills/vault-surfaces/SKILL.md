@@ -1,10 +1,10 @@
 ---
 name: vault-surfaces
-description: "Vault-purview skill that keeps derived surfaces aligned with their sources. Checks and regenerates host skill copies from the framework cores using header stamps, flags the vault constitution and the system primer when one has moved ahead of the other, and reports rule text duplicated out of the schema. Run after a framework update, after editing a skill core or the constitution, or whenever an agent seems to be following an old rule. Invoke for /vault-surfaces, 'check the surfaces', 'regenerate my skills', or 'are my host copies stale'."
-argument-hint: "[optional: check (default) | regenerate | a single surface name]"
+description: "Vault-purview skill that keeps derived surfaces aligned with their sources. Exposes framework skills into a host's discovery path, checks and regenerates those copies using header stamps, flags the vault constitution and the system primer when one has moved ahead of the other, and reports rule text duplicated out of the schema. Run to expose a skill to your agent, after a framework update, after editing a skill core or the constitution, or whenever an agent seems to be following an old rule. Invoke for /vault-surfaces, 'expose forge-ingest', 'check the surfaces', 'regenerate my skills', or 'are my host copies stale'."
+argument-hint: "[optional: check (default) | regenerate | expose <skill> ... | a single surface name]"
 ---
 
-> Product core (`_brain-forge/skills/vault-surfaces/SKILL.md`). Install copies this file into an instance. Host exposure is the vault owner's job.
+> Product core (`_brain-forge/skills/vault-surfaces/SKILL.md`). Install copies this file into an instance. Exposing a skill to a host is this skill's job, on the owner's word.
 
 # vault-surfaces Skill
 
@@ -24,18 +24,31 @@ generated from _brain-forge/skills/forge-ingest/SKILL.md on 2026-09-02 - edit th
 
 Place it as the first line after the frontmatter. Use a plain hyphen, not a dash character, since some hosts are strict about the file's opening bytes.
 
-The stamp makes staleness mechanically decidable rather than a judgment call. Two checks, in order:
+The stamp makes staleness mechanically decidable rather than a judgment call. Three checks, in order:
 
-1. **Stamp present?** No stamp means the file was hand-authored or hand-edited. Never overwrite it. Report and stop.
-2. **Byte-identical to a fresh generation, ignoring the stamp line?** If yes it is current. If no it is stale.
+1. **Stamped?** If yes, go to check 3.
+2. **Unstamped: byte-identical to its core?** If yes, **claim it**: write the stamp and treat it as derived from here on. Nothing is lost, because a file identical to its core holds nothing of the owner's. If no, the file is the owner's. Report and stop.
+3. **Stamped: byte-identical to a fresh generation, ignoring the stamp line?** If yes it is current. If no it is stale.
 
-A file that fails check 1 is the owner's, whatever it looks like. That rule is what makes it safe to regenerate anything that passes.
+Check 2 is what makes a hand-copied file maintainable. An owner who copies a core into a host directory has produced something indistinguishable from what this skill would have written, and refusing to touch it forever would strand exactly the copies most likely to go stale.
+
+The file this protects is the one that is unstamped **and** differs from its core. That is either the owner's own variant of a framework skill or something they hand-edited, and either way it is theirs. Content is what distinguishes them, not the absence of a stamp on its own.
+
+**A stamp is a claim of ownership by this skill, and the stamp line says so: edit the source, not this file.** A stamped copy that the owner then edits reads as stale and will be regenerated over. If they want a variant, they take the stamp off, and it becomes theirs under check 2.
 
 ## Modes
 
-**check** (default) reports and writes nothing.
+**check** (default) reports and writes nothing, with one exception: it claims copies under check 2, since stamping a file identical to its core changes nothing about what that file says.
 
-**regenerate** applies the fixes that are mechanical and unambiguous: stamped copies whose source moved. It never touches an unstamped file, never resolves a parity flag, and never edits the constitution or a primer.
+**regenerate** applies the fixes that are mechanical and unambiguous: stamped copies whose source moved. It never touches a file that is unstamped and differs from its core, never resolves a parity flag, and never edits the constitution or a primer.
+
+**expose** takes skill names and writes them into this vault's host directories, stamped. This is first adoption, and it is the one thing here that creates a file rather than repairing one.
+
+- The owner names the skills. Never expose one they did not ask for, and never expose all of them because all of them exist.
+- Write to host directories that already exist. If none does, name the paths this vault's host would use and ask which to create. Creating `.grok/skills/` in a vault that has never mentioned Grok is still not your call.
+- A name that is already exposed is not an error. Run the three checks on it and report what they say.
+- **A named copy that is unstamped and differs from its core is reported, never replaced.** Say what differs and ask. Naming a skill is not the same as reviewing the file that is already there, and this is the only path in the whole skill by which someone's own variant could be destroyed. It is also where a hand copy that fell behind before this skill ever saw it comes back: same evidence, opposite meaning, and only the owner knows which it is.
+- Stamp on the way out. A copy this skill wrote is a copy this skill can maintain, and that is the entire point of doing it here rather than by hand.
 
 ## 1. Host skill copies
 
@@ -51,13 +64,14 @@ Other hosts scan other paths. Read the host's own documentation rather than gues
 
 For each core, for each host directory that exists in this vault:
 
-- **Copy missing.** The owner chose not to expose that skill. Report it once as available, not as an error, and do not create it.
+- **Copy missing.** The owner chose not to expose that skill. Report it once as available, not as an error, and do not create it. Expose mode is how they change that.
 - **Copy present and stamped and current.** Say nothing.
 - **Copy present and stamped and stale.** This is the case regenerate fixes. Copy the core, add the stamp, keep the filename.
-- **Copy present and unstamped.** Report. Never overwrite. It may be the owner's own variant of a framework skill, which is a legitimate thing to have.
+- **Copy present, unstamped, identical to its core.** Claim it under check 2: write the stamp, report it in one line as adopted. Almost always a copy the owner made by hand before this skill existed or before they knew about it.
+- **Copy present, unstamped, differs from its core.** Report. Never overwrite. This is the owner's variant of a framework skill, which is a legitimate thing to have.
 - **Copy present with no matching core.** Either an instance-authored skill, which is fine and not yours, or an orphan from a framework version that dropped it. Report, never delete.
 
-Only act on host directories that already exist. Creating `.grok/skills/` in a vault that has never used Grok is not your call.
+In check and regenerate, only act on host directories that already exist. Expose is the one mode that may create one, and only on the owner's word.
 
 ## 2. Constitution and system primer parity
 
@@ -84,15 +98,17 @@ Duplication is not always wrong. A one-line restatement beside a pointer is the 
 ## Output
 
 ```
-── /vault-surfaces run: YYYY-MM-DD ── check | regenerate
+── /vault-surfaces run: YYYY-MM-DD ── check | regenerate | expose
 
 Host copies:
   .claude/skills/ — 5 of 8 exposed, 1 stale
     forge-ingest — stale, source moved 2026-09-02 [regenerated]
-    vault-link-check — unstamped, left alone (yours?)
+    forge-distill — unstamped copy of the current core, adopted
+    vault-link-check — unstamped and edited, left alone (yours)
   .grok/skills/ — 2 of 8 exposed, all current
 
-Available but not exposed: forge-primer, forge-distill, vault-surfaces
+Available but not exposed: forge-primer, vault-surfaces
+  Expose one with: /vault-surfaces expose forge-primer
 
 Parity:
   Adopted constitution changed 2026-09-01, primers/_system.md last touched
@@ -109,9 +125,9 @@ If everything is current, say so in one line.
 
 ## Non-negotiables
 
-- **Never overwrite an unstamped file.** No exceptions, including when it looks exactly like a stale copy. The stamp is the only evidence that a file is derived.
+- **Never overwrite an unstamped file that differs from its core.** No exceptions, including when it looks like a stale copy. Content is the evidence. An unstamped file identical to its core is the one safe case, and claiming it writes a stamp rather than overwriting anything.
 - **Never delete.** Orphaned copies are reported and left. The owner decides.
-- **Never create a host directory** that does not already exist, and never expose a skill the owner has not exposed.
+- **Never create a host directory** in check or regenerate, and never expose a skill the owner did not name. Expose acts only on names they gave.
 - **Never resolve a parity or drift flag by editing.** Those need judgment and both files belong to the owner.
 - **Regenerate is opt-in.** Check is the default and writes nothing.
 - **Report honestly.** A host you do not know how to generate for is a thing to say, not a thing to guess at.

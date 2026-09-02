@@ -54,7 +54,7 @@ Install leaves exactly one framework-owned thing visible at the vault root, `_br
 Four kinds of framework file are meant to be used from somewhere else. Install never places them, because the destination is the owner's choice and their edits there must survive.
 
 - **The constitution.** Copy `_brain-forge/constitution.md` to wherever the host loads a constitution (`AGENTS.md`, `CLAUDE.md`, or a shim that imports it). Adapt it.
-- **Skills.** Copy or map `_brain-forge/skills/<name>/SKILL.md` into the host's discovery path (`.claude/skills/`, `.grok/skills/`, `.cursor/skills/`).
+- **Skills.** Run `vault-surfaces expose <name>` for the skills you want your agent to see. It writes them into the host's discovery path (`.claude/skills/`, `.grok/skills/`, `.cursor/skills/`) with a header stamp, which is what lets it keep them current later. Copying the file by hand works too and `vault-surfaces` will adopt the copy on its next run, but only while the copy still matches the core.
 - **Templates and Obsidian macros.** Point the relevant plugin at `_brain-forge/templates/` or `_brain-forge/obsidian/`, or copy those files somewhere of your choosing.
 - **Tools.** Run them from `_brain-forge/tools/`, or put them on a path.
 

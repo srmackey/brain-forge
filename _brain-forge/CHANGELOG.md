@@ -8,6 +8,33 @@ An entry says what changed and, where it matters, what an owner has to
 reconcile in their own adopted copy. Framework-internal changes that touch no
 adopted file say so, because that tells the owner they can skip the pass.
 
+## 0.1.2 (2026-09-02)
+
+First adoption gets a tool, and the staleness check stops stranding the copies
+it was built to maintain. Reconcile your adopted constitution: the skills
+paragraph changed. Host copies need nothing from you; the next `vault-surfaces`
+run adopts the ones that still match their core.
+
+- `vault-surfaces` grows an **expose** mode. Name the skills you want your agent
+  to see and it writes them into the host directory, stamped. Exposing was the
+  one real operation in this framework with no tool behind it, and the hand
+  copies it produced were exactly the files the staleness check refused to
+  touch.
+- The stamp check is three steps now, and content decides. An unstamped copy
+  that is byte-identical to its core is **claimed**: the stamp is written and
+  the file is maintained from then on. Nothing is lost, because a file
+  identical to its core holds nothing of yours.
+- What is protected is now stated precisely: unstamped **and different from its
+  core**. That is your own variant of a framework skill, and it stays
+  untouchable. The old rule protected every unstamped file, which sounded safer
+  and meant a by-the-book adoption could never be maintained.
+- Adoption instructions in `vault-update` and the constitution point at expose
+  instead of telling you to copy files by hand.
+- Expose reports a named copy that is unstamped and differs from its core, and
+  asks rather than replacing it. A hand copy that fell behind before this skill
+  ever ran looks exactly like your own variant, and only you know which it is.
+  That case is the reason to expose through the tool the first time.
+
 ## 0.1.1 (2026-09-02)
 
 Two defects in `vault-update`'s own instructions, found by running the install
