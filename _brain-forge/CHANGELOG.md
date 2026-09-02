@@ -45,6 +45,10 @@ First framework release. Nothing to reconcile; there is no earlier version.
   taxonomy, carries `forge-primer`'s authoring history, or references a frontmatter
   migration that only the original vault had. `evolution` joins the schema type
   list, where two skills already assumed it was.
+- The eval log is a defined part of the product now, at `_brain-forge/eval.md`,
+  with its convention in `schema.md`. Six skills already instructed agents to
+  write one and nothing said what it was. Writing is unconditional: a clean run
+  is the baseline that makes a bad one legible.
 - Obsidian is assumed by the human layer only: wikilinks, transclusion, Reading
   view, and callouts. The skills are host-agnostic and run without it. Optional
   plugins named in the README: Templates or Templater, QuickAdd, Dataview.

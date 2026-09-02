@@ -117,7 +117,7 @@ No material issues on: wiki/harbor.md, ...
 ```
 
 ### 9. Log the run (minimal structured transcript — Eval Logs Convention)
-If the instance keeps an eval log for this skill, append a minimal entry after presenting the summary:
+Append a minimal entry to `_brain-forge/eval.md` after presenting the summary (unconditional; format and charter in `_brain-forge/schema.md`):
 - Append at the end (oldest-first reading order).
 - Use the recommended skeleton (## date header, key metadata like Changeset/Graph/Auto-applied/Findings, canonical summary excerpt).
 - **Live step call-outs required:** a "**Step call-outs observed during this execution:**" section with explicit "Step 1: ...", "Step 4: delegated to vault-link-check", "Step 6: engine-driven restructure pass", etc. for the major phases.
@@ -140,7 +140,7 @@ If the pass is clean across the targets, say so concisely.
 - **Link integrity on every full pass — delegated to `vault-link-check`** scoped to `wiki/`. Do not duplicate the resolution logic here.
 - **Respect protections.** Read and obey any `ai-behavior` + AI Instructions callout on protected pages.
 - **Do not invent parallel trees.** Stay in `raw/` and `wiki/` (plus `primers/` for the catalog). If this vault still has other layouts, leave them unless the user directed cleanup.
-- **Logging split:** Raw ingest activity → only `raw/_log.md`. Wiki maintenance findings → the wiki pages (or an instance system log, if it keeps one). Tool-performance transcript → the instance eval log, if it keeps one. Restructure learning → the engine trace (`source: forge-signal-check`).
+- **Logging split:** Raw ingest activity → only `raw/_log.md`. Wiki maintenance findings → the wiki pages (or an instance system log, if it keeps one). Tool-performance transcript → `_brain-forge/eval.md`. Restructure learning → the engine trace (`source: forge-signal-check`).
 - **Update `wiki/_index.md`** for significant structural or catalog changes.
 - Keep `primers/_index.md` as a pure human-readable catalog.
 - Human direction takes precedence over any automation.

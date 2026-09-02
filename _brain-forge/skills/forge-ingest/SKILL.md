@@ -1,6 +1,6 @@
 ---
 name: forge-ingest
-description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification (and optional synthesis steering) to forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and an optional instance eval log. Adds lightweight provenance. Follows the vault constitution; human direction overrides."
+description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification (and optional synthesis steering) to forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and the eval log. Adds lightweight provenance. Follows the vault constitution; human direction overrides."
 argument-hint: "[optional: single filename or path under raw/ to process]"
 ---
 
@@ -81,8 +81,8 @@ Append a concise entry (most recent first): file reference (with subfolder), wha
 ### Step 8 — Update `wiki/_index.md`
 For significant changes, update Recent Activity + relevant page pointers.
 
-### Step 9 — Eval log (if the instance keeps one)
-If the instance keeps an eval log for this skill, append a performance entry after core work: flow adherence, `raw/_log.md` consultation, capture-quality screening, provenance, preference for existing pages, permitted moves only. Do not mix learning content (proposals, preference deltas) into that log. Those belong with the engine's trace next to `_brain-forge/skills/forge-synthesis-engine/`.
+### Step 9 — Eval log
+Append a performance entry to `_brain-forge/eval.md` after core work (unconditional; format and charter in `_brain-forge/schema.md`): flow adherence, `raw/_log.md` consultation, capture-quality screening, provenance, preference for existing pages, permitted moves only. Do not mix learning content (proposals, preference deltas) into that log. Those belong with the engine's trace next to `_brain-forge/skills/forge-synthesis-engine/`.
 
 ## Synthesis steering (delegated to `forge-synthesis-engine`)
 
@@ -110,7 +110,7 @@ Mode: follow synthesis steering (off = full discretion; on = propose/learn). "ju
 Consult raw/_log.md first; call the forge-synthesis-engine for classification; follow the Core Flow + Non-Negotiables.
 ```
 
-Returns: per-file routing decisions (from the engine) + applied edits, the `raw/_log.md` entry, any tidy moves, the `wiki/_index.md` update, and the eval-log entry.
+Returns: per-file routing decisions (from the engine) + applied edits, the `raw/_log.md` entry, any tidy moves, the `wiki/_index.md` update, and the `_brain-forge/eval.md` entry.
 
 ## Related
 - `_brain-forge/skills/forge-synthesis-engine/SKILL.md` — the shared classification brain this skill consumes for wiki-bound captures.

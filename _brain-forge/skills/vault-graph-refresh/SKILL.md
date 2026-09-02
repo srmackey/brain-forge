@@ -73,4 +73,4 @@ The graph is primarily a supporting tool for the **forge purview** working in `w
 - The output directory (`_graphify-out/` or `graphify-out/`) is overwritten on each run. That is expected.
 - **Invocation path**: AI-driven runs must use the integrated skill execution path so the calling LLM performs semantic extraction via subagents. Direct use of the Graphify package CLI `extract` path is headless and needs an external LLM key. Avoid it for normal use.
 - If Graphify is missing, stop. Do not pretend a graph exists.
-- If the instance keeps an eval log for this skill, append a minimal entry after the rebuild: date, scope, node/edge counts.
+- Append a minimal entry to `_brain-forge/eval.md` after the rebuild: date, scope, node/edge counts. Unconditional; see `_brain-forge/schema.md`.

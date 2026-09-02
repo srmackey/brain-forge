@@ -37,6 +37,7 @@ Any rule that more than one purview, surface, or tool must consult lives in exac
 | Authoring templates | `_brain-forge/templates/` |
 | Vault operations | the vault constitution |
 | Capture-describe vs classify-decide | this file — Producer Boundary |
+| Tool-performance logging | this file — Eval log |
 
 ---
 
@@ -147,6 +148,34 @@ Every Brain Forge tool is a skill with a single canonical core at `_brain-forge/
 Imported third-party skills are external artifacts, not authored cores.
 
 ---
+
+## Eval log
+
+The skills in this framework make judgment calls: what to ingest, where it goes, what to repair, what to propose. The eval log is how you find out whether they actually followed their own instructions. A system that claims to improve itself needs somewhere the evidence lands.
+
+**The file is `_brain-forge/eval.md`.** It is not on the framework manifest, so an update never writes it. Newest entry at the top, matching `raw/_log.md`.
+
+**Write unconditionally.** A governing skill appends after its core work and before waiting on the human. Do not skip an entry because the run went fine: a clean run is the baseline that makes a bad one legible. Do not batch entries across runs.
+
+**The charter is behavior, not findings.** This log records how the tool ran. It never records what the tool found, and reading it is never a way to act on the run's content. A skill that writes its proposals here has broken the split, and so has a later pass that implements what it reads here.
+
+Entry shape:
+
+```markdown
+## YYYY-MM-DD — <skill> — <short slug>
+
+- **Scope:** what the run was asked to cover
+- **Steps observed:** the numbered steps the skill actually executed, named
+- **Deviations:** steps skipped, done out of order, or performed without the
+  gate the skill requires. "None" is an answer.
+- **Invented policy:** any rule the skill applied that its own core does not
+  state. This is the highest-signal line in the entry.
+- **Outcome:** what landed, in one line
+```
+
+**Keep it separate from the other two logs.** `raw/_log.md` records what happened to captures. `skills/forge-synthesis-engine/tweaks-log.md` records what the synthesis engine learned. Neither is a performance record, and mixing them costs you all three.
+
+If the vault also runs an external eval convention, that one covers the tools it governs and this one covers the framework's skills. They are separate scopes. Do not try to detect one from the other.
 
 ## Low-Signal Ownership Default
 

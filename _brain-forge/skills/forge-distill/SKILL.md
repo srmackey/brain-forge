@@ -42,8 +42,8 @@ Apply `primers/distill.md` in full: user-perspective priority, faithfulness (no 
 ### Step 3 — Hand off to ingest
 The distill is source material like any other capture. Either (a) proceed directly into `/forge-ingest` for this file in the same session (typical when the user asked for wiki records), or (b) leave it for the next ingest pass — state which. If wiki entries were already written this session (retrofit case), fix their provenance to point at this file and record the ingest in `raw/_log.md` as usual.
 
-### Step 4 — Eval log (if the instance keeps one)
-If the instance keeps an eval log for this skill, append a performance entry after core work.
+### Step 4 — Eval log
+Append a performance entry to `_brain-forge/eval.md` after core work. Unconditional; format and charter are in `_brain-forge/schema.md`, Eval log.
 
 ## Non-negotiables
 

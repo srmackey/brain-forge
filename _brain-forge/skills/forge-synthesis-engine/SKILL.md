@@ -143,7 +143,7 @@ When steering is On: reduce feedback-prompt density and trace verbosity as the m
 
 ## Consumers
 
-- **`forge-ingest`** — calls `classify` (and `learn` when steering is On) to route a `raw/` capture, then applies via its own Steps 5–9. forge-ingest owns the wiki write, the `raw/YYYYMM/` tidy, `raw/_log.md`, `wiki/_index.md`, and its performance eval-log if the instance keeps one.
+- **`forge-ingest`** — calls `classify` (and `learn` when steering is On) to route a `raw/` capture, then applies via its own Steps 5–9. forge-ingest owns the wiki write, the `raw/YYYYMM/` tidy, `raw/_log.md`, `wiki/_index.md`, and its performance entry in `_brain-forge/eval.md`.
 - **`forge-signal-check`** — calls `classify` against *existing* wiki pages to drive restructure / de-duplication / canonical-home / re-scope **proposals** (propose-only v1). Minimum proposal shape: name a canonical home, cite concrete merge/cross-link/re-scope edits, carry provenance, be reversible. When steering is On, proposal quality is learned from feedback through the shared trace.
 
 ## Related

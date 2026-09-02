@@ -39,6 +39,7 @@ Everything outside `_brain-forge/` is the owner's without qualification. Install
 | `_brain-forge/CHANGELOG.md` | Version record | Written |
 | `_brain-forge/skills/forge-synthesis-engine/preferences.md` | Learned synthesis model | Never. Not on the manifest. |
 | `_brain-forge/skills/forge-synthesis-engine/tweaks-log.md` | Its trace | Never. Not on the manifest. |
+| `_brain-forge/eval.md` | Tool-performance log | Never. Not on the manifest. |
 | `primers/_system.md`, `primers/_me.md` | Seeded copies, beside the owner's own primers | Never |
 | `primers/distill.md` | Seeded copy, beside the owner's primers | Never |
 | `.graphifyignore` (vault root) | Seeded copy, where Graphify reads it | Never |
@@ -79,7 +80,7 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 2. **Write every file the product ships**, at the same relative path. Do not clear the folder. Do not merge, do not ask per file.
 3. **Write nothing else.** Not the seeded files, not the vault contents, not any adopted copy, and not anything inside the framework folder that the product does not ship.
 4. **Report what changed**: every changelog entry newer than the version recorded in step 1.
-5. **Report orphans.** Anything under `_brain-forge/` that the product no longer ships, minus the known owner state (`preferences.md`, `tweaks-log.md`). Cross-check the changelog, which names removals. Report them and leave them in place. Deleting is the owner's call, and a file you do not recognize is more likely theirs than stale.
+5. **Report orphans.** Anything under `_brain-forge/` that the product no longer ships, minus the known owner state (`preferences.md`, `tweaks-log.md`, `eval.md`). Cross-check the changelog, which names removals. Report them and leave them in place. Deleting is the owner's call, and a file you do not recognize is more likely theirs than stale.
 6. **Report which adopted copies are behind.** This is the point of the skill. An update refreshes the source and leaves every derived copy silently stale. For each framework file that changed, name where the owner's copy of it probably lives:
 
    | Changed | Tell the owner |
@@ -124,7 +125,7 @@ Orphans (no longer shipped, left in place):
   skills/brain-routing-engine/SKILL.md: removed in 0.2.0, yours to delete
 
 Seeded (first install only): none
-Untouched: raw/, wiki/, primers/, preferences.md, tweaks-log.md
+Untouched: raw/, wiki/, primers/, preferences.md, tweaks-log.md, eval.md
 ```
 
 If nothing changed, say so in one line.

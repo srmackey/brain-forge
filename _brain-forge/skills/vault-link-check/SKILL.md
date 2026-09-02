@@ -110,7 +110,7 @@ If everything resolves, say so concisely.
 
 ## Eval log
 
-If the instance keeps an eval log for this skill, append a minimal entry after presenting the report: date, scope, counts of auto-repaired / dead / ambiguous, and a summary excerpt. Do not write link-check activity to `raw/_log.md`.
+Append a minimal entry to `_brain-forge/eval.md` after presenting the report (unconditional; see `_brain-forge/schema.md`): date, scope, counts of auto-repaired / dead / ambiguous, and a summary excerpt. Do not write link-check activity to `raw/_log.md`.
 
 ## Non-negotiables
 
