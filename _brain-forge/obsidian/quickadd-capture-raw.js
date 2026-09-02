@@ -1,4 +1,4 @@
-// scripts/quickadd-capture-raw.js — QuickAdd Macro
+// _brain-forge/obsidian/quickadd-capture-raw.js — QuickAdd Macro
 //
 // Creates a dated file in raw/ ready for pasting a 'distill-this' output.
 // Filename: YYYYMMDD-.md, YYYYMMDD-2-.md, YYYYMMDD-3-.md, ...

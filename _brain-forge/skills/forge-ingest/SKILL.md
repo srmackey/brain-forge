@@ -92,7 +92,7 @@ The engine owns this feature. This skill applies the page decision (Steps 5–8)
 - **On** (`preferences.md` present with autonomy `learn`): the engine proposes, takes feedback, folds durable deltas, and writes a `source: forge-ingest` trace entry. This skill applies accepted/corrected decisions.
 - **Adjust:** the user edits `preferences.md`, or their accept/modify/reject during learn becomes a Learned Delta.
 
-Trace file, when On: the vault root `tweaks-log.md`.
+Trace file, when On: `_brain-forge/skills/forge-synthesis-engine/tweaks-log.md`.
 
 ## Graphify
 - Consult recent Graphify output during normal ingest only when it adds clear value. **Do not** auto-refresh during ingest.

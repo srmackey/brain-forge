@@ -21,6 +21,16 @@ Graphify only draws edges between nodes that **already exist**, so a wikilink to
 
 ## Algorithm
 
+**Run the tool, do not hand-roll it.** Steps 1 to 3 are mechanical and are implemented at `_brain-forge/tools/linkcheck.mjs`. Run it from the vault root with Node:
+
+```
+node _brain-forge/tools/linkcheck.mjs
+```
+
+It inventories the file tree, extracts wikilinks and markdown links while ignoring code spans and fences, resolves each against the real tree, and prints three groups: unambiguous drift, ambiguous, and dead. It skips `.git`, `node_modules`, `.obsidian`, `.vscode`, the Graphify output directories, and `_brain-forge/`. It never writes anything.
+
+The skill owns what the tool cannot: scoping, the write-permission decision per target folder, frozen-surface suppression, and the report. Read the tool output, then apply the classification and permission rules below. Re-derive the resolution by hand only if Node is unavailable, and say so in the run.
+
 1. **Inventory the real file tree.** Build the set of actual files (paths + basenames) so targets can be resolved. Obsidian resolves `[[basename]]` to a unique file by basename, and `[[path/to/file]]` / `[[folder/file#section]]` by path. Account for both. **The trailing `.md` extension is optional in a link:** `[[foo.md]]`, `[[foo.md#sec]]`, and `[[folder/foo.md]]` resolve identically to their extension-less forms — strip a trailing `.md` from the target before matching so an explicitly-extensioned link is not misreported as dead (a real false-positive source: an implementation that keys the basename index without the extension will fail to match `[[_me.md]]` against `_me`).
 2. **Extract links from in-scope pages.** Wikilinks `[[...]]` (including `[[target|alias]]` and `[[target#section]]`) and markdown links `[text](path)` to vault files. **Ignore links inside inline code / fenced code blocks** — backticked paths are inert plain text and must not be "repaired."
 3. **Resolve each link** against the inventory.
@@ -104,6 +114,7 @@ If the instance keeps an eval log for this skill, append a minimal entry after p
 
 ## Non-negotiables
 
+- **Run `_brain-forge/tools/linkcheck.mjs`** for resolution rather than reimplementing it per run. Say so in the report if you could not.
 - **Filesystem resolution only** — never trust Graphify for dangling-link detection.
 - **Ignore links inside inline code / code fences** — they are inert by design.
 - **Auto-repair only an unambiguous single target**; surface dead and ambiguous links for human decision.

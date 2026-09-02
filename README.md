@@ -19,7 +19,8 @@ Everything under `_brain-forge/`, and nothing else.
 | `skills/` | The eight skill cores |
 | `primers/distill.md` | The web distill format |
 | `templates/` | Obsidian stationery: journal, primer, raw |
-| `scripts/` | Helper scripts |
+| `obsidian/` | Obsidian plugin macros |
+| `tools/` | Scripts an agent runs |
 | `.graphifyignore` | Seed for the vault-root graph ignore |
 | `CHANGELOG.md` | Version record |
 
@@ -27,13 +28,14 @@ Everything under `_brain-forge/`, and nothing else.
 
 Install copies `_brain-forge/` to your vault root, seeds two files that only work outside that folder (`.graphifyignore` at the root and `primers/distill.md` beside your own primers), and creates the starting layout: `raw/`, `wiki/`, `primers/`, plus `raw/_log.md`, `wiki/_index.md`, and `primers/_index.md`.
 
-Update overwrites `_brain-forge/` wholly and writes nothing else. Anything you have adopted or edited outside that folder is untouched, which also means it goes stale silently. `vault-update` reports which of your copies are behind after each update. It does not apply them.
+Update rewrites the files the product ships and deletes nothing, so your own state can live inside the framework folder too: the learned synthesis model sits beside the engine core and survives. Anything you have adopted or edited elsewhere is untouched, which also means it goes stale silently. `vault-update` reports which of your copies are behind after each update. It does not apply them.
 
 Adopting is your step, not install's, because the destination is your choice:
 
 - Copy `_brain-forge/constitution.md` to wherever your host loads a constitution, and adapt it.
 - Copy or map `_brain-forge/skills/<name>/SKILL.md` into your host's discovery path (`.claude/skills/`, `.grok/skills/`, `.cursor/skills/`).
-- Point your Obsidian template plugin at `_brain-forge/templates/`, or copy those files where you like. Same for `scripts/`.
+- Point your Obsidian template plugin at `_brain-forge/templates/` and QuickAdd at `_brain-forge/obsidian/`, or copy those files where you like.
+- Run `_brain-forge/tools/` scripts from there, or put them on a path. `vault-link-check` calls `tools/linkcheck.mjs`, so Node is needed for a full link pass.
 
 `schema.md` is the exception. The skills read it at its framework path, so a forked copy would not be consulted. Per-vault deviation belongs in your constitution, which wins under the stated precedence.
 

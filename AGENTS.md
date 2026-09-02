@@ -22,7 +22,7 @@ The capability matrix in `_brain-forge/schema.md` is the canonical home for tool
 
 Everything under `_brain-forge/`, and nothing else. That is the whole answer, and it is a location rather than a list so it cannot drift out of sync with the tree.
 
-Install copies that folder to a vault root. Update overwrites it wholly. Two files are seeded outside it on a first install only, because they do not work anywhere else: `.graphifyignore` at the vault root, where Graphify reads it, and `primers/distill.md`, where the owner will look for it. After seeding, both belong to the owner.
+Install copies that folder to a vault root. Update rewrites the files the product ships and deletes nothing, so owner state such as the learned synthesis model can live inside it. Two files are seeded outside it on a first install only, because they do not work anywhere else: `.graphifyignore` at the vault root, where Graphify reads it, and `primers/distill.md`, where the owner will look for it. After seeding, both belong to the owner.
 
 Install does not write host skill directories, a constitution, or `README.md`. Adopting the framework into a host is the vault owner's step. `vault-update` owns the full contract.
 
@@ -41,10 +41,11 @@ New skills follow the shape of the files in `_brain-forge/skills/`. Vault operat
 | Category | Where | Git in an instance |
 |---|---|---|
 | Product source | This repo | Tracked here |
-| Installed framework | Instance `_brain-forge/` | Untracked. Overwritten on update. |
+| Installed framework | The shipped files under instance `_brain-forge/` | Untracked. Rewritten on update. |
+| Framework-adjacent owner state | Instance `_brain-forge/skills/forge-synthesis-engine/preferences.md` and `tweaks-log.md` | The owner. Not shipped, so never written. |
 | Seeded | Instance `.graphifyignore`, `primers/distill.md` | The owner's after first install. Never overwritten. |
 | Adopted | The owner's constitution, host skill copies, plugin template paths | The owner's. Never written by install or update. |
-| User-owned | Instance `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, `preferences.md`, the vault's inbox, instance-authored skills | Tracked there. Never overwritten. |
+| User-owned | Instance `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, the vault's inbox, instance-authored skills | Tracked there. Never overwritten. |
 
 ## Public repo
 

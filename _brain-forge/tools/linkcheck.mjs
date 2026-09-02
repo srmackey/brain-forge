@@ -2,7 +2,13 @@ import fs from 'fs';
 import path from 'path';
 
 const ROOT = process.cwd();
-const SKIP_DIRS = new Set(['.git', 'node_modules', '_graphify-out']);
+const SKIP_DIRS = new Set([
+  '.git', 'node_modules', '.obsidian', '.vscode',
+  '_graphify-out', 'graphify-out', '__graphify-out',
+  '_brain-forge',
+  // chair overlay, when the vault is also a project chair
+  '_system', '_status', 'inbox',
+]);
 
 // 1. Inventory the real file tree
 const allFiles = [];

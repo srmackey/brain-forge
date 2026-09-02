@@ -56,7 +56,7 @@ Top-down classification. Do **not** start from "what's narrowly in this material
 
 This is a **shipping product feature**. It is optional. The user sets the dial: use it so agents learn how they like synthesis routed, edit it to steer, or leave it off and give the engine full discretion.
 
-The learned model, when used, lives at the vault root as **`preferences.md`**, with `tweaks-log.md` beside it. They sit at the root rather than next to this skill because the framework folder is overwritten wholly on update and these are the vault owner's. That file does not ship. Install does not create it. Update never overwrites it. There is exactly one copy. It is a model, not a changelog (the trace is the changelog). Keep it concise and human-readable.
+The learned model, when used, lives beside this core at **`_brain-forge/skills/forge-synthesis-engine/preferences.md`**, with `tweaks-log.md` beside it. They sit next to the framework copy rather than next to whatever host copies the owner adopted, so there is one known path however many hosts the vault exposes skills to. Update writes only the files on the framework manifest, and these are not on it. That file does not ship. Install does not create it. Update never overwrites it. There is exactly one copy. It is a model, not a changelog (the trace is the changelog). Keep it concise and human-readable.
 
 | State | How the user gets there | What the engine does |
 |---|---|---|

@@ -1,6 +1,6 @@
 ---
 name: vault-update
-description: "Vault-purview skill that installs or updates the Brain Forge framework in this vault. Copies the framework folder, seeds the two files that have to live outside it, creates the vault's own starting layout on a first install, and reports which of the owner's adopted copies are now behind the framework source. Owns the framework layout and the update contract. Invoke for /vault-update, 'install Brain Forge', 'update the framework', or after pulling a new version of the product."
+description: "Vault-purview skill that installs or updates the Brain Forge framework in this vault. Copies the framework files, seeds the two that have to live outside the framework folder, creates the vault's own starting layout on a first install, and reports which of the owner's adopted copies are now behind the framework source. Owns the framework layout and the update contract. Invoke for /vault-update, 'install Brain Forge', 'update the framework', or after pulling a new version of the product."
 argument-hint: "[optional: path to the Brain Forge product checkout]"
 ---
 
@@ -14,34 +14,45 @@ This skill is the canonical home for the framework layout and the update contrac
 
 ## The one rule
 
-The framework owns `_brain-forge/` and overwrites it wholly. Everything outside that folder belongs to the vault owner and is never written by an update. Install may place the first copy of two files that have to live outside the folder to work at all, and after that placement they are the owner's too.
+An update writes the files the framework ships, and nothing else. **The manifest is the product's own file list**: whatever exists under `_brain-forge/` in the product checkout is what gets written. There is no separate manifest file to drift out of sync.
+
+That has two consequences worth stating outright.
+
+- **Nothing is deleted.** An update never clears the folder first. A file in the vault that the product does not ship is left where it is, whether it is owner state or a leftover from an older version.
+- **Owner state may live inside the framework folder.** `preferences.md` and `tweaks-log.md` sit beside the engine core because that is where the engine looks for them, and they survive because they are not on the manifest.
+
+Everything outside `_brain-forge/` is the owner's without qualification. Install may place the first copy of two files that have to live outside it to work at all, and after that placement they are the owner's too.
 
 ## Layout
 
 | Path | What | Update |
 |---|---|---|
-| `_brain-forge/constitution.md` | Vault constitution | Overwritten |
-| `_brain-forge/schema.md` | Frontmatter, capability matrix, conventions | Overwritten |
-| `_brain-forge/skills/` | Skill cores | Overwritten |
-| `_brain-forge/primers/distill.md` | Web distill format | Overwritten |
-| `_brain-forge/templates/` | Obsidian stationery | Overwritten |
-| `_brain-forge/scripts/` | Helper scripts | Overwritten |
-| `_brain-forge/.graphifyignore` | Seed source for the vault-root ignore | Overwritten |
-| `_brain-forge/CHANGELOG.md` | Version record | Overwritten |
+| `_brain-forge/constitution.md` | Vault constitution | Written |
+| `_brain-forge/schema.md` | Frontmatter, capability matrix, conventions | Written |
+| `_brain-forge/skills/` | Skill cores | Written |
+| `_brain-forge/primers/distill.md` | Web distill format | Written |
+| `_brain-forge/templates/` | Obsidian stationery | Written |
+| `_brain-forge/obsidian/` | Obsidian plugin macros | Written |
+| `_brain-forge/tools/` | Scripts an agent runs | Written |
+| `_brain-forge/.graphifyignore` | Seed source for the vault-root ignore | Written |
+| `_brain-forge/CHANGELOG.md` | Version record | Written |
+| `_brain-forge/skills/forge-synthesis-engine/preferences.md` | Learned synthesis model | Never. Not on the manifest. |
+| `_brain-forge/skills/forge-synthesis-engine/tweaks-log.md` | Its trace | Never. Not on the manifest. |
 | `primers/distill.md` | Seeded copy, beside the owner's primers | Never |
 | `.graphifyignore` (vault root) | Seeded copy, where Graphify reads it | Never |
 | `raw/` `wiki/` `primers/` `journal/` `archive/` | Vault contents | Never |
-| `preferences.md`, `tweaks-log.md` (vault root) | Learned synthesis model and its trace | Never |
 | Adopted constitution, host skill copies | Wherever the owner put them | Never |
+
+Install leaves exactly one visible thing at the vault root, `_brain-forge/`. The seeded ignore is a dotfile and the seeded primer goes inside `primers/`. Excluding the framework folder from Obsidian search and graph is one entry in that vault's settings.
 
 ## Adoption (what the owner does, not what install does)
 
-Four framework files are meant to be used from somewhere else. Install never places them, because the destination is the owner's choice and their edits there must survive.
+Four kinds of framework file are meant to be used from somewhere else. Install never places them, because the destination is the owner's choice and their edits there must survive.
 
 - **The constitution.** Copy `_brain-forge/constitution.md` to wherever the host loads a constitution (`AGENTS.md`, `CLAUDE.md`, or a shim that imports it). Adapt it.
 - **Skills.** Copy or map `_brain-forge/skills/<name>/SKILL.md` into the host's discovery path (`.claude/skills/`, `.grok/skills/`, `.cursor/skills/`).
-- **Templates.** Point the Obsidian template or QuickAdd plugin at `_brain-forge/templates/`, or copy those files somewhere of your choosing.
-- **Scripts.** Same as templates.
+- **Templates and Obsidian macros.** Point the relevant plugin at `_brain-forge/templates/` or `_brain-forge/obsidian/`, or copy those files somewhere of your choosing.
+- **Tools.** Run them from `_brain-forge/tools/`, or put them on a path.
 
 `schema.md` is deliberately not on this list. The skills read it at its framework path, so a forked copy would not be consulted. Per-vault deviation belongs in the constitution.
 
@@ -61,25 +72,27 @@ Four framework files are meant to be used from somewhere else. Install never pla
 ## Update (`_brain-forge/` already present)
 
 1. **Read the installed version first.** The top entry of `_brain-forge/CHANGELOG.md` is what this vault currently has. Record it before touching anything. There is no separate stamp file; the changelog in the vault's own framework folder is the version.
-2. **Overwrite `_brain-forge/` wholly** from the product. Do not merge, do not preserve, do not ask per file. Nothing an owner cares about lives there.
-3. **Write nothing else.** Not the seeded pair, not the vault contents, not any adopted copy.
+2. **Write every file the product ships**, at the same relative path. Do not clear the folder. Do not merge, do not ask per file.
+3. **Write nothing else.** Not the seeded pair, not the vault contents, not any adopted copy, and not anything inside the framework folder that the product does not ship.
 4. **Report what changed**: every changelog entry newer than the version recorded in step 1.
-5. **Report which adopted copies are behind.** This is the point of the skill. An update refreshes the source and leaves every derived copy silently stale. For each framework file that changed in this update, name where the owner's copy of it probably lives and say it needs reconciling:
+5. **Report orphans.** Anything under `_brain-forge/` that the product no longer ships, minus the known owner state (`preferences.md`, `tweaks-log.md`). Cross-check the changelog, which names removals. Report them and leave them in place. Deleting is the owner's call, and a file you do not recognize is more likely theirs than stale.
+6. **Report which adopted copies are behind.** This is the point of the skill. An update refreshes the source and leaves every derived copy silently stale. For each framework file that changed, name where the owner's copy of it probably lives:
 
    | Changed | Tell the owner |
    |---|---|
    | `constitution.md` | Their adopted constitution needs the diff applied |
-   | `_brain-forge/skills/<name>/SKILL.md` | Their host copy of that skill is stale, re-copy or re-map it |
+   | `skills/<name>/SKILL.md` | Their host copy of that skill is stale, re-copy or re-map it |
    | `primers/distill.md` | Their `primers/distill.md` is behind, show the diff |
-   | `templates/*` | Stale only if they copied rather than pointed a plugin at the folder |
-   | `scripts/*` | Same |
+   | `templates/*`, `obsidian/*` | Stale only if they copied rather than pointed a plugin at the folder |
+   | `tools/*` | Stale only if they copied it onto a path |
    | `.graphifyignore` | Their root copy is theirs; name any new framework line worth adding |
 
    Do not apply any of these. Report and let the owner decide.
 
 ## Non-negotiables
 
-- **One folder.** An update writes `_brain-forge/` and nothing else. If a fix seems to require writing outside it, that is a design problem in the product, not a case for an exception here.
+- **Manifest only.** An update writes the files the product ships and nothing else, inside the framework folder or out of it. If a fix seems to need writing beyond that, it is a design problem in the product, not a case for an exception here.
+- **Never delete.** Not on update, not to tidy orphans, not to reconcile. Report and leave.
 - **Seed once, never re-seed.** The two outside files are placed only when absent. A present file is the owner's, whatever it now contains.
 - **Never create vault content.** Step 3 of install makes empty scaffolding. It does not write captures, wiki pages, or primers.
 - **Never apply a reconcile.** Adopted copies are reported, never edited. The owner may have changed them deliberately.
@@ -91,18 +104,21 @@ Four framework files are meant to be used from somewhere else. Install never pla
 ```
 ── /vault-update run: YYYY-MM-DD ── install | update
 
-Framework: 0.1.0 → 0.2.0
+Framework: 0.1.0 -> 0.2.0
 
 Changed in this update:
-  constitution.md — file categories rewritten
-  skills/forge-ingest/SKILL.md — capture-quality screen reworded
+  constitution.md: file categories rewritten
+  skills/forge-ingest/SKILL.md: capture-quality screen reworded
 
 Your copies to reconcile:
-  Adopted constitution — file-categories section changed, diff below
-  Host copy of forge-ingest — stale, re-copy from _brain-forge/skills/
+  Adopted constitution: file-categories section changed, diff below
+  Host copy of forge-ingest: stale, re-copy from _brain-forge/skills/
+
+Orphans (no longer shipped, left in place):
+  skills/brain-routing-engine/SKILL.md: removed in 0.2.0, yours to delete
 
 Seeded (first install only): none
-Untouched: raw/, wiki/, primers/, preferences.md
+Untouched: raw/, wiki/, primers/, preferences.md, tweaks-log.md
 ```
 
 If nothing changed, say so in one line.
