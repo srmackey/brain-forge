@@ -62,7 +62,7 @@ Official project: [safishamsi/graphify](https://github.com/safishamsi/graphify).
 
 `forge-synthesis-engine` can learn how you like wiki homes chosen. That is a shipping feature, and it is optional.
 
-- **On.** Create `preferences.md` in the instance. Ingest and signal-check will propose wiki homes, take accept / modify / reject, and fold durable corrections into that file. A `tweaks-log.md` beside it is the trace.
+- **On.** Create `preferences.md` at your vault root. Ingest and signal-check will propose wiki homes, take accept / modify / reject, and fold durable corrections into that file. A `tweaks-log.md` beside it is the trace.
 - **Adjust.** Edit the file, or keep giving feedback.
 - **Off.** Do not create the file, delete it, or set its autonomy to `off`.
 

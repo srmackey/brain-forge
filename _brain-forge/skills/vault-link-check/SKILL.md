@@ -4,7 +4,7 @@ description: "Vault-wide link integrity engine (vault purview). Resolves every w
 argument-hint: "[optional: scope — 'all' (whole vault, default) | a folder like wiki/ | a specific page path]"
 ---
 
-> Product core (`skills/vault-link-check/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
+> Product core (`_brain-forge/skills/vault-link-check/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
 # vault-link-check Skill
 

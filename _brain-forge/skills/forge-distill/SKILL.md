@@ -4,7 +4,7 @@ description: "In-system session distill (forge purview): writes a durable source
 argument-hint: "[optional: topic focus or target filename slug]"
 ---
 
-> Product core (`skills/forge-distill/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
+> Product core (`_brain-forge/skills/forge-distill/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
 # forge-distill Skill
 
@@ -54,7 +54,7 @@ If the instance keeps an eval log for this skill, append a performance entry aft
 
 ## Related
 - `primers/distill.md` — the format (web producer and this skill share it).
-- `skills/forge-ingest/SKILL.md` — consumer.
+- `_brain-forge/skills/forge-ingest/SKILL.md` — consumer.
 - `_brain-forge/schema.md` — producer boundary.
 
 **Provenance:** Created 2026-07-15 to persist a source file for in-system sessions whose material came from outside the vault.

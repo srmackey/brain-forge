@@ -4,7 +4,7 @@ description: Rebuild the Graphify knowledge graph over the vault. Graphify is a 
 argument-hint: "[optional: path to subfolder to scope the graph]"
 ---
 
-> Product core (`skills/vault-graph-refresh/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
+> Product core (`_brain-forge/skills/vault-graph-refresh/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
 # /vault-graph-refresh
 

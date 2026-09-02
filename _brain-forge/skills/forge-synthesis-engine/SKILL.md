@@ -1,9 +1,9 @@
 ---
 name: forge-synthesis-engine
-description: Shared forge-purview classification engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, and optional synthesis steering via instance preferences.md (learn from feedback, adjust the file, or leave off for full discretion). Source-tagged self-observation trace at skills/forge-synthesis-engine/tweaks-log.md when steering is on. Charter is brain, not hands. Consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows the vault constitution; human direction overrides.
+description: Shared forge-purview classification engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, and optional synthesis steering via instance preferences.md (learn from feedback, adjust the file, or leave off for full discretion). Source-tagged self-observation trace at tweaks-log.md when steering is on. Charter is brain, not hands. Consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows the vault constitution; human direction overrides.
 ---
 
-> Product core (`skills/forge-synthesis-engine/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
+> Product core (`_brain-forge/skills/forge-synthesis-engine/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
 # forge-synthesis-engine Skill
 
@@ -56,7 +56,7 @@ Top-down classification. Do **not** start from "what's narrowly in this material
 
 This is a **shipping product feature**. It is optional. The user sets the dial: use it so agents learn how they like synthesis routed, edit it to steer, or leave it off and give the engine full discretion.
 
-The learned model, when used, lives in the instance file **`skills/forge-synthesis-engine/preferences.md`**. That file does not ship. Install does not create it. Update never overwrites it. There is exactly one copy. It is a model, not a changelog (the trace is the changelog). Keep it concise and human-readable.
+The learned model, when used, lives at the vault root as **`preferences.md`**, with `tweaks-log.md` beside it. They sit at the root rather than next to this skill because the framework folder is overwritten wholly on update and these are the vault owner's. That file does not ship. Install does not create it. Update never overwrites it. There is exactly one copy. It is a model, not a changelog (the trace is the changelog). Keep it concise and human-readable.
 
 | State | How the user gets there | What the engine does |
 |---|---|---|
@@ -90,7 +90,7 @@ Runs only when steering is **On**. Purpose: learn the user's preferences by prop
 
 Per item (a capture being ingested, or a restructure candidate under review):
 
-1. **Load context.** Read `preferences.md` (seed model + learned deltas) **and** the recent self-observation trace (default last 10 entries of `skills/forge-synthesis-engine/tweaks-log.md`, or all if fewer) so prior accept/modify/reject patterns inform this decision (the compounding-improvement loop).
+1. **Load context.** Read `preferences.md` (seed model + learned deltas) **and** the recent self-observation trace (default last 10 entries of `tweaks-log.md`, or all if fewer) so prior accept/modify/reject patterns inform this decision (the compounding-improvement loop).
 2. **Generate a Proposal** via `classify` — do **not** silently apply. (Targets, classification rationale, hub wiring, new-page/reference recommendation, provenance, lifecycle visibility.)
 3. **Present** the proposal(s). Single item → inline; several → batch so the user can respond by number.
 4. **Capture feedback** — one of:
@@ -105,7 +105,7 @@ Per item (a capture being ingested, or a restructure candidate under review):
 
 ## Module: trace (self-observation, source-tagged)
 
-Only when steering is On. The engine records each learning-mode transformation to `skills/forge-synthesis-engine/tweaks-log.md` and **reads recent entries back** for compounding improvement. This is the engine's "evolution record of itself," kept **strictly out of** `wiki/`, `raw/`, and the eval-logs (the per-consumer eval-logs stay pure for tool-performance analysis). The file header carries the authoritative convention + strict AI instructions; this section is the skill-side contract.
+Only when steering is On. The engine records each learning-mode transformation to `tweaks-log.md` and **reads recent entries back** for compounding improvement. This is the engine's "evolution record of itself," kept **strictly out of** `wiki/`, `raw/`, and the eval-logs (the per-consumer eval-logs stay pure for tool-performance analysis). The file header carries the authoritative convention + strict AI instructions; this section is the skill-side contract.
 
 **One trace, two feedback streams.** Both consumers feed this single trace — `forge-ingest` ("did this capture route to the right home?") and `forge-signal-check` ("was this restructure/dedup/canonical-home proposal accepted or rejected?"). Entries are **source-tagged** so either stream can be analyzed alone.
 
@@ -149,8 +149,8 @@ When steering is On: reduce feedback-prompt density and trace verbosity as the m
 ## Related
 - The vault constitution — vault operations (principles this engine executes).
 - `_brain-forge/schema.md` — Tool Structure Convention and producer boundary.
-- Instance `skills/forge-synthesis-engine/preferences.md` — the learned model, if the user turned steering on.
-- Instance `skills/forge-synthesis-engine/tweaks-log.md` — source-tagged self-observation trace, if steering is on.
+- Instance `preferences.md` — the learned model, if the user turned steering on.
+- Instance `tweaks-log.md` — source-tagged self-observation trace, if steering is on.
 - `forge-ingest` / `forge-signal-check` — the consumers.
 
 **Current version:** Extracted from `forge-ingest` 2026-06-28. Synthesis steering is a shipping feature: on, adjustable, or off.

@@ -4,7 +4,7 @@ description: "The Context Composer + static primer authoring skill. Compose mode
 argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  static <description>"
 ---
 
-> Product core (`skills/forge-primer/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
+> Product core (`_brain-forge/skills/forge-primer/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
 # forge-primer Skill
 

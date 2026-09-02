@@ -25,6 +25,9 @@ First framework release. Nothing to reconcile; there is no earlier version.
 - The web distill format ships as a primer. Install seeds a copy at
   `primers/distill.md` beside your own.
 - Obsidian stationery in `templates/`, helper scripts in `scripts/`.
+- Optional synthesis steering lives at the vault root as `preferences.md`, with
+  `tweaks-log.md` beside it, rather than next to the engine skill. The framework
+  folder is overwritten wholly, and those two files are yours.
 - Install seeds `.graphifyignore` at the vault root, where Graphify reads it.
   Update never overwrites it.
 - Graphify is a user install and is not vendored. `vault-graph-refresh` carries

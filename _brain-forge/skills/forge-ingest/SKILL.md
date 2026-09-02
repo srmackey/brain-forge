@@ -4,13 +4,13 @@ description: "Forge-purview consumer skill that transforms raw/ captures into th
 argument-hint: "[optional: single filename or path under raw/ to process]"
 ---
 
-> Product core (`skills/forge-ingest/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
+> Product core (`_brain-forge/skills/forge-ingest/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
 # forge-ingest Skill
 
 The forge purview's **raw→wiki ingest hands**: it brings material from the immutable `raw/` dumb drop zone into the LLM-maintained `wiki/` layer so the wiki compounds in **density and usefulness over time, not volume**. The `/forge-ingest` command is a thin, human-facing entry point.
 
-**Brain vs. hands.** The *classification brain* — top-down classification, the page-type taxonomy, the structuring principle, the learned-preferences model (`preferences.md`), the suggestion/feedback learning loop, and the self-observation trace — lives in the shared **`forge-synthesis-engine`** skill (`skills/forge-synthesis-engine/SKILL.md`). This skill is the engine's **consumer #1**: it calls the engine for the page decision and owns the *writes* (Steps 5–9).
+**Brain vs. hands.** The *classification brain* — top-down classification, the page-type taxonomy, the structuring principle, the learned-preferences model (`preferences.md`), the suggestion/feedback learning loop, and the self-observation trace — lives in the shared **`forge-synthesis-engine`** skill (`_brain-forge/skills/forge-synthesis-engine/SKILL.md`). This skill is the engine's **consumer #1**: it calls the engine for the page decision and owns the *writes* (Steps 5–9).
 
 **Wiki or hold.** A raw capture is not always wiki-bound. This skill makes that call before synthesis. Default is wiki. Hold when the user directed hold, the capture is not this vault's material, or Step 3.4's severe case applies. Only wiki-bound material descends into `forge-synthesis-engine`. Hold routes stay in `raw/` and are bundled into the human digest. This skill does **not** force non-wiki signal into a wiki page.
 
@@ -82,7 +82,7 @@ Append a concise entry (most recent first): file reference (with subfolder), wha
 For significant changes, update Recent Activity + relevant page pointers.
 
 ### Step 9 — Eval log (if the instance keeps one)
-If the instance keeps an eval log for this skill, append a performance entry after core work: flow adherence, `raw/_log.md` consultation, capture-quality screening, provenance, preference for existing pages, permitted moves only. Do not mix learning content (proposals, preference deltas) into that log. Those belong with the engine's trace next to `skills/forge-synthesis-engine/`.
+If the instance keeps an eval log for this skill, append a performance entry after core work: flow adherence, `raw/_log.md` consultation, capture-quality screening, provenance, preference for existing pages, permitted moves only. Do not mix learning content (proposals, preference deltas) into that log. Those belong with the engine's trace next to `_brain-forge/skills/forge-synthesis-engine/`.
 
 ## Synthesis steering (delegated to `forge-synthesis-engine`)
 
@@ -92,7 +92,7 @@ The engine owns this feature. This skill applies the page decision (Steps 5–8)
 - **On** (`preferences.md` present with autonomy `learn`): the engine proposes, takes feedback, folds durable deltas, and writes a `source: forge-ingest` trace entry. This skill applies accepted/corrected decisions.
 - **Adjust:** the user edits `preferences.md`, or their accept/modify/reject during learn becomes a Learned Delta.
 
-Trace file, when On: instance `skills/forge-synthesis-engine/tweaks-log.md`.
+Trace file, when On: the vault root `tweaks-log.md`.
 
 ## Graphify
 - Consult recent Graphify output during normal ingest only when it adds clear value. **Do not** auto-refresh during ingest.
@@ -113,7 +113,7 @@ Consult raw/_log.md first; call the forge-synthesis-engine for classification; f
 Returns: per-file routing decisions (from the engine) + applied edits, the `raw/_log.md` entry, any tidy moves, the `wiki/_index.md` update, and the eval-log entry.
 
 ## Related
-- `skills/forge-synthesis-engine/SKILL.md` — the shared classification brain this skill consumes for wiki-bound captures.
+- `_brain-forge/skills/forge-synthesis-engine/SKILL.md` — the shared classification brain this skill consumes for wiki-bound captures.
 - The vault constitution — vault operations.
 - `_brain-forge/schema.md` — producer boundary and capability matrix.
 - `primers/distill.md` — distill format (capture-quality rules).

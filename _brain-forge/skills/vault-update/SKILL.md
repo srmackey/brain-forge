@@ -4,7 +4,7 @@ description: "Vault-purview skill that installs or updates the Brain Forge frame
 argument-hint: "[optional: path to the Brain Forge product checkout]"
 ---
 
-> Product core (`_brain-forge/skills/vault-update/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
+> Product core (`_brain-forge/skills/vault-update/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
 # vault-update Skill
 
@@ -31,7 +31,7 @@ The framework owns `_brain-forge/` and overwrites it wholly. Everything outside 
 | `primers/distill.md` | Seeded copy, beside the owner's primers | Never |
 | `.graphifyignore` (vault root) | Seeded copy, where Graphify reads it | Never |
 | `raw/` `wiki/` `primers/` `journal/` `archive/` | Vault contents | Never |
-| `preferences.md`, `tweaks-log.md` | Learned synthesis model and its trace | Never |
+| `preferences.md`, `tweaks-log.md` (vault root) | Learned synthesis model and its trace | Never |
 | Adopted constitution, host skill copies | Wherever the owner put them | Never |
 
 ## Adoption (what the owner does, not what install does)
@@ -69,7 +69,7 @@ Four framework files are meant to be used from somewhere else. Install never pla
    | Changed | Tell the owner |
    |---|---|
    | `constitution.md` | Their adopted constitution needs the diff applied |
-   | `skills/<name>/SKILL.md` | Their host copy of that skill is stale, re-copy or re-map it |
+   | `_brain-forge/skills/<name>/SKILL.md` | Their host copy of that skill is stale, re-copy or re-map it |
    | `primers/distill.md` | Their `primers/distill.md` is behind, show the diff |
    | `templates/*` | Stale only if they copied rather than pointed a plugin at the folder |
    | `scripts/*` | Same |
