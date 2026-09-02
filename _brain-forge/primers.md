@@ -27,6 +27,8 @@ The design is **composition over monolithic indexes**. A primer is assembled fro
 | **Codex-enabled** | `primers/<name>.md` | Contains one or more `## Primer - Codex - Name` sections, which are instructions the composer follows. May also hold static content. |
 | **Personal** | `primers/_me.md`, `primers/_<person>.md` | Your own context. Gitignore them if the vault is versioned. `signal: false`. |
 
+A primer with `signal: true` is catalog-eligible: `forge-signal-check` lints those against `primers/_index.md`. Personal primers carry `signal: false` and stay out of the catalog on that basis alone, which is why the lint needs no assumption about version control.
+
 `primers/_me.md` is the starting point. Most composition examples transclude from it, and until it has something in it the primer layer has nothing to build on.
 
 ## The qualified heading contract
@@ -85,7 +87,7 @@ A primer written to be pasted must have no `[[wikilinks]]` in its paste block. T
 
 ## The catalog
 
-`primers/_index.md` is a slim, human-readable list of what this vault has. It is a catalog, not a second copy of the primers. `forge-signal-check` lints it against the tracked files and proposes additions and removals rather than rewriting it.
+`primers/_index.md` is a slim, human-readable list of what this vault has. It is a catalog, not a second copy of the primers. `forge-signal-check` lints it against the vault's `signal: true` primers and proposes additions and removals rather than rewriting it.
 
 ## Related
 

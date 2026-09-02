@@ -93,7 +93,7 @@ The distinctive new value: drive consolidation/dedup/re-scope from the **learned
 ### 7. Index and activity recording
 - If the pass reveals the need for catalog updates (new core area, major page, significant recent activity), prepare a concise proposed diff for `wiki/_index.md`.
 - When touching `primers/_index.md`, keep it a slim, human-readable catalog only. Record non-trivial maintenance outcomes on the affected wiki page (or an instance system log, if it keeps one). Do **not** append to `raw/_log.md` unless the work also involved ingesting new raw material.
-- **Primer-catalog lint:** diff tracked primer files against the catalog. Compare `git ls-files "primers/*.md"` (tracked only — gitignored personal primers like `_me.md` are naturally excluded; also ignore `primers/_index.md` itself) against the entries under "Tracked System Primers" in `primers/_index.md`. Flag any tracked primer missing from the catalog and any catalog entry whose file no longer exists. Propose additions/removals; do not silently rewrite the catalog.
+- **Primer-catalog lint:** diff this vault's system primers against the catalog. A primer is catalog-eligible when its frontmatter carries `signal: true`. Personal primers ship `signal: false` and are excluded by that alone, so this works in a vault that is not a git repository. Ignore `primers/_index.md` itself. Flag any eligible primer missing from the catalog, and any catalog entry whose file no longer exists. Propose additions and removals; do not silently rewrite the catalog.
 
 ### 8. Present compact summary + proposals
 Always end with a clear, scannable report. Example structure:

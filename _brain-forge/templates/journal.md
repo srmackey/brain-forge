@@ -20,7 +20,7 @@ date: {{date:YYYY-MM-DD}}
 
 ## Captures Today
 
-*(Paste AI session output or quick notes here — file lands in `raw/` via QuickAdd)*
+*(Paste AI session output or quick notes here. The QuickAdd macro in `_brain-forge/obsidian/` creates the `raw/` file for you if you wired it up; otherwise create one by hand.)*
 -
 
 ## Evening Close (5 min)
@@ -37,6 +37,10 @@ date: {{date:YYYY-MM-DD}}
 **Raw/ processed?** Yes / No — items remaining: ___
 
 ## Recent Context (auto)
+
+<!-- Needs the Dataview plugin. Without it this renders as a plain code
+     block and nothing else in the template is affected. Delete it if you
+     do not use Dataview. -->
 
 ```dataview
 LIST FROM "raw" OR "wiki"

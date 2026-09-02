@@ -41,3 +41,10 @@ First framework release. Nothing to reconcile; there is no earlier version.
   Update never overwrites it.
 - Graphify is a user install and is not vendored. `vault-graph-refresh` carries
   the steps.
+- Obsidian is assumed by the human layer only: wikilinks, transclusion, Reading
+  view, and callouts. The skills are host-agnostic and run without it. Optional
+  plugins named in the README: Templates or Templater, QuickAdd, Dataview.
+- No skill requires git. The primer-catalog lint uses `signal: true` frontmatter
+  rather than tracked-file status, so it works in an unversioned vault. The
+  README recommends version control anyway, for provenance over your own
+  material, and says what to ignore.

@@ -1,6 +1,7 @@
 ---
-type: system
-signal: false
+type: primer
+signal: true
+status: active
 ---
 
 # Distill format

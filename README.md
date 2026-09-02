@@ -56,6 +56,30 @@ Full contract: `_brain-forge/skills/vault-update/SKILL.md`.
 
 `forge-ingest` decides wiki vs hold. Hold when directed, or when the capture is not vault material.
 
+## Obsidian
+
+The human layer assumes Obsidian. Wikilinks, `![[file#Section]]` transclusion, Reading view, and `[!ai-instructions]` callouts are all Obsidian mechanics, and `vault-link-check` exists because clicking a broken link in Obsidian silently creates an empty file at that path.
+
+The agent layer does not assume it. Everything on disk is plain markdown, and the skills run from any coding agent whether or not Obsidian is installed. Open the vault in something else and you keep capture, ingest, synthesis, and link integrity. You lose composition by transclusion and callout rendering.
+
+Plugins, all optional:
+
+- **Templates** or **Templater**, pointed at `_brain-forge/templates/`.
+- **QuickAdd**, for the macro in `_brain-forge/obsidian/`, which creates a dated file in `raw/` ready to paste into.
+- **Dataview**, for the one query block in the journal template. Without it that block renders as inert text and nothing else changes.
+
+## Version control
+
+Not required. No skill assumes the vault is a git repository.
+
+Worth doing anyway, for your own provenance over everything you keep here. `raw/` is immutable by doctrine, and history is what makes that checkable rather than merely asserted. `wiki/` is rewritten continuously by agents, so a diff is the only practical way to see what a synthesis pass actually changed, and the only way to undo one that went wrong.
+
+If you do version it:
+
+- Ignore `_brain-forge/`. It is the framework and it reinstalls.
+- Un-ignore `_brain-forge/skills/forge-synthesis-engine/preferences.md` if you turn synthesis steering on. It lives inside the framework folder but it is yours, and it is the one thing in there that cannot be reinstalled.
+- Ignore `primers/_me.md` and any `_<person>.md` beside it. Personal context, not vault knowledge.
+
 ## Graphify (user install)
 
 Brain Forge does not ship Graphify or Graphify's skills. `vault-graph-refresh` and a full `forge-signal-check` need them. Ingest still runs without a graph.
