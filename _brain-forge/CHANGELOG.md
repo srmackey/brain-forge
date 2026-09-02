@@ -8,6 +8,42 @@ An entry says what changed and, where it matters, what an owner has to
 reconcile in their own adopted copy. Framework-internal changes that touch no
 adopted file say so, because that tells the owner they can skip the pass.
 
+**A file the product stops shipping gets its own line, beginning `Removed:`,
+naming the path relative to `_brain-forge/`.** That line is not decoration.
+`vault-update` separates an orphan from owner state by looking for it, so a
+removal recorded only in prose reads as a file the framework never shipped, and
+a name merely mentioned in an entry is not a removal.
+
+## 0.1.4 (2026-09-02)
+
+Three checks stop guessing. Reconcile your adopted constitution: it gains a
+`framework:` line, and keeping it is what lets staleness be answered without a
+timestamp. Take the new `primers/_system.md` too, or at least its marker line,
+since update never overwrites a seeded file and parity needs both numbers to
+say anything. Until both markers exist, parity reports that it cannot run.
+Host copies of `vault-update` and `forge-ingest` are stale.
+
+- **The constitution and the vault-design primer carry a `framework:` version
+  line**, and `vault-surfaces` parity compares those instead of modification
+  times. A timestamp says when a file was written, which a copy, a reformat or
+  a checkout all change, and adoption writes the constitution copy, so the old
+  rule flagged every vault on the day it was created. Copy the line along with
+  the file and then leave it alone; it says which doctrine your copy reflects.
+  A missing marker is reported as a check that cannot run, never guessed around.
+- **`vault-update` derives owner state instead of listing it.** A file under
+  `_brain-forge/` that an update did not write is an orphan when a changelog
+  entry names it as removed, and yours when the changelog has never heard of it.
+  The old hand-kept list of owner-state filenames lost `system-log.md` within a
+  day of being written, and a literal run would have orphaned a file the layout
+  table in the same file calls owner state.
+- **The capture-quality screen has a verdict for material that is not an AI
+  session.** All five of its patterns describe ways a session distill can
+  mislead, so a saved article cannot fail any of them and `clean` would claim a
+  screen that never ran. Those get `not-applicable (third-party material)`,
+  which carries one requirement: the wiki write says whose material it is and
+  summarizes rather than reproducing. The risk with someone else's document is
+  not flattery, it is a page that reads years later as though you thought of it.
+
 ## 0.1.3 (2026-09-02)
 
 Three fixes found by running the tools against a vault with real material in

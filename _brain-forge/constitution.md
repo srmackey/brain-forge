@@ -1,8 +1,12 @@
 # Vault constitution (Brain Forge)
 
+framework: 0.1.4
+
 The constitution for a vault that installed Brain Forge.
 
 **Adopt this file.** Copy it to wherever your coding agent loads a constitution from (`AGENTS.md`, `CLAUDE.md`, a shim that imports it), or adapt it to your platform. Your adopted copy is yours and nothing overwrites it.
+
+Keep the `framework:` line when you copy, and leave it alone afterwards. It says which version of this document your copy reflects, which is how `vault-surfaces` can tell that your copy is behind without guessing from a timestamp. Adapt everything else freely.
 
 This file is framework-owned and updates in place at `_brain-forge/constitution.md`. When it moves ahead of what you adopted, `vault-update` says so and shows you the difference.
 

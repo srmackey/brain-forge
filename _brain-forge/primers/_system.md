@@ -6,6 +6,8 @@ status: active
 
 # Vault design primer
 
+framework: 0.1.4
+
 > Paste this into a web AI when you want to think about your own vault's design: its structure, conventions, operating model, primers, and workflows. It describes how a Brain Forge vault works so you do not have to explain it first.
 
 Lead with your own context from `primers/_me.md`, then this file, then your question. `/forge-primer` will assemble all three into one clean block if you would rather not paste by hand.

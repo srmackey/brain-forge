@@ -84,7 +84,16 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 2. **Write every file the product ships**, at the same relative path. Do not clear the folder. Do not merge, do not ask per file.
 3. **Write nothing else.** Not the seeded files, not the vault contents, not any adopted copy, and not anything inside the framework folder that the product does not ship.
 4. **Report what changed**: every changelog entry newer than the version recorded in step 1.
-5. **Report orphans.** Anything under `_brain-forge/` that the product no longer ships, minus the known owner state (`preferences.md`, `tweaks-log.md`, `eval.md`). Cross-check the changelog, which names removals. Report them and leave them in place. Deleting is the owner's call, and a file you do not recognize is more likely theirs than stale.
+5. **Report orphans.** Start from every file under `_brain-forge/` that this update did not just write. That set holds two different things, and the changelog is what separates them, because it is the only record of what was ever shipped:
+
+   - **Carried on a `Removed:` line in a changelog entry** — an orphan from an older version. Report it, say which version dropped it, and leave it in place.
+   - **Not on any such line** — owner state. It was never a framework file, or it still is one, and either way it is not a leftover. Say nothing.
+
+   Match the `Removed:` line, not the filename. `eval.md` and `system-log.md` are both described at length in the 0.1.0 entry as owner records, and a check that looks for the name anywhere in the changelog reports both as orphans. The convention exists so this question has an exact answer; the changelog header states it.
+
+   Do not keep a list of owner-state filenames here. A hand-maintained list is a second manifest, and it drifts from the layout table the same way any duplicate does: this one lost `system-log.md` within a day of being written, and a literal run would have orphaned a file the layout table calls owner state.
+
+   Deleting is always the owner's call, orphan or not. A file you do not recognize is more likely theirs than stale.
 6. **Report which adopted copies are behind.** This is the point of the skill. An update refreshes the source and leaves every derived copy silently stale. For each framework file that changed, name where the owner's copy of it probably lives:
 
    | Changed | Tell the owner |

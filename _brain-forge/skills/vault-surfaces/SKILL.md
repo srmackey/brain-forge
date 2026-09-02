@@ -77,11 +77,17 @@ In check and regenerate, only act on host directories that already exist. Expose
 
 `_brain-forge/constitution.md` is the framework's copy. The owner adopted it into whatever file their host loads, and adapted it. `primers/_system.md` restates the same operating model for a web session. Those two describe one thing in two places, which is the coupling this framework ships and cannot enforce.
 
-This half is **semantic and cannot be made mechanical**. Do not pretend otherwise, and do not diff them into a report nobody can act on. Use a modification-time heuristic and hand the judgment to the owner:
+Both files ship a `framework:` line near the top naming the version of the doctrine they carry, and it travels with any copy. Compare those, not timestamps. A modification time says when a file was written, which a copy, a reformat, a checkout or a folder sync all change, and adoption itself writes the constitution copy, so a timestamp rule flags every vault on the day it is created.
 
-- If the adopted constitution has changed more recently than `primers/_system.md`, flag it: a doctrine change may not have reached the primer.
-- If `_brain-forge/constitution.md` changed in the last update and the adopted copy did not, flag that too. That is the same finding `vault-update` reports, and repeating it here is correct because this is where the owner comes to fix it.
-- Name what changed if you can see it. "The purview table gained a row" is actionable. "These files differ" is not.
+Read three markers: the adopted constitution's, `primers/_system.md`'s, and the shipped `_brain-forge/constitution.md`'s.
+
+- **Adopted marker behind the shipped one.** The owner's constitution reflects older doctrine. Name the versions between them and point at the changelog entries.
+- **Primer marker behind the adopted one.** A doctrine change may not have reached the primer, which is the file they hand to other people's models.
+- **A marker is missing.** Say so and compare nothing. An owner who removed the line gets a report that says the check cannot run, never a guess from some other signal.
+
+The markers make staleness decidable. **What changed between two versions is still semantic**, so name it from the changelog rather than diffing the files into a report nobody can act on. "The purview table gained a row" is actionable. "These files differ" is not.
+
+Neither file's marker is bumped by this skill, or by any run. A release bumps it in the product when that release changes that file, and a copy keeps whatever it was copied with. That is the whole point: the number describes the doctrine in the file, not the last time anyone touched it.
 
 Never edit either file to resolve a flag. The adopted constitution is the owner's, and the primer is a document they hand to other people's models.
 
@@ -111,8 +117,8 @@ Available but not exposed: forge-primer, vault-surfaces
   Expose one with: /vault-surfaces expose forge-primer
 
 Parity:
-  Adopted constitution changed 2026-09-01, primers/_system.md last touched
-  2026-08-14. The purview table gained a row. Review the primer.
+  Adopted constitution 0.1.2, framework ships 0.1.4. The purview table gained
+  a row in 0.1.3. primers/_system.md is 0.1.4 and ahead of your constitution.
 
 Canonical-home drift:
   Your constitution restates the full capability matrix from schema.md.
