@@ -1,6 +1,15 @@
 # Starting ignore for a new Brain Forge vault graph.
 # Living layer: wiki/, raw/ (except _log.md), primers/.
 # gitignore semantics (last-match-wins, ! to un-ignore).
+#
+# Install seeds this file at the vault root. Update never overwrites it,
+# so anything you add here is safe.
+
+# Installed framework (not vault knowledge)
+_brain-forge/
+
+# Seeded framework file living beside your own primers
+primers/distill.md
 
 # Host / runtime
 .obsidian/
@@ -15,14 +24,6 @@ _status/
 inbox/
 PROTOCOL.md
 _system/
-
-# Installed framework (not vault knowledge)
-skills/
-scripts/
-
-# Templates except the live schema
-templates/*
-!templates/schema.md
 
 # Constitution is read directly. Indexing it creates a dominant hub.
 AGENTS.md

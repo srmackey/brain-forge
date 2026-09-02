@@ -1,6 +1,6 @@
 ---
 name: forge-signal-check
-description: "Graph-informed maintenance + lint/health-check pass on the wiki/ synthesis layer plus the slim primers catalog (primers/_index.md). Enriches natural wikilinks, surfaces contradictions/duplication/orphans/stale claims/large-or-unfocused pages, light frontmatter hygiene per the Frontmatter Constitution, and — as consumer #2 of forge-synthesis-engine — runs an engine-driven restructure/de-duplication/canonical-home/re-scope pass (propose-only). Delegates link integrity to vault-link-check; requires fresh Graphify for full passes. Follows `templates/vault.md`: strong preference for updating existing pages, always add provenance, present findings + proposals rather than large autonomous refactors. Human direction overrides."
+description: "Graph-informed maintenance + lint/health-check pass on the wiki/ synthesis layer plus the slim primers catalog (primers/_index.md). Enriches natural wikilinks, surfaces contradictions/duplication/orphans/stale claims/large-or-unfocused pages, light frontmatter hygiene per the Frontmatter Constitution, and — as consumer #2 of forge-synthesis-engine — runs an engine-driven restructure/de-duplication/canonical-home/re-scope pass (propose-only). Delegates link integrity to vault-link-check; requires fresh Graphify for full passes. Follows the vault constitution: strong preference for updating existing pages, always add provenance, present findings + proposals rather than large autonomous refactors. Human direction overrides."
 argument-hint: "[optional: specific wiki page path (e.g. wiki/ai-skills.md) or 'all' or 'primers-index']"
 ---
 
@@ -21,7 +21,7 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 - On explicit request: "run maintenance on the wiki", "lint the wiki", "health check wiki/", "find duplication / restructure", etc.
 
 **Prerequisites:**
-- A fresh graph is **mandatory** for any full pass. Run `/vault-graph-refresh` first if `_graphify-out/` (or `graphify-out/`) is stale (> ~24h or after substantial changes). Recommended focused scope: `graphify wiki raw`. Graphify is a user install; see `templates/vault.md`.
+- A fresh graph is **mandatory** for any full pass. Run `/vault-graph-refresh` first if `_graphify-out/` (or `graphify-out/`) is stale (> ~24h or after substantial changes). Recommended focused scope: `graphify wiki raw`. Graphify is a user install; `vault-graph-refresh` carries the install steps.
 - Consult `wiki/_index.md` and recent `raw/_log.md` for orientation on what is current vs. legacy.
 
 **Scope and philosophy:**
@@ -41,7 +41,7 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 - Note current frontmatter, existing wikilinks/provenance, and approximate size/focus. Link-integrity file resolution is handled by `vault-link-check` in step 4.
 
 ### 2. Frontmatter hygiene (light, schema-aligned)
-Apply only safe, current-schema fixes per the Frontmatter Constitution (Core table + Canonical Frontmatter Blocks + rules) in `templates/schema.md`:
+Apply only safe, current-schema fixes per the Frontmatter Constitution (Core table + Canonical Frontmatter Blocks + rules) in `_brain-forge/schema.md`:
 - Ensure appropriate `type:` (e.g. `concept`, `topic`, `reference`, `project`, `evolution`, `log`, `primer` — never legacy values).
 - `signal: true` on high-value living content that should participate in the graph and AI attention.
 - `status: active|draft|archived|...` where it adds orientation value.
@@ -73,7 +73,7 @@ Surface (never silently fix):
 - Contradictions, stale claims, or outdated references.
 - Legacy-namespace references in *out-of-scope* surfaces (e.g. `journal/`, archived notes) — note for human cleanup.
 - Weak overall connectivity or missing updates to `wiki/_index.md` for core areas / recent activity.
-- Any drift from the current raw + wiki model or `templates/vault.md`.
+- Any drift from the current raw + wiki model or the vault constitution.
 
 (Duplication and over-large/unfocused pages are now handled with model-driven rigor in step 6 — surface anything here that the engine pass doesn't, but prefer routing structural findings through step 6.)
 
@@ -85,7 +85,7 @@ The distinctive new value: drive consolidation/dedup/re-scope from the **learned
 - **Call `forge-synthesis-engine`** (module `classify`) treating each existing page's content as the material: *what is this page really about → which broad domain/hub → is that its canonical home → is it over-broad (a section ready to break out) or over-narrow (should fold into an umbrella)?* When synthesis steering is on, the engine reads `preferences.md` and the recent trace.
 - **Emit proposals** in the categories: **consolidation/merge** (same idea in multiple places → canonical home + cross-links, or a merge target), **de-duplication**, **canonical-home assignment**, **re-scope** (over-large → extract a section into an existing page; over-narrow → fold under an umbrella hub).
 - **Minimum proposal shape (required)** — each proposal must: (i) name a **canonical home**, (ii) cite **concrete** merge/cross-link/re-scope edits, (iii) carry **provenance**, (iv) be **propose-only / reversible**.
-- **Propose-only (v1).** Never apply restructure edits autonomously. Present them (step 8); the human approves; approved edits are applied through this skill's own write path, governed by the capability matrix (`templates/schema.md`) + the confidence gate. (Proposal *quality* is learned from pilot feedback — see below.)
+- **Propose-only (v1).** Never apply restructure edits autonomously. Present them (step 8); the human approves; approved edits are applied through this skill's own write path, governed by the capability matrix (`_brain-forge/schema.md`) + the confidence gate. (Proposal *quality* is learned from pilot feedback — see below.)
 - **Post-apply envelope (§5.7).** After any approved restructure edit lands (merge/move/extract), run **`vault-link-check` scoped to `wiki/`** to repair links to merged/moved pages, then **refresh the graph** (`/vault-graph-refresh`) since edits make it stale.
 - **Feed the shared trace (when steering is on).** When a restructure proposal gets feedback (accept/modify/reject), the engine writes a `source: forge-signal-check` entry to `skills/forge-synthesis-engine/tweaks-log.md`, and durable corrections fold into `preferences.md`. Off: do not create those files.
 
@@ -128,7 +128,7 @@ If the pass is clean across the targets, say so concisely.
 
 ---
 
-## Non-negotiables (`templates/vault.md` + schema)
+## Non-negotiables (the vault constitution + schema)
 
 - **Fresh graph required** for full lint/health. Explicitly call out when operating on stale data and recommend `/vault-graph-refresh`.
 - **Provenance on every meaningful contribution** to a wiki page.
@@ -149,8 +149,8 @@ If the pass is clean across the targets, say so concisely.
 
 ## Related
 - `skills/forge-synthesis-engine/SKILL.md` — the classification brain this skill consumes for the restructure pass (step 6).
-- `templates/vault.md` — vault operations (non-negotiables, provenance, lint/health).
-- `templates/schema.md` (authoritative frontmatter + AI steering rules; capability matrix; Tool Structure Convention).
+- The vault constitution — vault operations (non-negotiables, provenance, lint/health).
+- `_brain-forge/schema.md` (authoritative frontmatter + AI steering rules; capability matrix; Tool Structure Convention).
 - `skills/vault-link-check/SKILL.md` — the vault-purview link-integrity engine (step 4 delegates here, scoped to `wiki/`).
 - `/vault-graph-refresh` (required prerequisite for serious passes; post-restructure refresh).
 - `wiki/_index.md` (living catalog you help maintain).

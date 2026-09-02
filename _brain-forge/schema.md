@@ -9,7 +9,7 @@ last-updated: 2026-09-01
 
 Frontmatter, AI steering, capability matrix, raw-item rules, and the producer boundary for a Brain Forge vault. Canonical home for those rules. Tools reference this file and never duplicate it.
 
-Install copies this file. Adapt it. It is user-owned after the first copy.
+This file is framework-owned and updates in place. Unlike the constitution, it is not adopted: the skills read it at this path, so a forked copy would not be consulted. Per-vault deviation belongs in your constitution, which the host loads and which wins under the precedence rule below.
 
 ---
 
@@ -34,8 +34,8 @@ Any rule that more than one purview, surface, or tool must consult lives in exac
 | Frontmatter / AI-steering / raw-item rules | this file |
 | Capture destination (wiki / hold) | `forge-ingest` |
 | Wiki-page classification (which page, once wiki-bound) | `forge-synthesis-engine` (optional instance `preferences.md` when steering is on) |
-| Authoring templates | `templates/` |
-| Vault operations | `templates/vault.md` |
+| Authoring templates | `_brain-forge/templates/` |
+| Vault operations | the vault constitution |
 | Capture-describe vs classify-decide | this file — Producer Boundary |
 
 ---
@@ -117,9 +117,8 @@ Canonical autonomy table. Tools never duplicate it.
 
 | Folder | brain | forge | vault |
 | --- | --- | --- | --- |
-| `AGENTS.md` / shims | flag-only | never | flag-only |
-| `skills/` | flag-only | never | flag-only |
-| `templates/` | flag-only | never | flag-only |
+| The vault constitution / shims | flag-only | never | flag-only |
+| `_brain-forge/` | flag-only | never | flag-only |
 | `raw/` | flag-only | flag-only | flag-only *(+ the one documented dated-subfolder move)* |
 | `wiki/` | flag-only | auto | auto\* (links) |
 | `primers/` | flag-only | auto | auto\* |
@@ -137,13 +136,13 @@ Canonical autonomy table. Tools never duplicate it.
 
 ## Tool Structure Convention
 
-Every Brain Forge tool is a skill with a single canonical core at `skills/<name>/SKILL.md` in the product. Install copies that file into the instance.
+Every Brain Forge tool is a skill with a single canonical core at `_brain-forge/skills/<name>/SKILL.md`. Install copies the framework folder; exposing a skill to a host is the vault owner's step.
 
 - **User-invocable skill.** The human invokes `/<name>` after the instance operator exposes the skill to a host.
 - **`*-engine` skill.** Shared logic consumed by two or more skills, not itself user-invoked (`forge-synthesis-engine`).
 - **Tie-breaker.** A skill that is itself user-invocable keeps its natural name even when shared (`vault-link-check`).
 
-`forge-synthesis-engine` may keep a `preferences.md` next to the installed skill for optional synthesis steering. That file is user-owned and is not overwritten on update. Absence means the feature is off.
+`forge-synthesis-engine` may keep a `preferences.md` for optional synthesis steering. That file is user-owned, lives outside the framework folder, and is never overwritten. Absence means the feature is off.
 
 Imported third-party skills are external artifacts, not authored cores.
 

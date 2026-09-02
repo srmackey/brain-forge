@@ -8,11 +8,24 @@ argument-hint: "[optional: path to subfolder to scope the graph]"
 
 # /vault-graph-refresh
 
-Rebuild the Graphify knowledge graph for this vault. **Graphify is a user install.** This product does not ship Graphify or Graphify's skills. Install is in `templates/vault.md` (and the product README): package `graphifyy` from [safishamsi/graphify](https://github.com/safishamsi/graphify), then `graphify install` so the host has a `/graphify` skill. If no Graphify skill is available, say so and stop. Do not vendor Graphify into this tree.
+Rebuild the Graphify knowledge graph for this vault. **Graphify is a user install.** This product does not ship Graphify or Graphify's skills. Install steps are below. If no Graphify skill is available, say so and stop. Do not vendor Graphify into this tree.
 
 When Graphify is present, execute its skill logic inside the current AI session so the calling model supplies semantic extraction (no external key required). Run this manually. Never trigger it from ingest.
 
 **Do not** default to the package CLI `extract` path; that is headless and needs its own LLM key.
+
+## Installing Graphify
+
+Official project: [safishamsi/graphify](https://github.com/safishamsi/graphify). The PyPI package is `graphifyy` (double y). The command and skill are `graphify`. Other `graphify*` packages on PyPI are not this project.
+
+```
+uv tool install graphifyy
+graphify install
+```
+
+`graphify install` registers the `/graphify` skill with your coding assistant. Name the host if it is not Claude Code (`graphify install --platform cursor`, and so on). Alternatives: `pipx install graphifyy` or `pip install graphifyy`.
+
+Expected output is `_graphify-out/graph.json` with `GRAPH_REPORT.md` beside it. Graphify may write `graphify-out/` instead. Treat whichever exists. Install seeds a starting `.graphifyignore` at the vault root, which ignores both.
 
 ## Execution mode (critical — ensures the calling LLM does the work)
 
@@ -42,7 +55,7 @@ Direct CLI use is only appropriate for fully unattended / CI scenarios where you
 
 The graph is primarily a supporting tool for the **forge purview** working in `wiki/`.
 
-- For normal work (ingest, wiki maintenance): prefer a focused scope, or rely on `.graphifyignore` at the vault root (this product ships a starting ignore).
+- For normal work (ingest, wiki maintenance): prefer a focused scope, or rely on `.graphifyignore` at the vault root.
 - For a full lint/health check: a broader or full run.
 - Recommended focused invocations (passed to the Graphify skill; the AI executes the integrated skill path, not the CLI):
   - `graphify wiki raw`

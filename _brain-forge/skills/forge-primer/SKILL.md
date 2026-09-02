@@ -1,6 +1,6 @@
 ---
 name: forge-primer
-description: "The Context Composer + static primer authoring skill. Compose mode (default): assembles high-signal, intent-specific primers on demand by discovering and following ## Primer - Steering (wiki pages), ## Primer - Continuity (raw/distill files), and ## Primer - Codex - Name (inside primer files); when a codex is referenced, reads and executes its instructions for dynamic assembly. Static mode (`static` arg): authors a new hand-crafted static primer file in primers/ (type: primer + signal: true). Produces clean, dense, attributed output with lightweight provenance. The Codex / Context Composer lives in this skill. Follows `templates/vault.md`: human direction overrides, provenance on contributions, conservative defaults, no wiki pollution, preserve human agency."
+description: "The Context Composer + static primer authoring skill. Compose mode (default): assembles high-signal, intent-specific primers on demand by discovering and following ## Primer - Steering (wiki pages), ## Primer - Continuity (raw/distill files), and ## Primer - Codex - Name (inside primer files); when a codex is referenced, reads and executes its instructions for dynamic assembly. Static mode (`static` arg): authors a new hand-crafted static primer file in primers/ (type: primer + signal: true). Produces clean, dense, attributed output with lightweight provenance. The Codex / Context Composer lives in this skill. Follows the vault constitution: human direction overrides, provenance on contributions, conservative defaults, no wiki pollution, preserve human agency."
 argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  static <description>"
 ---
 
@@ -63,7 +63,7 @@ When assembling a primer, follow these rules in order:
 
 5. **Output quality**: Produce a **clean, dense, attributed primer block** ready to paste. Include lightweight provenance (e.g. "Sources: [[primers/harbor.md#Primer - Codex - Harbor Movies]], [[wiki/harbor-movies#Primer - Steering]], Continuity from [[raw/202606/...]]"). Attribute key guardrails and facts back to their origins.
 
-6. **Respect non-goals and constitution**: Do not pollute wiki pages. Preserve human agency (user decides stable vs. dynamic). Keep the system general — many patterns via codex sections inside existing primer files. Always follow `templates/vault.md` (provenance, prefer existing pages for any synthesis side-effects, human direction overrides, raw immutability, etc.).
+6. **Respect non-goals and constitution**: Do not pollute wiki pages. Preserve human agency (user decides stable vs. dynamic). Keep the system general — many patterns via codex sections inside existing primer files. Always follow the vault constitution (provenance, prefer existing pages for any synthesis side-effects, human direction overrides, raw immutability, etc.).
 
 If multiple codex or sources conflict, prefer the most specific explicit codex, then the most recent Continuity, then Steering, then static. Surface the choice briefly in provenance when helpful.
 
@@ -96,7 +96,7 @@ Keep the result concise yet complete for the stated goal.
 
 The skill/command should be easy to invoke directly with natural language goals plus references. A lightweight listing of available codex names (in `primers/_index.md` or via a future helper) is desirable but not required for v0.1.
 
-## Non-Negotiables (from Codex spec + `templates/vault.md`)
+## Non-Negotiables (from Codex spec + the vault constitution)
 
 - Do not pollute wiki pages with dense context blocks — keep them human-readable. Steering lives in the callout on wiki; the qualified name is what matters for discovery.
 - Avoid creating large numbers of new files or parallel maintenance surfaces. Codex sections belong inside existing primer files.
@@ -137,7 +137,7 @@ When the caller invokes with the `static` keyword (`/forge-primer static <descri
 
 1. **Determine intent** — extract from the current conversation, author from a description, or adapt external pasted content (Grok/ChatGPT custom instructions, etc.).
 2. **Elicit identifying info (filename only; ask only if not derivable):** AI tool (`claude | grok | cursor | any`), purpose (`coaching | code-review | brainstorm | system-prompt | …`), display title (the H1), slug `<tool>-<purpose>`. Tool + purpose live in the slug, not in frontmatter.
-3. **Draft** `primers/<slug>.md` — frontmatter `type: primer`, `signal: true`, `status: active`, `created:`/`last-updated:` (real current date; never inferred). Body per `templates/primer.md` (When to Use, Role / Framing, Paste Block, Provenance). The **Paste Block must be fully self-contained** — no `[[wikilinks]]` or Obsidian syntax (the receiving AI lives outside this vault).
+3. **Draft** `primers/<slug>.md` — frontmatter `type: primer`, `signal: true`, `status: active`, `created:`/`last-updated:` (real current date; never inferred). Body per `_brain-forge/templates/primer.md` (When to Use, Role / Framing, Paste Block, Provenance). The **Paste Block must be fully self-contained** — no `[[wikilinks]]` or Obsidian syntax (the receiving AI lives outside this vault).
 4. **Propose before saving** — slug, H1, When-to-Use preview, Paste-Block preview (~150 chars), word count. Wait for approval.
 5. **On approval** — write the file; suggest 1–2 existing primers to cross-link.
 

@@ -1,6 +1,6 @@
 ---
 name: vault-link-check
-description: "Vault-wide link integrity engine (vault purview). Resolves every wikilink and markdown link against the real file tree — a filesystem check, not a graph check (Graphify cannot see dangling links). Auto-repairs unambiguous rename/move drift (exactly one clear target: raw/YYYYMM/ relocation, YYYY-MM-DD→YYYYMMDD, separator changes); surfaces dead links (no target) and ambiguous ones (multiple candidates) for human decision. Never auto-creates or auto-deletes files. Scope defaults to the whole vault; accepts a folder or path scope (e.g. wiki/). Write permission is governed by the folder × purview capability matrix in templates/schema.md + the confidence gate. forge-signal-check delegates its wiki/ link step here. Invoke for /vault-link-check or any 'check/repair broken links' request."
+description: "Vault-wide link integrity engine (vault purview). Resolves every wikilink and markdown link against the real file tree — a filesystem check, not a graph check (Graphify cannot see dangling links). Auto-repairs unambiguous rename/move drift (exactly one clear target: raw/YYYYMM/ relocation, YYYY-MM-DD→YYYYMMDD, separator changes); surfaces dead links (no target) and ambiguous ones (multiple candidates) for human decision. Never auto-creates or auto-deletes files. Scope defaults to the whole vault; accepts a folder or path scope (e.g. wiki/). Write permission is governed by the folder × purview capability matrix in _brain-forge/schema.md + the confidence gate. forge-signal-check delegates its wiki/ link step here. Invoke for /vault-link-check or any 'check/repair broken links' request."
 argument-hint: "[optional: scope — 'all' (whole vault, default) | a folder like wiki/ | a specific page path]"
 ---
 
@@ -41,13 +41,13 @@ Graphify only draws edges between nodes that **already exist**, so a wikilink to
 
 ## Write-permission rules (capability matrix + confidence gate)
 
-Whether a repair is **applied** vs **proposed** vs **report-only** is governed by the **folder × purview capability matrix** in `templates/schema.md` (the **vault** column) for the *target page's* folder, ratcheted tighter by any `ai-behavior` protection on the file. The confidence gate operates **inside** what the matrix permits (matrix = "may I write here?"; confidence = "auto or surface?" — auto only on an unambiguous single target).
+Whether a repair is **applied** vs **proposed** vs **report-only** is governed by the **folder × purview capability matrix** in `_brain-forge/schema.md` (the **vault** column) for the *target page's* folder, ratcheted tighter by any `ai-behavior` protection on the file. The confidence gate operates **inside** what the matrix permits (matrix = "may I write here?"; confidence = "auto or surface?" — auto only on an unambiguous single target).
 
-Follow the vault column in `templates/schema.md`. In short:
+Follow the vault column in `_brain-forge/schema.md`. In short:
 - **wiki/ · primers/** — `auto*` (auto-repair unambiguous drift on unprotected files; propose on `ai-behavior`-protected files).
 - **journal/** — `propose`.
 - **raw/ · archive/** — `flag-only` (raw is immutable except the documented dated-subfolder move, which belongs to forge ingest).
-- **AGENTS.md / skills/ / templates/** — `flag-only`.
+- **The vault constitution / `_brain-forge/`** — `flag-only`.
 
 Folders this vault has that the matrix does not name (operator overlay, host dirs) are flag-only unless the user directed otherwise.
 

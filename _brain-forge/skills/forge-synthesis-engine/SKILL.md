@@ -1,6 +1,6 @@
 ---
 name: forge-synthesis-engine
-description: Shared forge-purview classification engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, and optional synthesis steering via instance preferences.md (learn from feedback, adjust the file, or leave off for full discretion). Source-tagged self-observation trace at skills/forge-synthesis-engine/tweaks-log.md when steering is on. Charter is brain, not hands. Consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows `templates/vault.md`; human direction overrides.
+description: Shared forge-purview classification engine (the synthesis 'brain'). Owns top-down classification, the page-type taxonomy, the umbrella-with-sections structuring principle, and optional synthesis steering via instance preferences.md (learn from feedback, adjust the file, or leave off for full discretion). Source-tagged self-observation trace at skills/forge-synthesis-engine/tweaks-log.md when steering is on. Charter is brain, not hands. Consumers (forge-ingest, forge-signal-check) own the writes. Not directly user-invocable. Follows the vault constitution; human direction overrides.
 ---
 
 > Product core (`skills/forge-synthesis-engine/SKILL.md`). Install copies this file into an instance. Host exposure is the instance operator's job.
@@ -14,9 +14,9 @@ The shared **classification brain** for the **forge purview's** synthesis work. 
 - **`forge-ingest`** (consumer #1) — applies the decision by integrating a `raw/` capture into `wiki/` (its Steps 5–9: integrate, tidy, `raw/_log`, `wiki/_index`, eval-log).
 - **`forge-signal-check`** (consumer #2) — applies the model to *existing* wiki content, emitting restructure / de-duplication / canonical-home / re-scope **proposals** (propose-only), then applying approved edits through its own gated path.
 
-This is the `-engine` of the **Tool Structure Convention** (`templates/schema.md`): shared logic consumed by 2+ commands, not itself a user invocation.
+This is the `-engine` of the **Tool Structure Convention** (`_brain-forge/schema.md`): shared logic consumed by 2+ commands, not itself a user invocation.
 
-## Non-Negotiables (from `templates/vault.md`)
+## Non-Negotiables (from the vault constitution)
 
 - **Integration over proliferation.** Strong default: update an existing page (especially the relevant high-level hub) rather than create a new one. New pages stay intentional and rare.
 - **Lightweight provenance is required** on every contribution the consumer applies: `Source: [[raw/YYYYMM/YYYYMMDD-filename.md]]` (or `#section`). The engine includes the provenance line(s) in its decision.
@@ -48,9 +48,9 @@ Top-down classification. Do **not** start from "what's narrowly in this material
 
 ### Producer boundary (capture surfaces ↔ this engine)
 
-**Canonical home:** `templates/schema.md` — "Producer Boundary (Describe vs. Decide)". Capture surfaces (`forge-distill`, a web distill primer) **describe** the session; this engine **decides** the wiki home. Never import classify logic onto a capture surface (the slow-vs-fast heuristic lives in schema.md — do not duplicate it here).
+**Canonical home:** `_brain-forge/schema.md` — "Producer Boundary (Describe vs. Decide)". Capture surfaces (`forge-distill`, a web distill primer) **describe** the session; this engine **decides** the wiki home. Never import classify logic onto a capture surface (the slow-vs-fast heuristic lives in schema.md — do not duplicate it here).
 
-**Advisory `layers:` hint.** A raw capture distilled per `templates/distill.md` may carry a one-line `layers:` Routing Hint with one or more of `durable-reasoning` / `reference` / `system-intent`. Treat it as a **non-binding hint** — one input to `classify`, never the decision; the engine always owns the final classification call. The `system-intent` layer is **flagged-only**: deciding what happens to a `system-intent` signal at ingest is a separate brain-purview question (parked), not this engine's job.
+**Advisory `layers:` hint.** A raw capture may carry a one-line `layers:` Routing Hint with one or more of `durable-reasoning` / `reference` / `system-intent`. Treat it as a **non-binding hint** — one input to `classify`, never the decision; the engine always owns the final classification call. The `system-intent` layer is **flagged-only**: deciding what happens to a `system-intent` signal at ingest is a separate brain-purview question (parked), not this engine's job.
 
 ## Module: preferences (synthesis steering)
 
@@ -147,8 +147,8 @@ When steering is On: reduce feedback-prompt density and trace verbosity as the m
 - **`forge-signal-check`** — calls `classify` against *existing* wiki pages to drive restructure / de-duplication / canonical-home / re-scope **proposals** (propose-only v1). Minimum proposal shape: name a canonical home, cite concrete merge/cross-link/re-scope edits, carry provenance, be reversible. When steering is On, proposal quality is learned from feedback through the shared trace.
 
 ## Related
-- `templates/vault.md` — vault operations (principles this engine executes).
-- `templates/schema.md` — Tool Structure Convention and producer boundary.
+- The vault constitution — vault operations (principles this engine executes).
+- `_brain-forge/schema.md` — Tool Structure Convention and producer boundary.
 - Instance `skills/forge-synthesis-engine/preferences.md` — the learned model, if the user turned steering on.
 - Instance `skills/forge-synthesis-engine/tweaks-log.md` — source-tagged self-observation trace, if steering is on.
 - `forge-ingest` / `forge-signal-check` — the consumers.

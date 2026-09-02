@@ -1,10 +1,12 @@
-# Vault operations (Brain Forge)
+# Vault constitution (Brain Forge)
 
-Operations for a vault that installed Brain Forge. This is not a host constitution. Install copies this file. Adapt it. Do not treat it as `AGENTS.md`.
+The constitution for a vault that installed Brain Forge.
+
+**Adopt this file.** Copy it to wherever your coding agent loads a constitution from (`AGENTS.md`, `CLAUDE.md`, a shim that imports it), or adapt it to your platform. Your adopted copy is yours and nothing overwrites it.
+
+This file is framework-owned and updates in place at `_brain-forge/constitution.md`. When it moves ahead of what you adopted, `vault-update` says so and shows you the difference.
 
 The vault is a store: capture, catalog, link, graph, synthesize. It is not an operating system and not the place you invent the next tool.
-
-Framework cores live in the product. Install copies them into this vault as generic files under `skills/`. Host exposure (copying or mapping those files into `.claude/skills`, `.grok/skills`, or any other discovery path) is yours.
 
 ## Model
 
@@ -14,12 +16,12 @@ Framework cores live in the product. Install copies them into this vault as gene
 
 ## Purviews
 
-The matrix in `templates/schema.md` is the canonical home. Tools reference it. They never duplicate it.
+The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it. They never duplicate it.
 
 | Purview | Job |
 |---|---|
 | **forge** | Ingest, synthesis, the wiki |
-| **vault** | Graph rebuilds, link integrity, structural plumbing |
+| **vault** | Graph rebuilds, link integrity, framework install and update, structural plumbing |
 | **brain** | Retrieval, query, and analysis over the material. An outside agent operates here and is denied forge and vault. |
 
 ## Wiki or hold
@@ -28,28 +30,15 @@ The matrix in `templates/schema.md` is the canonical home. Tools reference it. T
 
 ## File categories
 
-| Category | What | Update may touch |
+| Category | What | Update |
 |---|---|---|
-| Installed framework | `skills/*/SKILL.md`, `scripts/` | Yes, overwrite |
-| User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, adapted templates, learned `preferences.md`, the vault's own constitution and inbox, instance-authored skills | Never |
-| Product source | Not in this vault. Lives in the Brain Forge product repo. | n/a |
+| Framework | Everything under `_brain-forge/` | Overwritten wholly |
+| Adopted | Your constitution, host skill copies, whatever path your template plugin reads, `primers/distill.md`, root `.graphifyignore` | Never touched. `vault-update` reports when the framework source moved ahead. |
+| User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, `preferences.md`, your inbox, instance-authored skills | Never touched |
 
-**Synthesis steering** is a shipping feature of `forge-synthesis-engine`, and it is optional. Create `skills/forge-synthesis-engine/preferences.md` to turn it on (agents propose wiki homes, take feedback, and learn). Edit that file to adjust how autonomously they synthesize. Leave it off (no file, or autonomy `off`) for full discretion. The file is user-owned and is not overwritten on update. Instruction lives in the engine skill.
+Framework skills live at `_brain-forge/skills/<name>/SKILL.md`. Exposing one to a coding agent means copying or mapping it into that host's discovery path (`.claude/skills`, `.grok/skills`, and so on), and that is your job, not install's. Re-do it after an update, or run `vault-update`, which tells you which copies are behind.
 
-## Graphify (user install)
-
-This product does not ship Graphify or Graphify's skills. You install them.
-
-Official project: [safishamsi/graphify](https://github.com/safishamsi/graphify). Package `graphifyy`, command and skill `graphify`.
-
-```
-uv tool install graphifyy
-graphify install
-```
-
-`graphify install` registers `/graphify` with your coding assistant. `vault-graph-refresh` discovers that skill; it does not assume a path. Ingest still runs without a graph. A full `forge-signal-check` needs a fresh one.
-
-Expected output: `_graphify-out/graph.json` and `GRAPH_REPORT.md`. Graphify may write `graphify-out/` instead. Treat whichever exists. `.graphifyignore` at the vault root (this product ships a starting copy) ignores both.
+Synthesis steering is optional and off unless you create `preferences.md`. `forge-synthesis-engine` carries the instruction.
 
 ## Non-negotiables
 
@@ -59,7 +48,3 @@ Expected output: `_graphify-out/graph.json` and `GRAPH_REPORT.md`. Graphify may 
 - Real dates only (`YYYY-MM-DD`). Never infer a date from a filename.
 - Frictionless capture is the highest priority.
 - Strong default: update an existing wiki page rather than create a new one.
-
-## Human-sounding
-
-All agent output must read like a competent human wrote it. No em-dashes or en-dashes as rhetorical separators. No stock model cadence.

@@ -1,6 +1,6 @@
 ---
 name: forge-ingest
-description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification (and optional synthesis steering) to forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and an optional instance eval log. Adds lightweight provenance. Follows `templates/vault.md`; human direction overrides."
+description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification (and optional synthesis steering) to forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and an optional instance eval log. Adds lightweight provenance. Follows the vault constitution; human direction overrides."
 argument-hint: "[optional: single filename or path under raw/ to process]"
 ---
 
@@ -18,7 +18,7 @@ The forge purview's **raw→wiki ingest hands**: it brings material from the imm
 
 Acting in the forge purview, transform raw material into a clean, evolving wiki. Be **conservative by default** and favor **integration over proliferation**. The strong default is to *update an existing page* (especially the relevant high-level hub) rather than create a new one. Wiki vs hold is this skill's call. Page classification comes from the engine. This skill applies both faithfully and adds provenance.
 
-## Non-Negotiables (from `templates/vault.md`)
+## Non-Negotiables (from the vault constitution)
 
 - **`raw/` is immutable.** Never modify, move, or delete anything in `raw/` **except**: (a) appending to `raw/_log.md`, and (b) the narrow permitted move of a capture into its correct `raw/YYYYMM/` year-month subfolder based on the file's date. Never alter raw *content* (light frontmatter enrichment only if it clearly helps future processing; prefer leaving the capture untouched).
 - **Always consult `raw/_log.md` first** to know what has already been processed; never auto-scan/auto-process the whole `raw/` tree on every session. Ingest is human-initiated.
@@ -44,7 +44,7 @@ Read the latest entries to avoid duplicate work. (Hard precondition; call it out
 - Note inline hints (`#todo`, `#revisit`, `suggested-title:`, etc.).
 
 ### Step 3.4 — Screen capture quality (noise that must not compound)
-Before triage, screen each capture — AI-session distills especially — for the **capture-noise patterns** (the detection-side counterpart of the capture-quality Core Rules in `templates/distill.md`):
+Before triage, screen each capture — AI-session distills especially — for the **capture-noise patterns** (the detection-side counterpart of the capture-quality Core Rules in `primers/distill.md`):
 
 1. **Flattering / persona-affirming register** about the user ("deep expertise", "impressive system") — appraisal instead of plain fact.
 2. **AI suggestions recorded as settled conclusions** — especially untagged numbers (prices, hours, estimates, timelines) with no evidence the user adopted them.
@@ -114,9 +114,9 @@ Returns: per-file routing decisions (from the engine) + applied edits, the `raw/
 
 ## Related
 - `skills/forge-synthesis-engine/SKILL.md` — the shared classification brain this skill consumes for wiki-bound captures.
-- `templates/vault.md` — vault operations.
-- `templates/schema.md` — producer boundary and capability matrix.
-- `templates/distill.md` — distill format (capture-quality rules).
+- The vault constitution — vault operations.
+- `_brain-forge/schema.md` — producer boundary and capability matrix.
+- `primers/distill.md` — distill format (capture-quality rules).
 - `raw/_log.md` — raw-processing memory.
 
 **Current version:** Consumer #1 of `forge-synthesis-engine`. Wiki vs hold is this skill's call (2026-09-01). Capture-quality screen added 2026-07-11.

@@ -5,7 +5,9 @@ signal: false
 
 # Distill format
 
-The capture format for AI-session distills. Two producers, one consumer: a web AI pastes this file and emits `raw/` notes; `forge-distill` is the in-system producer of the same format; `forge-ingest` consumes both. Install copies this file. Adapt it. It is user-owned after the first copy.
+The capture format for AI-session distills. Two producers, one consumer: a web AI pastes this file and emits `raw/` notes; `forge-distill` is the in-system producer of the same format; `forge-ingest` consumes both.
+
+> **Framework file.** Install placed this copy here so you would find it beside your own primers. It is yours now: edit it freely, and nothing will overwrite it. The framework source is `_brain-forge/primers/distill.md`, and `vault-update` tells you when that source moves ahead of this copy so you can decide what to take.
 
 When pasting into a web AI, the rules below are the whole instruction.
 
