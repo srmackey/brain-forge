@@ -14,6 +14,23 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.1 (2026-09-03)
+
+The stamp check says how to find a stamp. Reconcile your host copy of
+`brainforge-surfaces`. Nothing else moves, and no vault behaves differently
+until that copy is refreshed.
+
+- **A stamped copy is one whose first non-empty line after the frontmatter is a
+  stamp line, and that is now written down.** Checks 1 and 3 said "stamped" and
+  "ignoring the stamp line" without saying how to decide either, which left the
+  obvious implementation, a text search, as the one a reader would reach for.
+- **The obvious implementation is wrong, and this skill is the file it breaks
+  on.** Documenting the format requires a literal example of a stamp sitting at
+  the start of a line, so a search finds that example and either reports the core
+  as stamped or, after stripping every matching line, reports a correct copy as
+  drifted. Both have now happened, in a vault and in a verification pass, and
+  both read as a real finding at the time.
+
 ## 0.2.0 (2026-09-03)
 
 **Four tools are renamed and every host copy of them is stale by name.** This is

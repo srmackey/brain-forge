@@ -24,11 +24,13 @@ generated from _brain-forge/skills/forge-ingest/SKILL.md on 2026-09-02 - edit th
 
 Place it as the first line after the frontmatter. Use a plain hyphen, not a dash character, since some hosts are strict about the file's opening bytes.
 
+**Read the stamp by position, never by searching for its wording.** A stamped copy is one whose **first non-empty line after the closing `---` of the frontmatter** is a stamp line. Do not scan the file for the stamp text, and do not scan the file for `generated from`. Any skill that documents this format contains a literal example of a stamp at the start of a line, this one included, four lines above. A text search finds that example and reports the core itself as stamped, or reports a correct copy as drifted after the example is stripped out of the comparison. Both failures have happened, and both looked like a real finding at the time.
+
 The stamp makes staleness mechanically decidable rather than a judgment call. Three checks, in order:
 
-1. **Stamped?** If yes, go to check 3.
+1. **Stamped?** Decide it by position, per the rule above. If yes, go to check 3.
 2. **Unstamped: byte-identical to its core?** If yes, **claim it**: write the stamp and treat it as derived from here on. Nothing is lost, because a file identical to its core holds nothing of the owner's. If no, the file is the owner's. Report and stop.
-3. **Stamped: byte-identical to a fresh generation, ignoring the stamp line?** If yes it is current. If no it is stale.
+3. **Stamped: byte-identical to a fresh generation, ignoring the stamp line?** If yes it is current. If no it is stale. Ignore that one line by its position, the same way check 1 found it. Removing every line that matches the stamp wording deletes the documented example along with it and turns a current copy into a false stale.
 
 Check 2 is what makes a hand-copied file maintainable. An owner who copies a core into a host directory has produced something indistinguishable from what this skill would have written, and refusing to touch it forever would strand exactly the copies most likely to go stale.
 
