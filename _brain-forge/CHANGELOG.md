@@ -14,6 +14,28 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.1.8 (2026-09-02)
+
+Install tells you what it skipped. Reconcile your host copy of `vault-update`.
+Nothing changes for an install into an empty tree.
+
+- **Install reports every file it left alone, and what that leaves undone.**
+  Seeding only where absent is correct and it is also how a vault that already
+  had contents ends up half-configured in silence. Declining to write is not the
+  same as nothing being needed, and the owner had no way to know what the
+  framework's version of their file would have contributed.
+- Three skips have consequences and the report names each: an existing
+  `.graphifyignore` missing the framework's rules, most importantly
+  `_brain-forge/`, without which a graph run indexes the entire framework; an
+  existing `primers/_index.md` missing the `signal: true` primers install just
+  seeded, which `forge-signal-check` lints and will flag on the first pass; and
+  an existing `wiki/_index.md` without the **Pages** and **Recent activity**
+  headings that `forge-ingest` step 8 writes to by name.
+
+Found by installing into a vault that already had contents, which until now had
+never been tried. Every absence guard in the skill fired for the first time in
+that run, and nothing of the owner's was touched, which was the good half.
+
 ## 0.1.7 (2026-09-02)
 
 Update stops reporting "nothing changed" on a run that overwrote your work.

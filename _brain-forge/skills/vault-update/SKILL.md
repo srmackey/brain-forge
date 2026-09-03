@@ -80,6 +80,17 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
    - `_brain-forge/primers/_me.md` to `primers/_me.md`. It arrives empty with instructions in it. Say plainly that filling it in is the first thing to do: it is the seed of the primer layer, and most composition examples pull sections from it.
 4. **Report** the adoption steps above. Nothing works until the owner does them: no skill is exposed to a host and no constitution is loaded.
 
+   **Then report what you skipped, and what that leaves undone.** Steps 2 and 3 leave every file that already existed alone, which is right, and it is also how an existing vault ends up half-configured without being told. Declining to write is not the same as nothing being needed. For each file you skipped, say what the framework's version would have contributed:
+
+   | Skipped because it was already there | Tell the owner |
+   |---|---|
+   | `.graphifyignore` | Name the rules in `_brain-forge/.graphifyignore` that theirs is missing. Without at least `_brain-forge/`, a graph run indexes the whole framework, which is the one thing that file exists to prevent. |
+   | `primers/_index.md` | Name the primers you just seeded that carry `signal: true` and are not in their catalog. `forge-signal-check` lints exactly that and will fail on the first pass otherwise. |
+   | `wiki/_index.md` | Say whether it has the **Pages** and **Recent activity** headings. `forge-ingest` step 8 writes to those by name and invents a shape when they are absent. |
+   | `raw/_log.md` | Nothing further. It only has to exist. |
+
+   A vault that already had contents is the common case for adoption, not the exception, and it is the only case where this report has anything to say. On an empty tree it is one line: nothing skipped.
+
 ## Update (`_brain-forge/` already present)
 
 1. **Read the installed version first.** The top entry of `_brain-forge/CHANGELOG.md` is what this vault currently has. Record it before touching anything. There is no separate stamp file; the changelog in the vault's own framework folder is the version.
@@ -160,6 +171,19 @@ Orphans (no longer shipped, left in place):
 
 Seeded (first install only): none
 Untouched: raw/, wiki/, primers/, preferences.md, tweaks-log.md, eval.md
+```
+
+On a first install into a vault that already had contents, the same run also carries:
+
+```
+Skipped (already yours), and what that leaves you to do:
+  .graphifyignore    — yours has no _brain-forge/ rule. Until it does, a graph
+                       run indexes all 22 framework files. Also missing:
+                       primers/_system.md, primers/distill.md, raw/_log.md
+  primers/_index.md  — seeded distill.md and _system.md carry signal: true and
+                       are not in your catalog. forge-signal-check will flag it.
+  wiki/_index.md     — no Pages or Recent activity heading. forge-ingest writes
+                       to those by name.
 ```
 
 If the version did not move and no file differed on disk, say so in one line. If the version did not move but files were restored, that is not nothing: report the restored list.
