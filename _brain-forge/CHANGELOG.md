@@ -14,6 +14,35 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.1.7 (2026-09-02)
+
+Update stops reporting "nothing changed" on a run that overwrote your work.
+Reconcile your adopted constitution; the host copy of `vault-update` is stale.
+
+- **`vault-update` reports what changed on disk, separately from the version.**
+  It was answering both questions with the changelog, so a vault whose owner
+  had edited a framework file and then updated at the same version got a
+  one-line "nothing changed" on the exact run that destroyed the edit. Step 2
+  keeps the list of files that differed before it wrote them, and step 4 reports
+  them as restored. Nothing about what gets written has changed: framework files
+  are still overwritten, with no merge and no prompt.
+
+  The report separates the two reasons a file differs. When the version did not
+  move, every difference is yours. When it did, most are the release, and only
+  the ones the new changelog entries do not account for are worth naming. A raw
+  diff list buries the edit you lost among the files the update was supposed to
+  change.
+- **The constitution says not to edit a framework file**, and says it beside the
+  file-categories table rather than in an adoption section nobody reads while
+  they are in the middle of editing `schema.md`. That file is the tempting one,
+  because it holds the frontmatter model and the capability matrix and is
+  deliberately not adopted, so a forked copy is never consulted. Per-vault
+  deviation belongs in your constitution.
+
+`primers/_system.md` deliberately does not carry this. It is a design-thinking
+primer, not the operating rulebook, so its marker stays at 0.1.6 and parity will
+flag the gap for you to judge. That flag is the check working, not a defect.
+
 ## 0.1.6 (2026-09-02)
 
 The constitution says what the graph is. Reconcile your adopted constitution and

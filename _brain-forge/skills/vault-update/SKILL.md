@@ -83,9 +83,24 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 ## Update (`_brain-forge/` already present)
 
 1. **Read the installed version first.** The top entry of `_brain-forge/CHANGELOG.md` is what this vault currently has. Record it before touching anything. There is no separate stamp file; the changelog in the vault's own framework folder is the version.
-2. **Write every file the product ships**, at the same relative path. Do not clear the folder. Do not merge, do not ask per file.
+2. **Write every file the product ships**, at the same relative path. Do not clear the folder. Do not merge, do not ask per file. **Note which ones differed from the product before you wrote them.** You are reading both sides already; keep the list. This is not a gate and not a prompt, and it does not change what gets written.
 3. **Write nothing else.** Not the seeded files, not the vault contents, not any adopted copy, and not anything inside the framework folder that the product does not ship.
-4. **Report what changed**: every changelog entry newer than the version recorded in step 1.
+4. **Report what changed**, which is two separate questions:
+
+   - **Version:** every changelog entry newer than the version recorded in step 1.
+   - **Disk:** every framework file from step 2 that differed before you wrote it.
+
+   **Never answer the second with the first,** and do not report the disk list raw either. A file differs for one of two reasons and they matter differently:
+
+   - **The release changed it.** Ordinary, and the changelog entries you just listed account for it. Not worth a separate line.
+   - **The owner changed it.** Their edit is gone. This is the one the report exists for.
+
+   Which case you are in follows from the version:
+
+   - **Version did not move.** The product is identical to what this vault already had, so *every* differing file is an owner edit. Report all of them as restored. This is the case that was silently reported as "nothing changed".
+   - **Version moved.** Most differences are the release. Name the ones the newer changelog entries do not account for, and say that those were probably the owner's. Do not pretend to more certainty than that: the changelog describes a release in prose, not as a file list.
+
+   Restoring is correct either way. Framework files are the product's and step 2 does not merge. Saying nothing is what turns a refresh into damage.
 5. **Report orphans.** Start from every file under `_brain-forge/` that this update did not just write. That set holds two different things, and the changelog is what separates them, because it is the only record of what was ever shipped:
 
    - **Carried on a `Removed:` line in a changelog entry** — an orphan from an older version. Report it, say which version dropped it, and leave it in place.
@@ -132,6 +147,10 @@ Changed in this update:
   constitution.md: file categories rewritten
   skills/forge-ingest/SKILL.md: capture-quality screen reworded
 
+Restored (differed on disk, not accounted for by the entries above):
+  schema.md: probably your edit, and it is gone. Per-vault deviation belongs
+             in your constitution.
+
 Your copies to reconcile:
   Adopted constitution: file-categories section changed, diff below
   Host copy of forge-ingest: stale, re-copy from _brain-forge/skills/
@@ -143,7 +162,7 @@ Seeded (first install only): none
 Untouched: raw/, wiki/, primers/, preferences.md, tweaks-log.md, eval.md
 ```
 
-If nothing changed, say so in one line.
+If the version did not move and no file differed on disk, say so in one line. If the version did not move but files were restored, that is not nothing: report the restored list.
 
 ## Related
 - `_brain-forge/constitution.md` — vault operations, and the file-categories table this skill enforces.

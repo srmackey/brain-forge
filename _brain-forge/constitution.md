@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.1.6
+framework: 0.1.7
 
 The constitution for a vault that installed Brain Forge.
 
@@ -42,6 +42,8 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 | User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, `preferences.md` and `tweaks-log.md` beside the engine core, your inbox, instance-authored skills | Never touched |
 
 Update writes the files the product ships and never deletes anything, so your own state may sit inside the framework folder as long as it does not use a shipped filename. That is why the learned synthesis model lives beside the engine core.
+
+**Do not edit a framework file.** Every file the product ships is overwritten on the next update, with no merge and no prompt. `schema.md` is the one most likely to tempt you, because it holds the frontmatter model and the capability matrix and it is deliberately not adopted, so a forked copy would never be consulted. Per-vault deviation belongs in this constitution, which is yours and which nothing overwrites. `vault-update` now names any framework file it had to restore, so an edit is reported rather than lost quietly, but the report arrives after the change is already gone.
 
 Framework skills live at `_brain-forge/skills/<name>/SKILL.md`. Exposing one to a coding agent means putting a copy in that host's discovery path (`.claude/skills`, `.grok/skills`, and so on). Which skills you expose is your call, not install's; making the copies is `vault-surfaces expose`, which stamps them so it can keep them current for you afterwards. `vault-update` tells you which copies an update left behind.
 
