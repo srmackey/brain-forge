@@ -14,6 +14,23 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.1.9 (2026-09-02)
+
+One hardcoded pair of filenames becomes a rule. Reconcile your host copy of
+`vault-update`. No behaviour changes for a vault installing today.
+
+- **Install derives which primers belong in the seeded catalog** instead of
+  naming `distill.md` and `_system.md` in the step text. Eligibility is read off
+  `_brain-forge/primers/`, which step 1 has already copied: every file there
+  whose own frontmatter carries `signal: true`. Ship a third such primer and the
+  catalog picks it up; drop one and it stops appearing. The old wording was a
+  second list of shipped files, and this product has now lost that bet twice,
+  with step 5's owner-state list and with this.
+
+  It also removes a forward reference. That step described files step 3 had not
+  seeded yet, which was answerable because the names were written out, and is
+  now answerable because their source is already on disk.
+
 ## 0.1.8 (2026-09-02)
 
 Install tells you what it skipped. Reconcile your host copy of `vault-update`.
