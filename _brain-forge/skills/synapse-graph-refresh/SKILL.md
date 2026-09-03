@@ -1,12 +1,12 @@
 ---
-name: vault-graph-refresh
+name: synapse-graph-refresh
 description: Rebuild the Graphify knowledge graph over the vault. Graphify is a user install; this product does not ship it. Run manually when the graph is stale (>24h old).
 argument-hint: "[optional: path to subfolder to scope the graph]"
 ---
 
-> Product core (`_brain-forge/skills/vault-graph-refresh/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
+> Product core (`_brain-forge/skills/synapse-graph-refresh/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
-# /vault-graph-refresh
+# /synapse-graph-refresh
 
 Rebuild the Graphify knowledge graph for this vault. **Graphify is a user install.** This product does not ship Graphify or Graphify's skills. Install steps are below. If no Graphify skill is available, say so and stop. Do not vendor Graphify into this tree.
 

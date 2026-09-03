@@ -1,8 +1,8 @@
 # Changelog
 
-The version record for the Brain Forge framework. `vault-update` reads the top
-entry to learn what a vault currently has, and reports every entry newer than
-that after an update.
+The version record for the Brain Forge framework. `brainforge-update` reads the
+top entry to learn what a vault currently has, and reports every entry newer
+than that after an update.
 
 An entry says what changed and, where it matters, what an owner has to
 reconcile in their own adopted copy. Framework-internal changes that touch no
@@ -10,9 +10,43 @@ adopted file say so, because that tells the owner they can skip the pass.
 
 **A file the product stops shipping gets its own line, beginning `Removed:`,
 naming the path relative to `_brain-forge/`.** That line is not decoration.
-`vault-update` separates an orphan from owner state by looking for it, so a
+`brainforge-update` separates an orphan from owner state by looking for it, so a
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
+
+## 0.2.0 (2026-09-03)
+
+**Four tools are renamed and every host copy of them is stale by name.** This is
+the one entry so far that breaks something: your exposed skills answer to slash
+commands that no longer exist in the framework. Run `brainforge-surfaces expose`
+for the four new names, then delete the four old host copies by hand, since
+nothing removes a copy the framework no longer knows about. Reconcile your
+adopted constitution as well.
+
+- **The third purview is `synapse`.** It holds the graph and link integrity,
+  which is one thing seen twice: the graph draws the relationships between
+  documents and link resolution validates them against the real file tree.
+  `synapse` names the junction rather than the documents or a worker acting on
+  them, which is the category `forge` and `brain` are already in. It was called
+  `vault` until now, which was never a name so much as the absence of one.
+- **The three purviews are siblings, not nested.** A synapse is anatomically
+  inside a brain and the matrix is not, so an agent in `brain` is denied the
+  `synapse` column like any other. Stated in the constitution and the schema,
+  beside the note that `brain` used to mean governance before 2026-08-31.
+- **Install and update are not a purview at all.** `brainforge-update` and
+  `brainforge-surfaces` write the framework rather than the corpus, and the
+  capability matrix answers exactly one question: may an agent write in this
+  folder of the vault. That is what the `_brain-forge/` row has been saying all
+  along in a column that contained the installer. Both tools now sit outside the
+  matrix and carry the product's name.
+- **The naming convention follows.** Every purview tool is `<purview>-<intent>`,
+  and the product's own hands are named for the product. `system-update` was
+  rejected, because `system-init` and `_system/` belong to a different family.
+
+- Removed: `skills/vault-graph-refresh/SKILL.md`
+- Removed: `skills/vault-link-check/SKILL.md`
+- Removed: `skills/vault-update/SKILL.md`
+- Removed: `skills/vault-surfaces/SKILL.md`
 
 ## 0.1.9 (2026-09-02)
 

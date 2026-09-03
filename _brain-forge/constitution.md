@@ -1,14 +1,14 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.1.7
+framework: 0.2.0
 
 The constitution for a vault that installed Brain Forge.
 
 **Adopt this file.** Copy it to wherever your coding agent loads a constitution from (`AGENTS.md`, `CLAUDE.md`, a shim that imports it), or adapt it to your platform. Your adopted copy is yours and nothing overwrites it.
 
-Keep the `framework:` line when you copy, and leave it alone afterwards. It says which version of this document your copy reflects, which is how `vault-surfaces` can tell that your copy is behind without guessing from a timestamp. Adapt everything else freely.
+Keep the `framework:` line when you copy, and leave it alone afterwards. It says which version of this document your copy reflects, which is how `brainforge-surfaces` can tell that your copy is behind without guessing from a timestamp. Adapt everything else freely.
 
-This file is framework-owned and updates in place at `_brain-forge/constitution.md`. When it moves ahead of what you adopted, `vault-update` says so and shows you the difference.
+This file is framework-owned and updates in place at `_brain-forge/constitution.md`. When it moves ahead of what you adopted, `brainforge-update` says so and shows you the difference.
 
 The vault is a store: capture, catalog, link, graph, synthesize. It is not an operating system and not the place you invent the next tool.
 
@@ -26,8 +26,12 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 | Purview | Job |
 |---|---|
 | **forge** | Ingest, synthesis, the wiki |
-| **vault** | Graph rebuilds, link integrity, framework install and update, structural plumbing |
-| **brain** | Retrieval, query, and analysis over the material. An outside agent operates here and is denied forge and vault. |
+| **synapse** | The graph and link integrity: rebuilds, resolution, repair |
+| **brain** | Retrieval, query, and analysis over the material. An outside agent operates here and is denied forge and synapse. |
+
+**The three are siblings, not nested.** A synapse is anatomically inside a brain and this table is not, so an agent in **brain** is denied the **synapse** column like any other. Two dated notes for anyone reading an older vault: **brain** used to mean governance and was reassigned to the interaction layer on 2026-08-31, and the third purview was called **vault** until 2026-09-03.
+
+**Framework install and update are not a purview.** `brainforge-update` and `brainforge-surfaces` write the framework rather than the corpus, so they sit outside the matrix entirely and take the product's name instead of a purview prefix.
 
 ## Wiki or hold
 
@@ -38,14 +42,14 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 | Category | What | Update |
 |---|---|---|
 | Framework | The files the product ships under `_brain-forge/` | Overwritten |
-| Adopted | Your constitution, host skill copies, whatever path your template plugin reads, the seeded primers in `primers/`, root `.graphifyignore` | Never touched. `vault-update` reports when the framework source moved ahead. |
+| Adopted | Your constitution, host skill copies, whatever path your template plugin reads, the seeded primers in `primers/`, root `.graphifyignore` | Never touched. `brainforge-update` reports when the framework source moved ahead. |
 | User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, `preferences.md` and `tweaks-log.md` beside the engine core, your inbox, instance-authored skills | Never touched |
 
 Update writes the files the product ships and never deletes anything, so your own state may sit inside the framework folder as long as it does not use a shipped filename. That is why the learned synthesis model lives beside the engine core.
 
-**Do not edit a framework file.** Every file the product ships is overwritten on the next update, with no merge and no prompt. `schema.md` is the one most likely to tempt you, because it holds the frontmatter model and the capability matrix and it is deliberately not adopted, so a forked copy would never be consulted. Per-vault deviation belongs in this constitution, which is yours and which nothing overwrites. `vault-update` now names any framework file it had to restore, so an edit is reported rather than lost quietly, but the report arrives after the change is already gone.
+**Do not edit a framework file.** Every file the product ships is overwritten on the next update, with no merge and no prompt. `schema.md` is the one most likely to tempt you, because it holds the frontmatter model and the capability matrix and it is deliberately not adopted, so a forked copy would never be consulted. Per-vault deviation belongs in this constitution, which is yours and which nothing overwrites. `brainforge-update` now names any framework file it had to restore, so an edit is reported rather than lost quietly, but the report arrives after the change is already gone.
 
-Framework skills live at `_brain-forge/skills/<name>/SKILL.md`. Exposing one to a coding agent means putting a copy in that host's discovery path (`.claude/skills`, `.grok/skills`, and so on). Which skills you expose is your call, not install's; making the copies is `vault-surfaces expose`, which stamps them so it can keep them current for you afterwards. `vault-update` tells you which copies an update left behind.
+Framework skills live at `_brain-forge/skills/<name>/SKILL.md`. Exposing one to a coding agent means putting a copy in that host's discovery path (`.claude/skills`, `.grok/skills`, and so on). Which skills you expose is your call, not install's; making the copies is `brainforge-surfaces expose`, which stamps them so it can keep them current for you afterwards. `brainforge-update` tells you which copies an update left behind.
 
 Synthesis steering is optional and off unless you create `_brain-forge/skills/forge-synthesis-engine/preferences.md`. `forge-synthesis-engine` carries the instruction.
 

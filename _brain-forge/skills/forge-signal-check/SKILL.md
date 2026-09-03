@@ -1,6 +1,6 @@
 ---
 name: forge-signal-check
-description: "Graph-informed maintenance + lint/health-check pass on the wiki/ synthesis layer plus the slim primers catalog (primers/_index.md). Enriches natural wikilinks, surfaces contradictions/duplication/orphans/stale claims/large-or-unfocused pages, light frontmatter hygiene per the Frontmatter Constitution, and — as consumer #2 of forge-synthesis-engine — runs an engine-driven restructure/de-duplication/canonical-home/re-scope pass (propose-only). Delegates link integrity to vault-link-check; requires fresh Graphify for full passes. Follows the vault constitution: strong preference for updating existing pages, always add provenance, present findings + proposals rather than large autonomous refactors. Human direction overrides."
+description: "Graph-informed maintenance + lint/health-check pass on the wiki/ synthesis layer plus the slim primers catalog (primers/_index.md). Enriches natural wikilinks, surfaces contradictions/duplication/orphans/stale claims/large-or-unfocused pages, light frontmatter hygiene per the Frontmatter Constitution, and — as consumer #2 of forge-synthesis-engine — runs an engine-driven restructure/de-duplication/canonical-home/re-scope pass (propose-only). Delegates link integrity to synapse-link-check; requires fresh Graphify for full passes. Follows the vault constitution: strong preference for updating existing pages, always add provenance, present findings + proposals rather than large autonomous refactors. Human direction overrides."
 argument-hint: "[optional: specific wiki page path (e.g. wiki/ai-skills.md) or 'all' or 'primers-index']"
 ---
 
@@ -10,7 +10,7 @@ argument-hint: "[optional: specific wiki page path (e.g. wiki/ai-skills.md) or '
 
 The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of the `wiki/` (LLM-maintained synthesis) layer, plus maintenance of the slim human-readable catalog in `primers/_index.md`. This is wiki-layer maintenance (forging the synthesis). The `/forge-signal-check` command is a thin, human-facing entry point.
 
-**Brain vs. hands.** This skill is **consumer #2 of `forge-synthesis-engine`** (canonical core: `_brain-forge/skills/forge-synthesis-engine/SKILL.md`): it calls the engine's classification + learned-preferences brain to drive **restructure / de-duplication / canonical-home / re-scope proposals** over *existing* wiki content (step 6), and owns its own gated edit path. It also delegates **link integrity** to the `vault-link-check` engine (step 4). Two delegations, two concerns: link integrity = a filesystem check; restructure = a classification check. (Engine consumer of `forge-synthesis-engine`.)
+**Brain vs. hands.** This skill is **consumer #2 of `forge-synthesis-engine`** (canonical core: `_brain-forge/skills/forge-synthesis-engine/SKILL.md`): it calls the engine's classification + learned-preferences brain to drive **restructure / de-duplication / canonical-home / re-scope proposals** over *existing* wiki content (step 6), and owns its own gated edit path. It also delegates **link integrity** to the `synapse-link-check` engine (step 4). Two delegations, two concerns: link integrity = a filesystem check; restructure = a classification check. (Engine consumer of `forge-synthesis-engine`.)
 
 **Purpose:** Keep the wiki high-signal, well-connected, and navigable without unnecessary page proliferation. The forge purview is conservative by default and favors integration and enrichment over creation or large structural changes.
 
@@ -21,7 +21,7 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 - On explicit request: "run maintenance on the wiki", "lint the wiki", "health check wiki/", "find duplication / restructure", etc.
 
 **Prerequisites:**
-- A fresh graph is **mandatory** for any full pass. Run `/vault-graph-refresh` first if `_graphify-out/` (or `graphify-out/`) is stale (> ~24h or after substantial changes). Recommended focused scope: `graphify wiki raw`. Graphify is a user install; `vault-graph-refresh` carries the install steps.
+- A fresh graph is **mandatory** for any full pass. Run `/synapse-graph-refresh` first if `_graphify-out/` (or `graphify-out/`) is stale (> ~24h or after substantial changes). Recommended focused scope: `graphify wiki raw`. Graphify is a user install; `synapse-graph-refresh` carries the install steps.
 - Consult `wiki/_index.md` and recent `raw/_log.md` for orientation on what is current.
 
 **Scope and philosophy:**
@@ -38,7 +38,7 @@ The dedicated **Lint / Health Check** and ongoing graph-informed maintenance of 
 ### 1. Load context
 - Read the page (or pages).
 - Read `wiki/_index.md`, recent sections of `raw/_log.md`, and the latest `_graphify-out/GRAPH_REPORT.md` + graph.json (for related nodes, communities, surprising connections).
-- Note current frontmatter, existing wikilinks/provenance, and approximate size/focus. Link-integrity file resolution is handled by `vault-link-check` in step 4.
+- Note current frontmatter, existing wikilinks/provenance, and approximate size/focus. Link-integrity file resolution is handled by `synapse-link-check` in step 4.
 
 ### 2. Frontmatter hygiene (light, schema-aligned)
 Apply only safe, current-schema fixes per the Frontmatter Constitution (Core table + Canonical Frontmatter Blocks + rules) in `_brain-forge/schema.md`:
@@ -62,11 +62,11 @@ Auto-apply low-risk hygiene. Surface anything that requires judgment.
 
 Auto-apply these small, natural link/provenance additions.
 
-### 4. Link integrity audit (delegate to `vault-link-check`)
-Link resolution and drift repair are a **vault-purview** concern (substrate, not synthesis), so this step **delegates** to the `vault-link-check` skill — do not duplicate the resolution logic here.
-- Invoke **`vault-link-check` scoped to `wiki/`**. It resolves every wikilink on the in-scope page(s) against the real file tree (a filesystem check, not a graph check), auto-repairs unambiguous rename/move drift (one clear target after normalizing `raw/YYYYMM/` relocation, `YYYY-MM-DD`→`YYYYMMDD`, separator changes), and surfaces dead or ambiguous links for human decision. It never auto-creates or auto-deletes files and honors the capability matrix + `ai-behavior` protections.
+### 4. Link integrity audit (delegate to `synapse-link-check`)
+Link resolution and drift repair are a **synapse-purview** concern (the junctions, not the synthesis), so this step **delegates** to the `synapse-link-check` skill — do not duplicate the resolution logic here.
+- Invoke **`synapse-link-check` scoped to `wiki/`**. It resolves every wikilink on the in-scope page(s) against the real file tree (a filesystem check, not a graph check), auto-repairs unambiguous rename/move drift (one clear target after normalizing `raw/YYYYMM/` relocation, `YYYY-MM-DD`→`YYYYMMDD`, separator changes), and surfaces dead or ambiguous links for human decision. It never auto-creates or auto-deletes files and honors the capability matrix + `ai-behavior` protections.
 - Fold its results into this pass's summary (step 8).
-- Full resolution rules live in `_brain-forge/skills/vault-link-check/SKILL.md`. **Why it matters:** a broken link silently spawns an empty phantom file the instant a human clicks it in Obsidian.
+- Full resolution rules live in `_brain-forge/skills/synapse-link-check/SKILL.md`. **Why it matters:** a broken link silently spawns an empty phantom file the instant a human clicks it in Obsidian.
 
 ### 5. Health / lint scan (qualitative surface)
 Surface (never silently fix):
@@ -86,7 +86,7 @@ The distinctive new value: drive consolidation/dedup/re-scope from the **learned
 - **Emit proposals** in the categories: **consolidation/merge** (same idea in multiple places → canonical home + cross-links, or a merge target), **de-duplication**, **canonical-home assignment**, **re-scope** (over-large → extract a section into an existing page; over-narrow → fold under an umbrella hub).
 - **Minimum proposal shape (required)** — each proposal must: (i) name a **canonical home**, (ii) cite **concrete** merge/cross-link/re-scope edits, (iii) carry **provenance**, (iv) be **propose-only / reversible**.
 - **Propose-only (v1).** Never apply restructure edits autonomously. Present them (step 8); the human approves; approved edits are applied through this skill's own write path, governed by the capability matrix (`_brain-forge/schema.md`) + the confidence gate. (Proposal *quality* is learned from pilot feedback — see below.)
-- **Post-apply envelope (§5.7).** After any approved restructure edit lands (merge/move/extract), run **`vault-link-check` scoped to `wiki/`** to repair links to merged/moved pages, then **refresh the graph** (`/vault-graph-refresh`) since edits make it stale.
+- **Post-apply envelope (§5.7).** After any approved restructure edit lands (merge/move/extract), run **`synapse-link-check` scoped to `wiki/`** to repair links to merged/moved pages, then **refresh the graph** (`/synapse-graph-refresh`) since edits make it stale.
 - **Feed the shared trace (when steering is on).** When a restructure proposal gets feedback (accept/modify/reject), the engine writes a `source: forge-signal-check` entry to `tweaks-log.md`, and durable corrections fold into `preferences.md`. Off: do not create those files.
 
 
@@ -101,7 +101,7 @@ Always end with a clear, scannable report. Example structure:
 ```
 ── /forge-signal-check run: 2026-06-28 ──
 
-Graph: fresh (2026-06-28, 281 nodes)   [or: stale — run /vault-graph-refresh first]
+Graph: fresh (2026-06-28, 281 nodes)   [or: stale — run /synapse-graph-refresh first]
 
 Auto-applied (small, low-risk):
   wiki/harbor.md — added natural [[wikilink]]s (2); removed a deprecated frontmatter field; stamped last-updated
@@ -120,7 +120,7 @@ No material issues on: wiki/harbor.md, ...
 Append a minimal entry to `_brain-forge/eval.md` after presenting the summary (unconditional; format and charter in `_brain-forge/schema.md`):
 - Append at the end (oldest-first reading order).
 - Use the recommended skeleton (## date header, key metadata like Changeset/Graph/Auto-applied/Findings, canonical summary excerpt).
-- **Live step call-outs required:** a "**Step call-outs observed during this execution:**" section with explicit "Step 1: ...", "Step 4: delegated to vault-link-check", "Step 6: engine-driven restructure pass", etc. for the major phases.
+- **Live step call-outs required:** a "**Step call-outs observed during this execution:**" section with explicit "Step 1: ...", "Step 4: delegated to synapse-link-check", "Step 6: engine-driven restructure pass", etc. for the major phases.
 - Include a timing marker: "**Core log written at:** after presenting the summary (before any direction or ephemeral handling)."
 - **Strict separation:** the eval-log is *tool-performance only*. The engine's *learning* content (restructure proposal → feedback → delta) goes to `tweaks-log.md` as `source: forge-signal-check`. Never mix.
 
@@ -130,14 +130,14 @@ If the pass is clean across the targets, say so concisely.
 
 ## Non-negotiables (the vault constitution + schema)
 
-- **Fresh graph required** for full lint/health. Explicitly call out when operating on stale data and recommend `/vault-graph-refresh`.
+- **Fresh graph required** for full lint/health. Explicitly call out when operating on stale data and recommend `/synapse-graph-refresh`.
 - **Provenance on every meaningful contribution** to a wiki page.
 - **Strong preference for existing pages.** New pages only when the topic is distinct, recurring/high-value, substantial, and likely to receive ongoing additions. Even then, propose — do not create unilaterally.
 - **No large autonomous refactors.** Restructure/dedup is **propose-only (v1)** — present contradictions, duplication, scope issues as findings + concrete options (minimum proposal shape). Human decides; approved edits go through the capability matrix + confidence gate.
 - **Restructure is engine-driven.** Drive consolidation/dedup/canonical-home/re-scope from `forge-synthesis-engine`'s classification + learned preferences (step 6), not ad-hoc judgment. Do not duplicate the classification doctrine here — it lives in the engine.
-- **Post-restructure envelope.** After approved restructure edits land, run scoped `vault-link-check` + a graph refresh.
+- **Post-restructure envelope.** After approved restructure edits land, run scoped `synapse-link-check` + a graph refresh.
 - **No prose rewriting** for links. Insert around existing natural language only.
-- **Link integrity on every full pass — delegated to `vault-link-check`** scoped to `wiki/`. Do not duplicate the resolution logic here.
+- **Link integrity on every full pass — delegated to `synapse-link-check`** scoped to `wiki/`. Do not duplicate the resolution logic here.
 - **Respect protections.** Read and obey any `ai-behavior` + AI Instructions callout on protected pages.
 - **Do not invent parallel trees.** Stay in `raw/` and `wiki/` (plus `primers/` for the catalog). If this vault still has other layouts, leave them unless the user directed cleanup.
 - **Logging split:** Raw ingest activity → only `raw/_log.md`. Wiki maintenance findings → the wiki pages (or an instance system log, if it keeps one). Tool-performance transcript → `_brain-forge/eval.md`. Restructure learning → the engine trace (`source: forge-signal-check`).
@@ -151,9 +151,9 @@ If the pass is clean across the targets, say so concisely.
 - `_brain-forge/skills/forge-synthesis-engine/SKILL.md` — the classification brain this skill consumes for the restructure pass (step 6).
 - The vault constitution — vault operations (non-negotiables, provenance, lint/health).
 - `_brain-forge/schema.md` (authoritative frontmatter + AI steering rules; capability matrix; Tool Structure Convention).
-- `_brain-forge/skills/vault-link-check/SKILL.md` — the vault-purview link-integrity engine (step 4 delegates here, scoped to `wiki/`).
-- `/vault-graph-refresh` (required prerequisite for serious passes; post-restructure refresh).
+- `_brain-forge/skills/synapse-link-check/SKILL.md` — the synapse-purview link-integrity engine (step 4 delegates here, scoped to `wiki/`).
+- `/synapse-graph-refresh` (required prerequisite for serious passes; post-restructure refresh).
 - `wiki/_index.md` (living catalog you help maintain).
 - `_graphify-out/GRAPH_REPORT.md` and graph.json (main relationship signal during the pass).
 
-**Current version:** Consumer #2 of `forge-synthesis-engine` (restructure / dedup, propose-only). Link integrity delegates to `vault-link-check`.
+**Current version:** Consumer #2 of `forge-synthesis-engine` (restructure / dedup, propose-only). Link integrity delegates to `synapse-link-check`.

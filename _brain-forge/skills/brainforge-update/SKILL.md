@@ -1,14 +1,14 @@
 ---
-name: vault-update
-description: "Vault-purview skill that installs or updates the Brain Forge framework in this vault. Copies the framework files, seeds the ones that have to live outside the framework folder, creates the vault's own starting layout on a first install, and reports which of the owner's adopted copies are now behind the framework source. Owns the framework layout and the update contract. Invoke for /vault-update, 'install Brain Forge', 'update the framework', or after pulling a new version of the product."
+name: brainforge-update
+description: "Product-level skill, outside the capability matrix, that installs or updates the Brain Forge framework in this vault. Copies the framework files, seeds the ones that have to live outside the framework folder, creates the vault's own starting layout on a first install, and reports which of the owner's adopted copies are now behind the framework source. Owns the framework layout and the update contract. Invoke for /brainforge-update, 'install Brain Forge', 'update the framework', or after pulling a new version of the product."
 argument-hint: "[optional: path to the Brain Forge product checkout]"
 ---
 
-> Product core (`_brain-forge/skills/vault-update/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
+> Product core (`_brain-forge/skills/brainforge-update/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
-# vault-update Skill
+# brainforge-update Skill
 
-The **vault purview's** framework install and update hands. Install is update from nothing, so this is one skill.
+Brain Forge's own install and update hands. Install is update from nothing, so this is one skill. It is not a purview tool: it writes the framework rather than the vault's corpus, so the capability matrix does not govern it and it takes the product's name rather than a purview prefix.
 
 This skill is the canonical home for the framework layout and the update contract. Other tools do not restate them.
 
@@ -54,7 +54,7 @@ Install leaves exactly one framework-owned thing visible at the vault root, `_br
 Four kinds of framework file are meant to be used from somewhere else. Install never places them, because the destination is the owner's choice and their edits there must survive.
 
 - **The constitution.** Copy `_brain-forge/constitution.md` to wherever the host loads a constitution (`AGENTS.md`, `CLAUDE.md`, or a shim that imports it). Adapt it.
-- **Skills.** Run `vault-surfaces expose <name>` for the skills you want your agent to see. It writes them into the host's discovery path (`.claude/skills/`, `.grok/skills/`, `.cursor/skills/`) with a header stamp, which is what lets it keep them current later. Copying the file by hand works too and `vault-surfaces` will adopt the copy on its next run, but only while the copy still matches the core.
+- **Skills.** Run `brainforge-surfaces expose <name>` for the skills you want your agent to see. It writes them into the host's discovery path (`.claude/skills/`, `.grok/skills/`, `.cursor/skills/`) with a header stamp, which is what lets it keep them current later. Copying the file by hand works too and `brainforge-surfaces` will adopt the copy on its next run, but only while the copy still matches the core.
 - **Templates and Obsidian macros.** Point the relevant plugin at `_brain-forge/templates/` or `_brain-forge/obsidian/`, or copy those files somewhere of your choosing.
 - **Tools.** Run them from `_brain-forge/tools/`, or put them on a path.
 
@@ -127,7 +127,7 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
    | Changed | Tell the owner |
    |---|---|
    | `constitution.md` | Their adopted constitution needs the diff applied |
-   | `skills/<name>/SKILL.md` | Their host copy is stale. Point them at `vault-surfaces`, which repairs it. |
+   | `skills/<name>/SKILL.md` | Their host copy is stale. Point them at `brainforge-surfaces`, which repairs it. |
    | `primers/distill.md` | Their `primers/distill.md` is behind, show the diff |
    | `primers/_system.md` | Their seeded copy is behind, show the diff |
    | `primers/_me.md` | Never report. It shipped empty and whatever is there now is theirs. |
@@ -150,7 +150,7 @@ Four kinds of framework file are meant to be used from somewhere else. Install n
 ## Output
 
 ```
-── /vault-update run: YYYY-MM-DD ── install | update
+── /brainforge-update run: YYYY-MM-DD ── install | update
 
 Framework: 0.1.0 -> 0.2.0
 

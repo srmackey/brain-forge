@@ -1,14 +1,14 @@
 ---
-name: vault-link-check
-description: "Vault-wide link integrity engine (vault purview). Resolves every wikilink and markdown link against the real file tree — a filesystem check, not a graph check (Graphify cannot see dangling links). Auto-repairs unambiguous rename/move drift (exactly one clear target: raw/YYYYMM/ relocation, YYYY-MM-DD→YYYYMMDD, separator changes); surfaces dead links (no target) and ambiguous ones (multiple candidates) for human decision. Never auto-creates or auto-deletes files. Scope defaults to the whole vault; accepts a folder or path scope (e.g. wiki/). Write permission is governed by the folder × purview capability matrix in _brain-forge/schema.md + the confidence gate. forge-signal-check delegates its wiki/ link step here. Invoke for /vault-link-check or any 'check/repair broken links' request."
+name: synapse-link-check
+description: "Vault-wide link integrity engine (synapse purview). Resolves every wikilink and markdown link against the real file tree — a filesystem check, not a graph check (Graphify cannot see dangling links). Auto-repairs unambiguous rename/move drift (exactly one clear target: raw/YYYYMM/ relocation, YYYY-MM-DD→YYYYMMDD, separator changes); surfaces dead links (no target) and ambiguous ones (multiple candidates) for human decision. Never auto-creates or auto-deletes files. Scope defaults to the whole vault; accepts a folder or path scope (e.g. wiki/). Write permission is governed by the folder × purview capability matrix in _brain-forge/schema.md + the confidence gate. forge-signal-check delegates its wiki/ link step here. Invoke for /synapse-link-check or any 'check/repair broken links' request."
 argument-hint: "[optional: scope — 'all' (whole vault, default) | a folder like wiki/ | a specific page path]"
 ---
 
-> Product core (`_brain-forge/skills/vault-link-check/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
+> Product core (`_brain-forge/skills/synapse-link-check/SKILL.md`). Install copies the framework folder into an instance. Adopting a skill into a host is the vault owner's job.
 
-# vault-link-check Skill
+# synapse-link-check Skill
 
-The **vault purview's** link-integrity engine. This is the single, canonical home for link resolution and drift repair across Brain Forge. Other tools delegate here rather than duplicating the logic (notably `/forge-signal-check`, which calls this scoped to `wiki/`).
+The **synapse purview's** link-integrity engine. This is the single, canonical home for link resolution and drift repair across Brain Forge. Other tools delegate here rather than duplicating the logic (notably `/forge-signal-check`, which calls this scoped to `wiki/`).
 
 ## Why this is a filesystem check, not a graph check
 
@@ -53,7 +53,7 @@ The skill owns what the tool cannot: scoping, the write-permission decision per 
 
 Whether a repair is **applied** vs **proposed** vs **report-only** is governed by the **folder × purview capability matrix** in `_brain-forge/schema.md` (the **vault** column) for the *target page's* folder, ratcheted tighter by any `ai-behavior` protection on the file. The confidence gate operates **inside** what the matrix permits (matrix = "may I write here?"; confidence = "auto or surface?" — auto only on an unambiguous single target).
 
-Follow the vault column in `_brain-forge/schema.md`. In short:
+Follow the synapse column in `_brain-forge/schema.md`. In short:
 - **wiki/ · primers/** — `auto*` (auto-repair unambiguous drift on unprotected files; propose on `ai-behavior`-protected files).
 - **journal/** — `propose`.
 - **raw/ · archive/** — `flag-only` (raw is immutable except the documented dated-subfolder move, which belongs to forge ingest).
@@ -76,7 +76,7 @@ If this vault also keeps an append-only operator changelog, treat that file as f
 **Behavior:**
 - On a **broad scan**, unresolved links inside frozen surfaces are **not enumerated**. Emit one tally line, e.g.:
   `Suppressed (frozen surfaces): N unresolved links in raw/, archive/ — not enumerated (scope a frozen path directly to audit).`
-- **Explicit scope un-suppresses.** If the caller scopes the run *to* a frozen path (e.g. `/vault-link-check raw/`), those links are fully reported.
+- **Explicit scope un-suppresses.** If the caller scopes the run *to* a frozen path (e.g. `/synapse-link-check raw/`), those links are fully reported.
 - Frozen surfaces are also never written. **Suppression changes only reporting, never write permission.**
 
 Broad scans focus on live surfaces (`wiki/`, `primers/`). Other flag-only surfaces that are not frozen (`AGENTS.md`, host dirs) are still reported. A dead link there may be real.
@@ -86,7 +86,7 @@ Broad scans focus on live surfaces (`wiki/`, `primers/`). Other flag-only surfac
 Present a compact, scannable report:
 
 ```
-── /vault-link-check run: YYYY-MM-DD ── scope: <whole vault | wiki/ | path>
+── /synapse-link-check run: YYYY-MM-DD ── scope: <whole vault | wiki/ | path>
 
 Auto-repaired (unambiguous drift):
   wiki/foo.md — [[raw/2026-06-04--bar]] → [[raw/202606/20260604-bar]]  (raw/YYYYMM relocation)
@@ -126,8 +126,8 @@ Append a minimal entry to `_brain-forge/eval.md` after presenting the report (un
 
 ## Relationship to other tools
 
-- `/forge-signal-check` **delegates** its `wiki/` link step to this skill (it does not duplicate link logic). The forge pass calls `vault-link-check` scoped to `wiki/` and folds the result into its summary.
+- `/forge-signal-check` **delegates** its `wiki/` link step to this skill (it does not duplicate link logic). The forge pass calls `synapse-link-check` scoped to `wiki/` and folds the result into its summary.
 - Other tools that notice link issues on system surfaces defer actual resolution and repair to this engine.
-- `graphify` / `/vault-graph-refresh` are complementary (relationship discovery), not a substitute — they cannot see dangling links.
+- `graphify` / `/synapse-graph-refresh` are complementary (relationship discovery), not a substitute — they cannot see dangling links.
 
 This skill is the canonical link-integrity doctrine for the vault; keep it general, conservative, and high-leverage. Update it when the resolution or drift rules evolve.

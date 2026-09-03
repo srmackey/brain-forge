@@ -1,18 +1,18 @@
 ---
-name: vault-surfaces
-description: "Vault-purview skill that keeps derived surfaces aligned with their sources. Exposes framework skills into a host's discovery path, checks and regenerates those copies using header stamps, flags the vault constitution and the system primer when one has moved ahead of the other, and reports rule text duplicated out of the schema. Run to expose a skill to your agent, after a framework update, after editing a skill core or the constitution, or whenever an agent seems to be following an old rule. Invoke for /vault-surfaces, 'expose forge-ingest', 'check the surfaces', 'regenerate my skills', or 'are my host copies stale'."
+name: brainforge-surfaces
+description: "Product-level skill, outside the capability matrix, that keeps derived surfaces aligned with their sources. Exposes framework skills into a host's discovery path, checks and regenerates those copies using header stamps, flags the vault constitution and the system primer when one has moved ahead of the other, and reports rule text duplicated out of the schema. Run to expose a skill to your agent, after a framework update, after editing a skill core or the constitution, or whenever an agent seems to be following an old rule. Invoke for /brainforge-surfaces, 'expose forge-ingest', 'check the surfaces', 'regenerate my skills', or 'are my host copies stale'."
 argument-hint: "[optional: check (default) | regenerate | expose <skill> ... | a single surface name]"
 ---
 
-> Product core (`_brain-forge/skills/vault-surfaces/SKILL.md`). Install copies this file into an instance. Exposing a skill to a host is this skill's job, on the owner's word.
+> Product core (`_brain-forge/skills/brainforge-surfaces/SKILL.md`). Install copies this file into an instance. Exposing a skill to a host is this skill's job, on the owner's word.
 
-# vault-surfaces Skill
+# brainforge-surfaces Skill
 
-The **vault purview's** derived-surface hands. Structural plumbing, same purview as graph rebuilds and link integrity.
+Brain Forge's own derived-surface hands, and the repair half of the story `brainforge-update` reports. It is not a purview tool: it writes host copies of the framework rather than the vault's corpus, so the capability matrix does not govern it.
 
 A vault runs the framework through copies. Skill cores get copied into host discovery paths, the constitution gets adopted into whatever file the host loads, and the system primer restates the operating model for a web session. Every one of those is a derived surface, and every one of them goes stale silently when its source moves. Nothing else in the framework notices.
 
-`vault-update` reports that copies are behind. This skill is what fixes them.
+`brainforge-update` reports that copies are behind. This skill is what fixes them.
 
 ## The stamp
 
@@ -104,17 +104,17 @@ Duplication is not always wrong. A one-line restatement beside a pointer is the 
 ## Output
 
 ```
-── /vault-surfaces run: YYYY-MM-DD ── check | regenerate | expose
+── /brainforge-surfaces run: YYYY-MM-DD ── check | regenerate | expose
 
 Host copies:
   .claude/skills/ — 5 of 8 exposed, 1 stale
     forge-ingest — stale, source moved 2026-09-02 [regenerated]
     forge-distill — unstamped copy of the current core, adopted
-    vault-link-check — unstamped and edited, left alone (yours)
+    synapse-link-check — unstamped and edited, left alone (yours)
   .grok/skills/ — 2 of 8 exposed, all current
 
-Available but not exposed: forge-primer, vault-surfaces
-  Expose one with: /vault-surfaces expose forge-primer
+Available but not exposed: forge-primer, brainforge-surfaces
+  Expose one with: /brainforge-surfaces expose forge-primer
 
 Parity:
   Adopted constitution 0.1.2, framework ships 0.1.4. The purview table gained
@@ -140,7 +140,7 @@ If everything is current, say so in one line.
 - Append an entry to `_brain-forge/eval.md` after the run. Unconditional; format and charter in `_brain-forge/schema.md`.
 
 ## Related
-- `_brain-forge/skills/vault-update/SKILL.md` — installs and updates the framework, and reports the staleness this skill repairs.
+- `_brain-forge/skills/brainforge-update/SKILL.md` — installs and updates the framework, and reports the staleness this skill repairs.
 - `_brain-forge/schema.md` — the canonical home whose drift section 3 checks.
 - `_brain-forge/constitution.md` — one half of the parity coupling.
 - `_brain-forge/primers/_system.md` — the other half.

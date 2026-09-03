@@ -12,9 +12,11 @@ You are developing the framework. Change how a vault works here. Use a vault in 
 
 ## Model
 
-`raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. The **forge** purview turns arrivals into a corpus. The **vault** purview keeps graph and links honest and owns framework install and update. **brain** is the interaction layer: retrieval, query, analysis. Write tools for brain are not built yet.
+`raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. The **forge** purview turns arrivals into a corpus. The **synapse** purview keeps the graph and links honest. **brain** is the interaction layer: retrieval, query, analysis. Write tools for brain are not built yet. The three are siblings, not nested.
 
-An agent working against someone else's vault operates in brain and does not run forge or vault tools.
+Framework install and update are not a purview. `brainforge-update` and `brainforge-surfaces` write the framework rather than the corpus, so they sit outside the capability matrix and take the product's name.
+
+An agent working against someone else's vault operates in brain and does not run forge or synapse tools.
 
 The capability matrix in `_brain-forge/schema.md` is the canonical home for tool permissions. Precedence: matrix, then ritual, then explicit direction. Direction wins.
 
@@ -24,13 +26,15 @@ Everything under `_brain-forge/`, and nothing else. That is the whole answer, an
 
 Install copies that folder to a vault root. Update rewrites the files the product ships and deletes nothing, so owner state such as the learned synthesis model can live inside it. A few files are seeded outside it on a first install only, because they do not work anywhere else: `.graphifyignore` at the vault root, where Graphify reads it, and the shipped primers beside the owner's own in `primers/`. After seeding, they belong to the owner.
 
-Install does not write host skill directories, a constitution, or `README.md`. Adopting the framework into a host is the vault owner's step. `vault-update` owns the full contract.
+Install does not write host skill directories, a constitution, or `README.md`. Adopting the framework into a host is the vault owner's step. `brainforge-update` owns the full contract.
 
 ## Skills
 
 **Forge:** `forge-distill`, `forge-ingest`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
 
-**Vault:** `vault-graph-refresh`, `vault-link-check`, `vault-surfaces`, `vault-update`
+**Synapse:** `synapse-graph-refresh`, `synapse-link-check`
+
+**Product:** `brainforge-surfaces`, `brainforge-update`
 
 `forge-ingest` decides wiki vs hold. Hold when the user directed it, or the capture is not this vault's material. Otherwise wiki.
 

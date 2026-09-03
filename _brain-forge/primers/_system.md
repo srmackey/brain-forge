@@ -6,7 +6,7 @@ status: active
 
 # Vault design primer
 
-framework: 0.1.6
+framework: 0.2.0
 
 > Paste this into a web AI when you want to think about your own vault's design: its structure, conventions, operating model, primers, and workflows. It describes how a Brain Forge vault works so you do not have to explain it first.
 
@@ -32,7 +32,7 @@ Because `wiki/` is built from `raw/`, it stays rebuildable. Externally sourced m
 
 A knowledge graph is built over both layers, and it maps the corpus rather than what the vault knows. It indexes captures nobody has judged and claims the wiki would have marked unvalidated, with nothing separating them from settled synthesis. A graph result is a pointer into the corpus, not a claim the vault holds; the wiki page is where a contribution says whose idea it was and whether anyone agreed with it.
 
-Three purviews divide responsibility. **forge** turns arrivals into a corpus: ingest, synthesis, the wiki. **vault** keeps the substrate honest: graph rebuilds, link integrity, structural plumbing. **brain** is the interaction layer where retrieval, query, and analysis happen, and it is the boundary an outside agent operates in, denied the other two.
+Three purviews divide responsibility. **forge** turns arrivals into a corpus: ingest, synthesis, the wiki. **synapse** holds the graph and link integrity: rebuilds, resolution, repair. **brain** is the interaction layer where retrieval, query, and analysis happen, and it is the boundary an outside agent operates in, denied the other two. The three are siblings rather than nested, so brain does not subsume synapse. Framework install and update sit outside the purviews entirely.
 
 A capability matrix governs what each purview may write in each folder. It lives in the vault and is deliberately not in this primer, which stays lean.
 

@@ -38,7 +38,7 @@ Any rule that more than one purview, surface, or tool must consult lives in exac
 | Vault operations | the vault constitution |
 | Capture-describe vs classify-decide | this file — Producer Boundary |
 | Tool-performance logging | this file — Eval log |
-| Derived surfaces, stamps, staleness | `vault-surfaces` |
+| Derived surfaces, stamps, staleness | `brainforge-surfaces` |
 
 ---
 
@@ -109,7 +109,11 @@ last-updated: YYYY-MM-DD
 
 Canonical autonomy table. Tools never duplicate it.
 
-**Purviews:** **forge** (synthesis) · **vault** (mechanics; name pending) · **brain** (interaction: retrieval, query, analysis). Brain's write tools are not designed. The column still exists: an outside agent operates in brain and is denied forge and vault.
+**Purviews:** **forge** (synthesis) · **synapse** (the graph and link integrity) · **brain** (interaction: retrieval, query, analysis). Brain's write tools are not designed. The column still exists: an outside agent operates in brain and is denied forge and synapse.
+
+**The three are siblings, not nested.** A synapse is anatomically inside a brain and this table is not: an agent operating in **brain** is denied the **synapse** column like any other. What synapse holds is one thing seen twice, since the graph draws the relationships between documents and link resolution validates them against the real file tree.
+
+**Two tools are not in this table.** `brainforge-update` and `brainforge-surfaces` write the framework rather than the corpus, and this matrix answers one question: may an agent write in this folder of the vault. That is what the `_brain-forge/` row has always been saying in a column that used to contain the installer.
 
 **Permission legend:**
 - **auto** — write directly.
@@ -119,7 +123,7 @@ Canonical autonomy table. Tools never duplicate it.
 - **never** — out of purview.
 - **\*** — auto on unprotected files, propose on `ai-behavior`-protected files.
 
-| Folder | brain | forge | vault |
+| Folder | brain | forge | synapse |
 | --- | --- | --- | --- |
 | The vault constitution / shims | flag-only | never | flag-only |
 | `_brain-forge/` | flag-only | never | flag-only |
@@ -134,7 +138,7 @@ Canonical autonomy table. Tools never duplicate it.
 2. `ai-behavior` can only make a file more restrictive than its folder default.
 3. Confidence operates inside what the matrix permits. Matrix answers "may I write here?" Confidence answers "auto or surface?"
 4. Explicit human direction overrides the matrix.
-5. Link repair in the vault column is `vault-link-check`. `forge-signal-check` delegates its wiki link step there.
+5. Link repair in the synapse column is `synapse-link-check`. `forge-signal-check` delegates its wiki link step there.
 
 ---
 
@@ -142,9 +146,11 @@ Canonical autonomy table. Tools never duplicate it.
 
 Every Brain Forge tool is a skill with a single canonical core at `_brain-forge/skills/<name>/SKILL.md`. Install copies the framework folder; exposing a skill to a host is the vault owner's step.
 
+- **Every purview tool is `<purview>-<intent>`.** `forge-ingest`, `synapse-link-check`. The prefix says which column of the matrix the tool answers to.
+- **The product's own hands are named for the product.** `brainforge-update` and `brainforge-surfaces` write the framework rather than the vault, so they carry no purview prefix and sit outside the matrix. This is the one place naming the product is right, because the product is these two tools' subject where every other tool's subject is the vault.
 - **User-invocable skill.** The human invokes `/<name>` after the instance operator exposes the skill to a host.
 - **`*-engine` skill.** Shared logic consumed by two or more skills, not itself user-invoked (`forge-synthesis-engine`).
-- **Tie-breaker.** A skill that is itself user-invocable keeps its natural name even when shared (`vault-link-check`).
+- **Tie-breaker.** A skill that is itself user-invocable keeps its natural name even when shared (`synapse-link-check`).
 
 `forge-synthesis-engine` may keep a `preferences.md` for optional synthesis steering. That file is user-owned, lives outside the framework folder, and is never overwritten. Absence means the feature is off.
 
