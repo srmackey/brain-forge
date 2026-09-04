@@ -49,7 +49,7 @@ New skills follow the shape of the files in `_brain-forge/skills/`. Vault operat
 | Framework-adjacent owner state | Instance `_brain-forge/skills/forge-synthesis-engine/preferences.md` and `tweaks-log.md` | The owner. Not shipped, so never written. |
 | Seeded | Instance `.graphifyignore`, `primers/distill.md`, `primers/_system.md`, `primers/_me.md` | The owner's after first install. Never overwritten. |
 | Adopted | The owner's constitution, host skill copies, plugin template paths | The owner's. Never written by install or update. |
-| User-owned | Instance `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, the vault's inbox, instance-authored skills | Tracked there. Never overwritten. |
+| User-owned | Everything outside instance `_brain-forge/` that is not seeded or adopted. This is a rule, not a list; examples today include `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, the vault's inbox, and instance-authored skills | Tracked there. Never overwritten. |
 
 ## Public repo
 
