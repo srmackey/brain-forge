@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.2.0
+framework: 0.2.2
 
 The constitution for a vault that installed Brain Forge.
 
@@ -43,7 +43,7 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 |---|---|---|
 | Framework | The files the product ships under `_brain-forge/` | Overwritten |
 | Adopted | Your constitution, host skill copies, whatever path your template plugin reads, the seeded primers in `primers/`, root `.graphifyignore` | Never touched. `brainforge-update` reports when the framework source moved ahead. |
-| User-owned | `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, `preferences.md` and `tweaks-log.md` beside the engine core, your inbox, instance-authored skills | Never touched |
+| User-owned | Everything outside `_brain-forge/`, without qualification, plus anything inside it that does not use a shipped filename. This is a rule rather than a list, so a directory you add later is yours without this table having to hear about it. Today that means `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, your inbox, instance-authored skills, and the learned synthesis model beside the engine core. | Never touched |
 
 Update writes the files the product ships and never deletes anything, so your own state may sit inside the framework folder as long as it does not use a shipped filename. That is why the learned synthesis model lives beside the engine core.
 

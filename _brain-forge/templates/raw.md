@@ -14,4 +14,4 @@ source: manual
 [- `suggested-title: ...` → hint for the synthesis title]
 [- `related-domain: [[Domain Name]]` → hint for domain assignment]
 
-[source: one of voice | web | manual | ai | screenshot — adjust frontmatter to match]
+[source: free text. A keyword such as `manual`, `voice`, `web`, or `screenshot`, or a description such as "Claude conversation, 2026-09-02". `schema.md` holds the definition.]

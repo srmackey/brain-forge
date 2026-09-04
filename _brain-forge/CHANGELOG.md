@@ -14,6 +14,34 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.2 (2026-09-04)
+
+Two places said a thing by listing it where the thing was already derivable.
+Both now state the rule. Reconcile your adopted constitution, and your raw
+template if your capture plugin reads the shipped copy. No behaviour changes:
+nothing ever consumed either list.
+
+- **The `User-owned` file category is a rule, not an enumeration.** It named
+  seven paths, which meant every directory an owner added made the table one
+  entry less true. `brainforge-update` has never worked that way: its own core
+  says the manifest is whatever exists under `_brain-forge/`, and that
+  everything outside it is the owner's without qualification. The table now says
+  that, and keeps the paths as examples of it. An owner who adds a directory no
+  longer has a constitution that fails to mention it.
+- **The raw template stopped claiming `source:` is a closed set.** Its hint read
+  `one of voice | web | manual | ai | screenshot`, where `schema.md` defines the
+  field as free text with those words as examples plus a quoted description.
+  Two shipped files already write the descriptive form, `forge-distill` and the
+  distill primer, so the template was the only place saying it could not be
+  done. It also offered `ai`, which the schema does not list, so the two copies
+  had drifted in content as well as in wording.
+
+This is the fourth and fifth instance of one pattern in this product: a
+hand-kept list restating something a rule already determines. The first three
+were step 5's owner-state list, the graph-ignore rules, and the seeded primer
+catalog. The lesson has been paid for often enough to write down: when a list
+and a rule describe the same fact, ship the rule and let the list be examples.
+
 ## 0.2.1 (2026-09-03)
 
 The stamp check says how to find a stamp. Reconcile your host copy of
