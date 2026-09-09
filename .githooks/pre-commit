@@ -7,6 +7,10 @@
 # so real names never enter the repo that this hook protects.
 #
 
+# Ignore SIGPIPE. Without this the hook dies mid-message when a caller pipes
+# commit output through head or less, and git then lets the commit through.
+trap '' PIPE
+
 fail=0
 say() { printf '%s\n' "$*" >&2; }
 bad() { fail=1; say "BLOCKED: $*"; }
