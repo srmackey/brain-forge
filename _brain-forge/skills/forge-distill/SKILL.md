@@ -33,7 +33,7 @@ Apply `primers/distill.md` in full: user-perspective priority, faithfulness (no 
 
 **In-system adaptations** (the only deltas from `primers/distill.md`):
 1. **No code-block wrapper** — write the file directly; content starts with the `---` frontmatter.
-2. **Destination:** `raw/YYYYMM/YYYYMMDD-<slug>-distill.md` (current year-month subfolder; create it if absent). This is a *new file* in `raw/` — never a modification of anything existing there.
+2. **Destination:** `raw/YYYYMMDD-<slug>-distill.md` at the root of `raw/` (schema Raw Items). This is a *new file* — never a modification of anything existing there. Do not put it in a dated monthly folder. `forge-ingest` moves it after processing.
 3. **Real-date discipline:** `date:` and the filename date come from the environment's real current date, never inferred from content.
 4. **Source field:** `source: "In-system <agent/surface> (<mode>) session — <human-readable date>"`.
 5. **Reference payload:** when the genesis material is reference facts (a tool, a comparison, research findings), include a dedicated `## Reference — <topic>` section complete enough that the wiki entry could be **rebuilt from this file alone**, with the facts' origin and retrieval date noted. This is the point of the capture — don't thin it to a summary of the wiki entry.

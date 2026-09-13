@@ -20,7 +20,7 @@ Acting in the forge purview, transform raw material into a clean, evolving wiki.
 
 ## Non-Negotiables (from the vault constitution)
 
-- **`raw/` is immutable.** Never modify, move, or delete anything in `raw/` **except**: (a) appending to `raw/_log.md`, and (b) the narrow permitted move of a capture into its correct `raw/YYYYMM/` year-month subfolder based on the file's date. Never alter raw *content* (light frontmatter enrichment only if it clearly helps future processing; prefer leaving the capture untouched).
+- **`raw/` is immutable.** Never modify, move, or delete anything in `raw/` **except**: (a) appending to `raw/_log.md`, and (b) the dated-subfolder move in `_brain-forge/schema.md` Raw Items. Never alter raw *content* (light frontmatter enrichment only if it clearly helps future processing; prefer leaving the capture untouched).
 - **Always consult `raw/_log.md` first** to know what has already been processed; never auto-scan/auto-process the whole `raw/` tree on every session. Ingest is human-initiated.
 - **Lightweight provenance is required** on every meaningful contribution to a wiki page: `Source: [[raw/YYYYMM/YYYYMMDD-filename.md]]` (or `#section` for precision).
 - **Log raw processing only to `raw/_log.md`** (most recent first). Do not mix architecture notes into that log.
@@ -68,7 +68,7 @@ Bundle all hold / propose cases into **one grouped digest** rather than per-item
 For each wiki-bound capture, call the **`forge-synthesis-engine`** skill — module `classify` (or `learn` when synthesis steering is on). The engine returns the **page decision**: target page(s) each marked *update* or *new page*, the top-down rationale, which high-level hub(s) get a pointer + short synthesis, any new-page / reference-surface recommendation + criterion, the provenance line(s), and a lifecycle-visibility note when relevant. **This skill does not re-derive the classification** — it consumes the engine's decision. (Full classification doctrine: the engine's `classify` module, plus `preferences.md` when steering is on.)
 
 ### Step 5 — Tidy the source file into its dated folder
-Before integrating, so that provenance points at a file that is already there: if a wiki-bound file is at `raw/` root or in the wrong subfolder, **move it** into `raw/YYYYMM/` (derived from its date), keeping the filename. If already correct, leave it. This is the *only* permitted reorganization inside `raw/`.
+Home: `_brain-forge/schema.md` Raw Items. Before integrating, so that provenance points at a file that is already there: if a wiki-bound file is at `raw/` root or in the wrong subfolder, **move it** into `raw/YYYYMM/` (derived from its date), keeping the filename. If already correct, leave it. This is the *only* permitted reorganization inside `raw/`.
 
 **A held capture is not moved.** It stays where the human will see it, at whatever path they last saw it, until they decide. Tidying is for material that has been dealt with.
 

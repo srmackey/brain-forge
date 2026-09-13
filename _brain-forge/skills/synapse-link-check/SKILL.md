@@ -56,7 +56,7 @@ Whether a repair is **applied** vs **proposed** vs **report-only** is governed b
 Follow the synapse column in `_brain-forge/schema.md`. In short:
 - **wiki/ · primers/** — `auto*` (auto-repair unambiguous drift on unprotected files; propose on `ai-behavior`-protected files).
 - **journal/** — `propose`.
-- **raw/ · archive/** — `flag-only` (raw is immutable except the documented dated-subfolder move, which belongs to forge ingest).
+- **raw/ · archive/** — `flag-only` (raw is immutable except the dated-subfolder move in `_brain-forge/schema.md` Raw Items, which `forge-ingest` performs).
 - **The vault constitution / `_brain-forge/`** — `flag-only`.
 
 Folders this vault has that the matrix does not name (operator overlay, host dirs) are flag-only unless the user directed otherwise.

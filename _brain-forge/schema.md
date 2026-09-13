@@ -32,6 +32,7 @@ Any rule that more than one purview, surface, or tool must consult lives in exac
 | Tool autonomy / permissions | this file — Capability Matrix |
 | Tool structure (skill / engine) | this file — Tool Structure Convention |
 | Frontmatter / AI-steering / raw-item rules | this file |
+| Where a new capture lands | this file — Raw Items |
 | Capture destination (wiki / hold) | `forge-ingest` |
 | Wiki-page classification (which page, once wiki-bound) | `forge-synthesis-engine` (optional instance `preferences.md` when steering is on) |
 | Authoring templates | `_brain-forge/templates/` |
@@ -127,7 +128,7 @@ Canonical autonomy table. Tools never duplicate it.
 | --- | --- | --- | --- |
 | The vault constitution / shims | flag-only | never | flag-only |
 | `_brain-forge/` | flag-only | never | flag-only |
-| `raw/` | flag-only | flag-only | flag-only *(+ the one documented dated-subfolder move)* |
+| `raw/` | flag-only | flag-only *(+ the Raw Items dated-subfolder move)* | flag-only |
 | `wiki/` | flag-only | auto | auto\* (links) |
 | `primers/` | flag-only | auto | auto\* |
 | `journal/` | never | never | propose |
@@ -211,5 +212,7 @@ Place page-specific AI rules in a collapsed callout immediately after frontmatte
 ## Raw Items
 
 `raw/` is a dumb drop zone. New material lands with minimal overhead.
+
+**Unprocessed captures land at the root of `raw/`.** A new file is never placed in a dated monthly folder. `forge-ingest` is the one mechanism that moves a file from the root into `raw/YYYYMM/` (derived from the capture's date), and only after that capture has been processed: logged in `raw/_log.md`, and if wiki-bound, synthesized and linked. A held capture is not moved.
 
 Light steering hints in the raw template are acceptable. Strong steering (named destination pages) belongs in an AI Steering section at the top of that one capture. The primary record of what happened to a raw item lives in `raw/_log.md`.

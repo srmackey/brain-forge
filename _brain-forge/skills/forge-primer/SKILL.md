@@ -105,7 +105,7 @@ The skill/command should be easy to invoke directly with natural language goals 
 - Preserve human agency: the user (or caller) remains in control of what becomes stable vs. dynamically composed. Offer Continuity; do not force it.
 - Keep the system general — one composer (this skill) handles many patterns via codex sections rather than custom per-pattern skills.
 - Lightweight provenance on every meaningful contribution.
-- Raw immutability (except the narrow documented tidy move to `raw/YYYYMM/`); log raw processing only to `raw/_log.md`.
+- Raw immutability (except the dated-subfolder move in `_brain-forge/schema.md` Raw Items); log raw processing only to `raw/_log.md`.
 - Human direction always takes precedence.
 - Follow the exact qualified header names (`## Primer - Steering`, `## Primer - Continuity`, `## Primer - Codex - Name`) as the discovery contract.
 

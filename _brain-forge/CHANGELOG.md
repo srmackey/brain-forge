@@ -14,6 +14,21 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.3 (2026-09-13)
+
+Unprocessed captures drop at `raw/` root. The rule lives in
+`_brain-forge/schema.md` Raw Items. Reconcile your raw template if your capture
+plugin reads the shipped copy. Schema and `forge-distill` are
+framework-internal: update rewrites them. No other adopted file moves.
+
+- **The raw template no longer recommends a dated monthly folder.** Save the
+  note at `raw/`. The QuickAdd macro already wrote there.
+- **`forge-distill` writes to `raw/` root.** It used to create `raw/YYYYMM/`.
+  `forge-ingest` is the one move into a year-month folder, after the capture is
+  processed.
+- **Schema is the home for that drop rule.** The capability-matrix footnote for
+  the dated-subfolder move sat on synapse. It now sits on forge.
+
 ## 0.2.2 (2026-09-04)
 
 Two places said a thing by listing it where the thing was already derivable.

@@ -7,7 +7,7 @@ source: manual
 
 # [Optional title — or just paste content below]
 
-**Placement recommendation:** Save this note inside the matching year-month folder under `raw/` (e.g. `raw/202606/`) using the `date:` above. This keeps the drop zone navigable as volume grows. Dropping at the root of `raw/` is still acceptable for quick capture — the maintainer will tidy it during processing.
+**Placement:** Save this note at the root of `raw/`. Do not put it in a dated monthly folder.
 
 [Paste raw capture here. Light steering hints respected by `/forge-ingest`:
 [- `#todo` or `#revisit` → inline body tags the owner can query]
