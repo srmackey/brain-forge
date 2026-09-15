@@ -20,6 +20,7 @@ When pasting into a web AI, the rules below are the whole instruction.
 - **Neutral register on the user**: describe, never appraise. No competence or persona framing ("deep expertise", "impressive system") — this note feeds later AI context, and flattering frames compound downstream. The user's role and skills appear only as plain facts when they bear on the content.
 - **Tag epistemic status**: distinguish what the user *decided* from what was merely *discussed*. Mark AI-originated recommendations the user did not explicitly adopt as `(AI-suggested, unvalidated)` — especially numbers: prices, hours, estimates, timelines. A distill must never promote a suggestion into a conclusion; when in doubt, it stays a suggestion.
 - **Attribute ideation**: for every significant idea, question, or direction-change, note its origin — the user introduced it, the AI proposed it and the user adopted or extended it, or the AI proposed it and the user let it pass. Record *how* the user engaged, not just that they did ("embraced and extended", "accepted without pushback", "redirected it toward X"). This is the raw data for auditing whether the user is steering the session or being steered.
+- **Engagement is a routing signal, not decoration.** Affirmation or extension of an *unfinished* idea ("I like that", "great", "I'm on board", "what about this") is still-live: it belongs in Action Items / Next Steps, and gets `#revisit` (look-into / come-back-to) or `#todo` (they committed to a next step). A settled preference or a finished decision stays in Preferences & Feedback / decided. Silence, "interesting", or an ungrabbed AI suggestion stays `(AI-suggested, unvalidated)` and does not become an action item. Do not invent a phrasebook. The family is grabbed, extended, or passed.
 - **Concise but complete**: capture the essence, skip filler.
 - **Preserve voice, don't sterilize**: keep a few high-signal lines in the user's own words (verbatim) rather than flattening everything into neutral paraphrase. Lean is not sterile — keep the texture that makes the note feel alive; cut only filler, not character.
 - **Output (web producer)**: wrap everything in one triple-backtick markdown code block. No text before or after it. The content starts with `---`. The in-system producer (`forge-distill`) writes a file instead and skips the wrapper.
@@ -63,7 +64,7 @@ Open with what the user walked in asking or believing. End with a one-line steer
 - What the conversation took on faith: assumptions never stress-tested, counterarguments never raised, costs or risks never priced. If the session contained no challenge or dissent at all, say so in one line ("No assumptions were challenged in this session.") — the absence must be visible signal, not silent rosiness.
 
 ## Action Items / Next Steps
-- [ ] Concrete next steps, experiments, or follow-ups the user committed to. Real checkboxes, no fabrication.
+- [ ] Concrete next steps, experiments, look-intos, or follow-ups the user grabbed or extended, even if they never said "todo". Real checkboxes. Do not fabricate from ungrabbed AI suggestions.
 
 ## Suggested Connections
 - [[Related Note or Topic]] — only genuinely relevant notes or concepts the user referenced. Omit if none fit. Never force a connection.
@@ -71,7 +72,7 @@ Open with what the user walked in asking or believing. End with a one-line steer
 ## Routing Hints
 suggested-title: [a tighter, synthesis-ready title for the maintainer]
 layers: [one or more of: durable-reasoning, reference, system-intent — the signal type(s) this topic carries; see Signal Layers below]
-[Add `#todo` on its own line if Action Items exist; `#revisit` if anything was left unresolved.]
+[Add `#todo` on its own line if they committed to a next step; `#revisit` if anything still-live was left unresolved or only grabbed.]
 ```
 
 ## Signal Layers (Routing Hint)
@@ -126,7 +127,7 @@ Where the raw note above is a *distillation* (the durable residue, neutral in to
 ## Quality Notes
 
 - **Title**: evocative yet precise (e.g. "Frictionless Capture Design Principles", "Compare Two Note-Taking Tools").
-- **Tags**: use `#todo` / `#revisit` only when genuinely warranted, placed in Routing Hints.
+- **Tags**: use `#todo` / `#revisit` when Action Items exist, placed in Routing Hints. `#revisit` is the still-live look-into; `#todo` is a committed next step. Do not skip them because the user used ordinary engagement language instead of those words.
 - **Date**: session start date for `date:`; for `source:`, a quoted string with the AI tool and human-readable date.
 - **Tone**: faithful to the user's viewpoint — records what happened, not advice or outside summary. Faithful is not the same as sterile: preserve the user's wording and the texture of the thinking where it carries signal; just never editorialize or add outside knowledge.
 - **Confidence**: the decided / discussed / AI-suggested distinction is load-bearing — downstream synthesis will treat untagged claims as settled. Numbers without a tag read as decisions.

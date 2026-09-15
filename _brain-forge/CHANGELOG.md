@@ -14,6 +14,14 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.4 (2026-09-15)
+
+Engagement in a capture is still-live, and ingest keeps it. Reconcile your distill primer and your adopted constitution. `forge-distill` and `forge-ingest` are framework-internal: update rewrites them.
+
+- **Distill treats affirmation and extension of an unfinished idea as a routing signal.** "I like that" / "what about this" become Action Items plus `#revisit` or `#todo`. Ungrabbed AI suggestions still do not.
+- **Ingest writes those items onto `wiki/projects` (section Still live)** with a pointer to the raw file, instead of folding them into wiki prose and losing them. Not a third folder. Not the ranked week.
+- **The traveling constitution names that rule.** `framework:` on that file is now 0.2.4.
+
 ## 0.2.3 (2026-09-13)
 
 Unprocessed captures drop at `raw/` root. The rule lives in
