@@ -29,7 +29,7 @@ This is a **capture surface**. It describes the session faithfully; it never pic
 Identify the external-genesis material in the session (a single topic, or several distinct topics → the template's multi-topic form). If invoked with an argument, honor the given focus/slug.
 
 ### Step 2 — Compose (per `primers/distill.md`)
-Apply `primers/distill.md` in full: user-perspective priority, faithfulness (no invented detail), neutral register on the user, epistemic tagging (`decided` vs. `discussed` vs. `(AI-suggested, unvalidated)`), ideation attribution, the **Thought Direction (Steering Trace)** section with a blunt steering read, and the never-omitted **Risks & Unexamined Assumptions**. Omit sections that would be empty or forced.
+Apply `primers/distill.md` in full: user-perspective priority, faithfulness (no invented detail), neutral register on the user, epistemic tagging (`decided` vs. `discussed` vs. `(AI-suggested, unvalidated)`), ideation attribution, **engagement as a routing signal** (grabbed or extended unfinished ideas become Action Items plus `#revisit` / `#todo`; ungrabbed AI suggestions do not), the **Thought Direction (Steering Trace)** section with a blunt steering read, and the never-omitted **Risks & Unexamined Assumptions**. Omit sections that would be empty or forced.
 
 **In-system adaptations** (the only deltas from `primers/distill.md`):
 1. **No code-block wrapper** — write the file directly; content starts with the `---` frontmatter.

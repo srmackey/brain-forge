@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.2.2
+framework: 0.2.4
 
 The constitution for a vault that installed Brain Forge.
 
@@ -36,6 +36,10 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 ## Wiki or hold
 
 `forge-ingest` makes this call. Default is wiki. Hold when the user directed hold, or the capture is not this vault's material. Hold means leave in `raw/` and surface to the human.
+
+## Still live
+
+A capture can be knowledge and also something to come back to. `forge-ingest` writes the knowledge into wiki as today, and writes still-live items onto `wiki/projects` (section `Still live`), each with a pointer to the raw file. Distill records engagement language as the signal, so the owner does not have to mark up the drop. This is not a third folder and not the ranked week. Dismiss is the owner's.
 
 ## File categories
 
