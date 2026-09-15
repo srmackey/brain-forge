@@ -50,6 +50,8 @@ Full contract: `_brain-forge/skills/brainforge-update/SKILL.md`.
 
 ## Skills
 
+You do not pick a purview to use the vault. The constitution **Use path** maps keep / ingest / compose. The names below are wiring.
+
 **Forge:** `forge-distill`, `forge-ingest`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
 
 **Synapse:** `synapse-graph-refresh`, `synapse-link-check`

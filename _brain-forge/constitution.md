@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.2.4
+framework: 0.2.5
 
 The constitution for a vault that installed Brain Forge.
 
@@ -40,6 +40,19 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 ## Still live
 
 A capture can be knowledge and also something to come back to. `forge-ingest` writes the knowledge into wiki as today, and writes still-live items onto `wiki/projects` (section `Still live`), each with a pointer to the raw file. Distill records engagement language as the signal, so the owner does not have to mark up the drop. This is not a third folder and not the ranked week. Dismiss is the owner's.
+
+## Use path
+
+The owner does not pick a purview. Purviews are wiring. Map what they meant, then run the matching skill.
+
+| They meant | You run |
+|---|---|
+| This sitting produced something worth keeping, and the sitting was the source | Distill, then ingest that file |
+| A file is already in `raw/`, or ingest what is waiting | Ingest |
+| Assemble context for a goal so nobody re-explains | Primer |
+| The graph is stale, or links are broken | The synapse skill that does that job, and only then |
+
+Do not wait for them to name `forge-distill`. "Keep this", "put this in the vault", and "catalog this sitting" are enough when the sitting was the source. Do not add a skill whose only job is to pick among these.
 
 ## File categories
 
