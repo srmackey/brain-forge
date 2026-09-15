@@ -1,6 +1,6 @@
 ---
 name: forge-primer
-description: "The Context Composer + static primer authoring skill. Compose mode (default): assembles high-signal, intent-specific primers on demand by discovering and following ## Primer - Steering (wiki pages), ## Primer - Continuity (raw/distill files), and ## Primer - Codex - Name (inside primer files); when a codex is referenced, reads and executes its instructions for dynamic assembly. Static mode (`static` arg): authors a new hand-crafted static primer file in primers/ (type: primer + signal: true). Produces clean, dense, attributed output with lightweight provenance. The Codex / Context Composer lives in this skill. Follows the vault constitution: human direction overrides, provenance on contributions, conservative defaults, no wiki pollution, preserve human agency."
+description: "Assemble context for a goal so nobody re-explains. Trigger on 'compose a primer', 'take this vault with me', 'I don't want to re-explain', or /forge-primer. Compose mode (default) follows ## Primer - Steering, ## Primer - Continuity, and ## Primer - Codex - Name. Static mode authors a new primers/ file. Not the capture pipe. Follows the vault constitution; human direction overrides."
 argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  static <description>"
 ---
 
@@ -11,6 +11,10 @@ argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  
 The primer layer manual is `_brain-forge/primers.md`: what the kinds are, how composition works, and why a transcluded primer does not copy cleanly out of Obsidian. This skill is the engine that implements it, and the canonical home for the discovery rules below. Read the manual for the model, read here for the mechanics.
 
 Reusable engine for **dynamic primer composition** (default) **and static primer authoring** (`static` mode). This is the single general-purpose "Context Composer" for Brain Forge. In compose mode it replaces the need for per-pattern custom skills by using human-curated `## Primer - Codex - Name` instruction sets (plus Steering and Continuity blocks) to assemble the right context for a given goal. In static mode it authors a new hand-crafted primer file in `primers/` (see **Static Authoring Mode** at the end).
+
+## When to run
+
+Run when the owner wants assembled context for a goal: "compose a primer", "take this vault with me", "I don't want to re-explain". That is the constitution Use path. This is not the capture pipe (that is distill then ingest).
 
 ## Role & Purpose
 

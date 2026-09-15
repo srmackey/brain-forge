@@ -1,6 +1,6 @@
 ---
 name: forge-distill
-description: "In-system session distill (forge purview): writes a durable source capture to raw/ when the current agent session is itself the genesis of substantive information from outside the system (repo/tool reviews, web research, novel in-session brainstorms) — keeping wiki/ rebuildable from raw/ and the content portable. In-system producer of the format in primers/distill.md (web AIs are the other producer; forge-ingest consumes both). Trigger on /forge-distill or 'distill this session (to raw)'. Describes only — routing/synthesis decisions stay with the engines. Follows the vault constitution; human direction overrides."
+description: "In-system session distill: writes a durable source capture to raw/ when this sitting is the genesis of substantive information from outside the system (repo/tool reviews, web research, novel in-session brainstorms). Also the first half of 'keep this' / 'put this in the vault' / 'catalog this sitting' when the sitting was the source — then hand off to forge-ingest. Producer of primers/distill.md (web AIs are the other producer). Describes only. Follows the vault constitution; human direction overrides."
 argument-hint: "[optional: topic focus or target filename slug]"
 ---
 
@@ -15,7 +15,7 @@ The forge purview's **in-system source-capture hands**: when an agent session wo
 ## When to run (and when not)
 
 - **Run** when the session introduced **substantive external-genesis material**: reviews of external repos/tools/articles, web research, reference facts pulled from outside, or in-session brainstorms that produced novel content worth synthesizing — anything where the wiki write would otherwise be the *only* durable record of the source material.
-- **Run on explicit signal**: `/forge-distill`, "distill this session", "save a source record of this".
+- **Run on explicit signal**: `/forge-distill`, "distill this session", "save a source record of this", "keep this", "put this in the vault", "catalog this sitting" — when the sitting was the source. Do not wait for the skill name. The constitution Use path is the map.
 - **Do not run** for small insights *derived from existing vault material* — those may be written to the wiki with session provenance (the vault constitution). Not for session-state snapshots (resumption notes). This skill is source distillation.
 - When about to file back substantive external-genesis material without a raw source, **stop and run this first** (or propose it if the situation is borderline).
 

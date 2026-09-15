@@ -1,6 +1,6 @@
 ---
 name: forge-ingest
-description: "Forge-purview consumer skill that transforms raw/ captures into the living wiki/ synthesis layer. Delegates top-down classification (and optional synthesis steering) to forge-synthesis-engine; owns the ingest hands — consulting raw/_log.md first, the capture-quality screen (flags flattering register, untagged AI-suggested claims, and other capture noise; neutralizes rather than propagating it into wiki/), the wiki write, the permitted raw/YYYYMM/ tidy, raw/_log.md logging, wiki/_index.md upkeep, and the eval log. Adds lightweight provenance. Follows the vault constitution; human direction overrides."
+description: "Turns raw/ captures into the living wiki/. Run when a file is already in raw/, when ingest is waiting, or as the second half of 'keep this' / 'put this in the vault' after distill. Delegates classification to forge-synthesis-engine; owns the writes, capture-quality screen, still-live lines on wiki/projects, tidy into raw/YYYYMM/, raw/_log.md, wiki/_index.md, eval log. Follows the vault constitution; human direction overrides."
 argument-hint: "[optional: single filename or path under raw/ to process]"
 ---
 
@@ -8,7 +8,7 @@ argument-hint: "[optional: single filename or path under raw/ to process]"
 
 # forge-ingest Skill
 
-The forge purview's **raw→wiki ingest hands**: it brings material from the immutable `raw/` dumb drop zone into the LLM-maintained `wiki/` layer so the wiki compounds in **density and usefulness over time, not volume**. The `/forge-ingest` command is a thin, human-facing entry point.
+The forge purview's **raw→wiki ingest hands**: it brings material from the immutable `raw/` dumb drop zone into the LLM-maintained `wiki/` layer so the wiki compounds in **density and usefulness over time, not volume**. The `/forge-ingest` command is a thin, human-facing entry point. Also run it when a file is already in `raw/`, when ingest is waiting, or as the second half of the constitution Use path after a distill. Do not wait for the skill name.
 
 **Brain vs. hands.** The *classification brain* — top-down classification, the page-type taxonomy, the structuring principle, the learned-preferences model (`preferences.md`), the suggestion/feedback learning loop, and the self-observation trace — lives in the shared **`forge-synthesis-engine`** skill (`_brain-forge/skills/forge-synthesis-engine/SKILL.md`). This skill is the engine's **consumer #1**: it calls the engine for the page decision and owns the *writes* (Steps 5–9).
 

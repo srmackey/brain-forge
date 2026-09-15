@@ -14,6 +14,13 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.5 (2026-09-15)
+
+The owner does not pick a purview. Reconcile your adopted constitution. Skill descriptions moved so "keep this" / "put this in the vault" fire distill then ingest, and "assemble context" fires primer. Those skills are framework-internal: update rewrites them.
+
+- **The traveling constitution has a Use path.** Map what they meant, then run the matching skill. Do not wait for the skill name. Do not add a tenth skill whose only job is to pick.
+- **README says the same** for someone deciding whether to use the product. README does not travel.
+
 ## 0.2.4 (2026-09-15)
 
 Engagement in a capture is still-live, and ingest keeps it. Reconcile your distill primer and your adopted constitution. `forge-distill` and `forge-ingest` are framework-internal: update rewrites them.
