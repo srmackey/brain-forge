@@ -29,6 +29,8 @@ When pasting into a web AI, the rules below are the whole instruction.
 
 For a single-topic conversation, produce **one note** following this structure. The structure serves the signal, not the reverse: **omit any section that would be empty or forced** — a real, lean note beats a complete-looking skeleton. (One deliberate exception: **Risks & Unexamined Assumptions** is never omitted — "empty" is itself the finding.) Keep the headers you actually use, in this order:
 
+Default `type: raw`. When the owner asked to capture an idea, `type: idea` instead. That names the capture. Wiki home is still ingest's call.
+
 ```markdown
 ---
 type: raw

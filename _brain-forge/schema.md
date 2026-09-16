@@ -59,7 +59,7 @@ A `layers:` tag on a distill (`durable-reasoning` / `reference` / `system-intent
 
 | Property | Use | Notes |
 |---|---|---|
-| `type` | `raw`, `primer`, `journal`, `system`, `project`, `person`, `concept`, `topic`, `reference`, `log`, `evolution` | Primary nature of the item. |
+| `type` | `raw`, `primer`, `journal`, `system`, `project`, `person`, `concept`, `topic`, `reference`, `log`, `evolution`, `idea` | Primary nature of the item. |
 | `signal` | `true` or `false` | Active knowledge graph and AI attention. Graphify inclusion is `.graphifyignore`, not this flag. |
 | `ai-behavior` | `append-only`, `historical-evolution`, `propose-only` | Page-level constraint. Always paired with an AI Instructions callout immediately after frontmatter. Absence = default behavior. Do not write `ai-behavior: full`. |
 | `status` | `active`, `draft`, `archived`, `completed`, `review` | Lightweight filter. |
@@ -72,6 +72,20 @@ A `layers:` tag on a distill (`durable-reasoning` / `reference` / `system-intent
 **`title:` is deprecated.** The H1 and filename are authoritative. Remove on sight during hygiene on unprotected pages.
 
 **Date discipline.** Every stamp is the real current date. Never infer a future date.
+
+### Idea captures
+
+A capture with `type: idea` is a durable source for a line of thinking: what was being aimed at, in the owner's voice. It is not session resumption (Continuity), not a wiki page per idea, and not a chair `_system/evolution.md` entry.
+
+Ingest does not dump it onto a hub. It adds a row to a finder index (default `wiki/ideas.md` if that page exists; otherwise recommend creating it) and wires the relevant domain hub with a pointer. The finder is rows: date, gist, about, pointer to raw, pointer to whatever it produced. One line of gist. Not the paper.
+
+Association is wikilinks, so the graph has edges. Optional routing-hint keys on the capture, descriptive not deciding:
+
+- `about:` hub or topic pages this idea is for
+- `precedes:` / `supersedes:` a prior `type: idea` capture when there is a trail
+- `produced:` a spec, paper, or wiki page that came out of it (a path is fine when the artifact lives outside the vault)
+
+"Capture this as an idea" is a distill signal. Distill writes `type: idea` instead of `type: raw`. Wiki home stays the engine's call.
 
 ### Canonical block (`signal: true`)
 
@@ -97,7 +111,7 @@ If `ai-behavior` is set, the next lines after `---` are:
 
 ```markdown
 ---
-type: system | raw | journal | ...
+type: system | raw | journal | idea | ...
 signal: false
 status: active
 last-updated: YYYY-MM-DD

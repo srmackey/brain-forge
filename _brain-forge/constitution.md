@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.2.5
+framework: 0.2.6
 
 The constitution for a vault that installed Brain Forge.
 
@@ -48,11 +48,12 @@ The owner does not pick a purview. Purviews are wiring. Map what they meant, the
 | They meant | You run |
 |---|---|
 | This sitting produced something worth keeping, and the sitting was the source | Distill, then ingest that file |
+| Capture this as an idea | Distill with `type: idea`, then ingest that file |
 | A file is already in `raw/`, or ingest what is waiting | Ingest |
 | Assemble context for a goal so nobody re-explains | Primer |
 | The graph is stale, or links are broken | The synapse skill that does that job, and only then |
 
-Do not wait for them to name `forge-distill`. "Keep this", "put this in the vault", and "catalog this sitting" are enough when the sitting was the source. Do not add a skill whose only job is to pick among these.
+Do not wait for them to name `forge-distill`. "Keep this", "put this in the vault", "catalog this sitting", and "capture this as an idea" are enough when the sitting was the source. Do not add a skill whose only job is to pick among these.
 
 ## File categories
 
