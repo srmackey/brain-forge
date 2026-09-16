@@ -14,6 +14,13 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.6 (2026-09-16)
+
+Idea captures are a typed source, not loose `raw/` files. Reconcile your adopted constitution (Use path) and your distill primer if you keep a copy. `schema.md`, `forge-distill`, and `forge-synthesis-engine` are framework-internal: update rewrites them. Create `wiki/ideas.md` in the vault if you want the finder; install does not.
+
+- **`type: idea` is in the schema enum.** Ingest adds a finder row (default `wiki/ideas.md`) and wires the domain hub. No wiki page per idea. Association is wikilinks (`about`, `precedes` / `supersedes`, `produced`).
+- **The traveling constitution has the Use path row.** "Capture this as an idea" is distill with `type: idea`, then ingest. `framework:` on that file is now 0.2.6.
+
 ## 0.2.5 (2026-09-15)
 
 The owner does not pick a purview. Reconcile your adopted constitution. Skill descriptions moved so "keep this" / "put this in the vault" fire distill then ingest, and "assemble context" fires primer. Those skills are framework-internal: update rewrites them.
