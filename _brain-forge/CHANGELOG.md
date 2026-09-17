@@ -14,6 +14,12 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.7 (2026-09-16)
+
+Public contract for sending chairs. Framework-internal otherwise: no adopted-file reconcile.
+
+- **Sender types live in this product.** `_brain-forge/articles/methodology/capture-types.md` is the stamp table (`raw`, `idea`). `provisions/pack.yaml` at the repo root is the extract list (provision 0.1.0). Harvest onto Insitu from an install or update sitting. The instance door article no longer holds the table.
+
 ## 0.2.6 (2026-09-16)
 
 Idea captures are a typed source, not loose `raw/` files. Reconcile your adopted constitution (Use path) and your distill primer if you keep a copy. `schema.md`, `forge-distill`, and `forge-synthesis-engine` are framework-internal: update rewrites them. Create `wiki/ideas.md` in the vault if you want the finder; install does not.

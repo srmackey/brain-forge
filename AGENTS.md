@@ -69,6 +69,7 @@ Attribution in LICENSE and commit authorship is the intended exception.
 | Path | Role |
 |---|---|
 | `_brain-forge/` | The framework. Everything that ships. |
+| `provisions/pack.yaml` | Public-contract extract list. Does not travel with vault install. |
 | `AGENTS.md` | This file. Product-development constitution. Does not travel. |
 | `README.md` | What the product is. Does not travel. |
 | `LICENSE` | Does not travel. |
