@@ -1,10 +1,5 @@
-# Chair overlay
-_status/
-inbox/
+# Generated composed protocol. Rematerializes; embeds a vault path.
 PROTOCOL.md
-
-# system-development overlay, if this chair subscribes
-_system/
 
 # Host overlay stays untracked, not ignored (repo-public).
 # Do not add .claude/, .cursor/, .grok/, or project.yaml here.
