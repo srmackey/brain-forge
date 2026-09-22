@@ -61,6 +61,7 @@ This checkout may be cloned and pushed. Treat the tree, every commit, and any re
 - Do not commit `.claude/`, `.cursor/`, or `.grok/`.
 - Chair overlay is not in this tree. Do not Read `_status/`, `inbox/`, or `_system/` from the checkout.
 - Enable the hygiene hook in a fresh clone: `git config core.hooksPath .githooks`. It also wants a `.git/hygiene-denylist`, one term per line, which is deliberately untracked.
+- The README's first sentence is the GitHub description. `DESIGN.md` is the public picture of the system. Vulnerability reports go to `SECURITY.md`, not a public issue. The version record an update reads stays `_brain-forge/CHANGELOG.md`. Do not put an unreleased heading above the current version there.
 
 Attribution in LICENSE and commit authorship is the intended exception.
 
