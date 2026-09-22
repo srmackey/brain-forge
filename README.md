@@ -1,8 +1,10 @@
 # Brain Forge
 
-A vault framework: capture, catalog, link, graph, synthesize.
+Brain Forge ships the conventions and skills for a personal knowledge vault, and it leaves the vault's contents with its owner.
 
-This repository is the **product**. A vault that installed it is an **instance**. The value of a second brain is its contents, and contents do not ship. What ships is the engine, the conventions, and the contract.
+Not an MCP server, not a hosted wiki, and not a graph engine. It does not write your notes, and it does not copy the constitution into your agent for you.
+
+This repository is the product. A vault that installed it is an instance. What ships is the engine, the conventions, and the contract. How the system is put together is in [DESIGN.md](DESIGN.md). What changed for an installed vault is in [`_brain-forge/CHANGELOG.md`](_brain-forge/CHANGELOG.md). How to report a problem is in [SECURITY.md](SECURITY.md).
 
 ## Model
 
@@ -105,6 +107,6 @@ Official project: [safishamsi/graphify](https://github.com/safishamsi/graphify).
 
 Install does not create it. Update never overwrites it. The instruction lives in the engine skill.
 
-## Status
+## Version
 
-Framework source stood up 2026-09-01, reshaped into `_brain-forge/` the same day. Install and update are exercised end to end as of 2026-09-02, against an empty vault and a vault that already had contents, including the update path over a hand-edited framework file and the orphan report. `forge-distill` and `forge-primer` have never been run, the Obsidian templates and the QuickAdd macro have never been loaded by a real plugin, and no vault outside this author's has installed from this tree. Treat 0.2.0 as working and young, not as a finished distribution.
+The version an installed vault is on is the top entry of [`_brain-forge/CHANGELOG.md`](_brain-forge/CHANGELOG.md). Update reads that entry. This page does not keep a second number.
