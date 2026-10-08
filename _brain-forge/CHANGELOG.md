@@ -14,6 +14,13 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.8 (2026-10-08)
+
+Public face. No adopted-file reconcile.
+
+- SECURITY.md says how to report a vulnerability, and what a local run can touch.
+- DESIGN.md is the public picture of the framework.
+
 ## 0.2.7 (2026-09-16)
 
 Public contract for sending chairs. Framework-internal otherwise: no adopted-file reconcile.
