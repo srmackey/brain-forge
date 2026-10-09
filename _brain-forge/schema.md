@@ -167,7 +167,7 @@ Every Brain Forge tool is a skill with a single canonical core at `_brain-forge/
 - **`*-engine` skill.** Shared logic consumed by two or more skills, not itself user-invoked (`forge-synthesis-engine`).
 - **Tie-breaker.** A skill that is itself user-invocable keeps its natural name even when shared (`synapse-link-check`).
 
-`forge-synthesis-engine` may keep a `preferences.md` for optional synthesis steering. That file is user-owned, lives outside the framework folder, and is never overwritten. Absence means the feature is off.
+`forge-synthesis-engine` may keep a `preferences.md` for optional synthesis steering. That file is user-owned, lives beside the engine at `_brain-forge/skills/forge-synthesis-engine/preferences.md`, and is never overwritten. Absence means the feature is off.
 
 Imported third-party skills are external artifacts, not authored cores.
 

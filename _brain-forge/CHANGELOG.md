@@ -14,6 +14,13 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.9 (2026-10-08)
+
+The synthesis preferences file sits beside the engine. No adopted-file reconcile.
+
+- The README tells you to create `preferences.md` at `_brain-forge/skills/forge-synthesis-engine/preferences.md`. It had said the vault root. The engine reads the file beside itself, and update leaves it alone because it is not a shipped file.
+- `schema.md` names that same path. It had said the file lives outside the framework folder. Update rewrites `schema.md`. It is not an adopted file.
+
 ## 0.2.8 (2026-10-08)
 
 Public face. No adopted-file reconcile.

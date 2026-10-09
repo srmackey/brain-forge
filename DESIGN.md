@@ -1,6 +1,6 @@
 # Brain Forge
 
-**Version 0.2.8**
+**Version 0.2.9**
 
 Brain Forge is a vault framework. A vault that installed it keeps that person's notes. This repository ships the rules and the skills, not the notes.
 
