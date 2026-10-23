@@ -57,6 +57,7 @@ This checkout may be cloned and pushed. Treat the tree, every commit, and any re
 
 - Stage paths by name. Do not add the whole working tree at once.
 - Do not commit personal vault contents, real people's names, or another project's files.
+- Brain Forge is part of Domain Prime. Naming and linking the other Domain Prime repos (domainprime, insitu, envoy, context-forge) is fine. Names from a real install that runs them are not.
 - Docs, comments, examples, and tests use fictional names and paths.
 - Do not commit `.claude/`, `.cursor/`, or `.grok/`.
 - Chair overlay is not in this tree. Do not Read `_status/`, `inbox/`, or `_system/` from the checkout.

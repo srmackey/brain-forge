@@ -1,12 +1,46 @@
 # Brain Forge
 
+Brain Forge sets up a personal knowledge vault your agents maintain, from raw captures to a synthesized wiki and a link graph, while the contents stay yours.
+
+## The problem
+
+You read, research, and brainstorm with AI all week, and most of it evaporates. What you do save lands in a notes app as a pile nobody tends: duplicates, contradictions, links that broke when a file moved. And at the start of every AI session you re-explain the same background, because the knowledge isn't in a form an agent can pick up.
+
+## What you get
+
+- **Keep it in one phrase.** Say "keep this" and the agent captures the source as it arrived, then folds it into the right wiki page.
+- **Captures you can trust.** The raw layer is never edited after capture. The wiki says what the captures add up to, and records whose idea a claim was.
+- **A wiki that stays tidy.** Health passes surface contradictions, duplicates, orphans, and stale claims, and propose fixes rather than rewriting on their own. Link checks repair moved files and flag dead links.
+- **Context on demand.** Ask for a primer and the agent assembles what a goal needs from the wiki and your own profile, so you stop re-explaining.
+- **Filing that learns you.** Turn on steering and the agent learns where you like new material to go from what you accept, change, or reject.
+- **Plain markdown, any agent.** The skills run from any coding agent. Obsidian makes it nicer to browse, but nothing requires it.
+
+## A day with it
+
+You read a long article on retrieval methods and tell the agent to keep it. It writes a capture into `raw/`, then proposes a home: a section in your existing wiki page on search, not a new page. You accept. The page now carries the claim and where it came from.
+
+Later, starting a new project, you ask for a primer on the topic. The agent assembles one from that wiki page, two related pages, and your personal primer. The new session starts with all of it instead of a blank page.
+
+At the end of the week a health pass notes that two pages now disagree on the same point and proposes which one should own it. A link check finds three links broken by a folder move, fixes the two with one clear target, and asks you about the third.
+
+## Part of Domain Prime
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/domain-prime-dark.svg">
+  <img alt="Where Brain Forge sits in the Domain Prime tree: an optional vault node beside the lines of work." src="docs/domain-prime-light.svg" width="760">
+</picture>
+
+Brain Forge is one of four engines in [Domain Prime](https://github.com/srmackey/domainprime), a local-first system for running many AI projects as a tree. The vault joins the tree as an optional node beside your lines of work, added with `--with-brain-forge`. Projects can drop material into it, and a project marked sensitive warns you and waits for your confirmation first. It also runs on its own: install it into any folder and it works without the rest. Terms like nexus and node are defined in the [glossary](https://github.com/srmackey/domainprime/blob/main/docs/glossary.md).
+
+## How it works
+
 Brain Forge ships the conventions and skills for a personal knowledge vault, and it leaves the vault's contents with its owner.
 
 Not an MCP server, not a hosted wiki, and not a graph engine. It does not write your notes, and it does not copy the constitution into your agent for you.
 
 This repository is the product. A vault that installed it is an instance. What ships is the engine, the conventions, and the contract. How the system is put together is in [DESIGN.md](DESIGN.md). What changed for an installed vault is in [`_brain-forge/CHANGELOG.md`](_brain-forge/CHANGELOG.md). How to report a problem is in [SECURITY.md](SECURITY.md).
 
-## Model
+### Model
 
 `raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. The **forge** purview turns arrivals into a corpus. The **synapse** purview keeps the graph and links honest. **brain** is the interaction layer (retrieval, query, analysis); its write tools are not built yet. The three are siblings, not nested. Framework install and update are not a purview and sit outside the capability matrix.
 
