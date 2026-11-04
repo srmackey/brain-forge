@@ -58,6 +58,8 @@ Everything under `_brain-forge/`, and nothing else.
 | `primers/_system.md` | Surface primer for working on your vault's design |
 | `primers/_me.md` | Empty personal primer. Fill this in first. |
 | `templates/` | Obsidian stationery: journal, primer, raw, card |
+| `lists/working.md` | The shipped list. It names the working cards and the fields |
+| `lists/working.base` | The Base that shows that list |
 | `obsidian/` | Obsidian plugin macros |
 | `tools/` | Scripts an agent runs |
 | `.graphifyignore` | Seed for the vault-root graph ignore |

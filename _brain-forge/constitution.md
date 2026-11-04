@@ -48,6 +48,8 @@ Filing a card writes one markdown file in `cards/`. The shape is in schema. Remo
 
 Creating a card checks the working pile and `cards/_removed.md`. It does not walk `raw/`. The match rule is in schema.
 
+A list is a definition, not a folder. The shipped one is `_brain-forge/lists/working.md`, and `_brain-forge/lists/working.base` shows it. Schema holds the definition shape.
+
 There is no parked state. A card stays visible on a list until it is removed.
 
 A claim worth synthesizing still uses distill. Keeping a card on the pile does not copy it into `raw/`.
@@ -73,7 +75,7 @@ Do not wait for them to name `forge-distill`. "Keep this", "put this in the vaul
 |---|---|---|
 | Framework | The files the product ships under `_brain-forge/` | Overwritten |
 | Adopted | Your constitution, host skill copies, whatever path your template plugin reads, the seeded primers in `primers/`, root `.graphifyignore` | Never touched. `brainforge-update` reports when the framework source moved ahead. |
-| User-owned | Everything outside `_brain-forge/`, without qualification, plus anything inside it that does not use a shipped filename. This is a rule rather than a list, so a directory you add later is yours without this table having to hear about it. Today that means `raw/`, `wiki/`, `cards/`, `journal/`, `archive/`, `primers/`, your inbox, instance-authored skills, and the learned synthesis model beside the engine core. | Never touched |
+| User-owned | Everything outside `_brain-forge/`, without qualification, plus anything inside it that does not use a shipped filename. This is a rule rather than a list, so a directory you add later is yours without this table having to hear about it. Today that means `raw/`, `wiki/`, `cards/`, `lists/`, `journal/`, `archive/`, `primers/`, your inbox, instance-authored skills, and the learned synthesis model beside the engine core. | Never touched |
 
 Update writes the files the product ships and never deletes anything, so your own state may sit inside the framework folder as long as it does not use a shipped filename. That is why the learned synthesis model lives beside the engine core.
 

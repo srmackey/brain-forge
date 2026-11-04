@@ -311,3 +311,37 @@ Check exact before strong. A URL match is decided on the URL. Title is the exact
 A later change of mind opens a new file in `cards/`. The filed card stays, and its row stays on the list.
 
 A working card is not a wiki page.
+
+---
+
+## List definitions
+
+A list is a definition applied to cards, not a folder. One markdown file. The query is structured so a Base, or a later dashboard, can run it without a model. The body is one line a person can read. It is not the query.
+
+```yaml
+---
+type: list
+name: Working
+cards: cards
+where:
+  type: card
+fields:
+  - title
+  - state
+  - direction
+  - url
+  - summary
+  - saved
+order:
+  field: saved
+  direction: desc
+shape: table
+group: state
+---
+```
+
+`cards` is the folder. `where` selects which of those files. `fields` is the column order. `order` sorts the rows. `shape` is the view. `group` clusters them and does not hide any.
+
+The shipped list is `_brain-forge/lists/working.md`. The Base that renders it is `_brain-forge/lists/working.base`. The Base names the same cards and the same fields. It does not add a filter the definition does not have.
+
+An owner's own list lives in `lists/` at the vault root. That folder is user-owned. Update does not write it. The shipped pair stays in the framework so an update can revise the example.
