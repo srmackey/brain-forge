@@ -1,5 +1,6 @@
 # Starting ignore for a new Brain Forge vault graph.
 # Living layer: wiki/, raw/ (except _log.md), primers/.
+# cards/ is a working pile, not vault knowledge. Schema Working cards.
 # gitignore semantics (last-match-wins, ! to un-ignore).
 #
 # Install seeds this file at the vault root. Update never overwrites it,
@@ -47,6 +48,9 @@ _attachments/
 # Retained on disk, low signal for the living wiki layer
 archive/
 journal/
+
+# Working pile. Not indexed. See schema Working cards.
+cards/
 
 # Ingest reads this as text
 raw/_log.md

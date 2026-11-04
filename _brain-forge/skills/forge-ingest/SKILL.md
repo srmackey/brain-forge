@@ -12,7 +12,7 @@ The forge purview's **raw→wiki ingest hands**: it brings material from the imm
 
 **Brain vs. hands.** The *classification brain* — top-down classification, the page-type taxonomy, the structuring principle, the learned-preferences model (`preferences.md`), the suggestion/feedback learning loop, and the self-observation trace — lives in the shared **`forge-synthesis-engine`** skill (`_brain-forge/skills/forge-synthesis-engine/SKILL.md`). This skill is the engine's **consumer #1**: it calls the engine for the page decision and owns the *writes* (Steps 5–9).
 
-**Wiki or hold.** A raw capture is not always wiki-bound. This skill makes that call before synthesis. Default is wiki. Hold when the user directed hold, the capture is not this vault's material, or Step 3.4's severe case applies. Only wiki-bound material descends into `forge-synthesis-engine`. Hold routes stay in `raw/` and are bundled into the human digest. This skill does **not** force non-wiki signal into a wiki page.
+**Wiki or hold.** A raw capture is not always wiki-bound. This skill makes that call before synthesis. Default is wiki. Hold when the user directed hold, the capture is not this vault's material, or Step 3.4's severe case applies. A removed card is neither: `_brain-forge/schema.md` Working cards names the mark (`synthesize: false`, and `type: card`). Do not synthesize it. Only wiki-bound material descends into `forge-synthesis-engine`. Hold routes stay in `raw/` and are bundled into the human digest. This skill does **not** force non-wiki signal into a wiki page.
 
 ## Role & Purpose
 
@@ -60,6 +60,7 @@ Output a per-capture verdict — `capture-quality: clean`, `capture-quality: fla
 
 ### Step 3.5 — Wiki or hold
 Before any wiki classification, decide destination for each capture:
+- **Removed card** when the file has `synthesize: false` or `type: card`. Home: `_brain-forge/schema.md` Working cards. Do not synthesize, do not call the engine, do not tidy the file, and do not alter it. Log it in Step 7 as a removed card, then stop for that file. It is not a hold and not a wiki write.
 - **Hold** when the user directed hold, the capture is not this vault's material, or Step 3.4's severe case proposes hold + remediation. Leave in `raw/`, surface to the human. Do not write it into the wiki.
 - **Wiki** otherwise. Proceed to Step 4.
 Bundle all hold / propose cases into **one grouped digest** rather than per-item prompts.
@@ -70,7 +71,7 @@ For each wiki-bound capture, call the **`forge-synthesis-engine`** skill — mod
 ### Step 5 — Tidy the source file into its dated folder
 Home: `_brain-forge/schema.md` Raw Items. Before integrating, so that provenance points at a file that is already there: if a wiki-bound file is at `raw/` root or in the wrong subfolder, **move it** into `raw/YYYYMM/` (derived from its date), keeping the filename. If already correct, leave it. This is the *only* permitted reorganization inside `raw/`.
 
-**A held capture is not moved.** It stays where the human will see it, at whatever path they last saw it, until they decide. Tidying is for material that has been dealt with.
+**A held capture is not moved.** It stays where the human will see it, at whatever path they last saw it, until they decide. Tidying is for material that has been dealt with. A removed card is not moved either. Working cards already placed it.
 
 ### Step 6 — Integrate the signal (update existing > create new)
 - **Default:** update the most appropriate *existing* page(s), and **always wire the relevant high-level hub** (the relevant domain hub, the practice hub, and so on) with links + short synthesis so cross-cutting signal is not lost.
@@ -129,4 +130,4 @@ Returns: per-file routing decisions (from the engine) + applied edits, the `raw/
 - `primers/distill.md` — distill format (capture-quality rules).
 - `raw/_log.md` — raw-processing memory.
 
-**Current version:** Consumer #1 of `forge-synthesis-engine`. Wiki vs hold is this skill's call (2026-09-01). Capture-quality screen added 2026-07-11.
+**Current version:** Consumer #1 of `forge-synthesis-engine`. Wiki vs hold is this skill's call (2026-09-01). Capture-quality screen added 2026-07-11. A removed card is not synthesized (2026-11-04).

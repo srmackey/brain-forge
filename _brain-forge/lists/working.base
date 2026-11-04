@@ -1,0 +1,31 @@
+# Renders lists/working.md. Same cards, same fields. No extra filter.
+filters:
+  and:
+    - 'file.inFolder("cards")'
+    - 'type == "card"'
+properties:
+  title:
+    displayName: Title
+  state:
+    displayName: State
+  direction:
+    displayName: Direction
+  url:
+    displayName: URL
+  summary:
+    displayName: Summary
+  saved:
+    displayName: Saved
+views:
+  - type: table
+    name: Working
+    groupBy:
+      property: state
+      direction: ASC
+    order:
+      - title
+      - state
+      - direction
+      - url
+      - summary
+      - saved

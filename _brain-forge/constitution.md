@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.2.6
+framework: 0.2.10
 
 The constitution for a vault that installed Brain Forge.
 
@@ -16,6 +16,7 @@ The vault is a store: capture, catalog, link, graph, synthesize. It is not an op
 
 - `raw/` is a dumb drop zone. New material lands here with minimal overhead. It is immutable after capture.
 - `wiki/` is the living synthesis layer. The forge purview maintains it.
+- `cards/` is a working pile beside those two. A card is not a capture and not a wiki page. The graph does not index the pile. Schema (Working cards) is the home for the file, the states, and the remove mark.
 - **The graph maps the corpus, not what this vault knows.** It spans `raw/` and `wiki/` together, which is the point: connections between unprocessed material and settled synthesis are what it is for. So it indexes captures nobody has judged, captures held back at ingest, and claims the wiki would have tagged as unvalidated, all with no marker separating them from anything else. A graph hit is a pointer into the corpus, never a claim this vault holds. Epistemic status lives in `wiki/`, where a contribution says whose idea it was and whether anyone ever agreed with it. An agent answering from the graph goes to the wiki page before treating anything as true.
 - Human direction always overrides the capability matrix.
 
@@ -41,6 +42,18 @@ The matrix in `_brain-forge/schema.md` is the canonical home. Tools reference it
 
 A capture can be knowledge and also something to come back to. `forge-ingest` writes the knowledge into wiki as today, and writes still-live items onto `wiki/projects` (section `Still live`), each with a pointer to the raw file. Distill records engagement language as the signal, so the owner does not have to mark up the drop. This is not a third folder and not the ranked week. Dismiss is the owner's.
 
+## Working cards
+
+Filing a card writes one markdown file in `cards/`. The shape is in schema. Removing a card moves that file into `raw/` with `synthesize: false`, and the file is not edited after that. `forge-ingest` does not synthesize it.
+
+Creating a card checks the working pile and `cards/_removed.md`. It does not walk `raw/`. The match rule is in schema.
+
+A list is a definition, not a folder. The shipped one is `_brain-forge/lists/working.md`, and `_brain-forge/lists/working.base` shows it. Schema holds the definition shape.
+
+There is no parked state. A card stays visible on a list until it is removed.
+
+A claim worth synthesizing still uses distill. Keeping a card on the pile does not copy it into `raw/`.
+
 ## Use path
 
 The owner does not pick a purview. Purviews are wiring. Map what they meant, then run the matching skill.
@@ -50,10 +63,11 @@ The owner does not pick a purview. Purviews are wiring. Map what they meant, the
 | This sitting produced something worth keeping, and the sitting was the source | Distill, then ingest that file |
 | Capture this as an idea | Distill with `type: idea`, then ingest that file |
 | A file is already in `raw/`, or ingest what is waiting | Ingest |
+| These links, or this file of saved things, should become cards | Intake |
 | Assemble context for a goal so nobody re-explains | Primer |
 | The graph is stale, or links are broken | The synapse skill that does that job, and only then |
 
-Do not wait for them to name `forge-distill`. "Keep this", "put this in the vault", "catalog this sitting", and "capture this as an idea" are enough when the sitting was the source. Do not add a skill whose only job is to pick among these.
+Do not wait for them to name `forge-distill`. "Keep this", "put this in the vault", "catalog this sitting", and "capture this as an idea" are enough when the sitting was the source. "File these links" and "make cards from this" are intake. Do not add a skill whose only job is to pick among these.
 
 ## File categories
 
@@ -61,7 +75,7 @@ Do not wait for them to name `forge-distill`. "Keep this", "put this in the vaul
 |---|---|---|
 | Framework | The files the product ships under `_brain-forge/` | Overwritten |
 | Adopted | Your constitution, host skill copies, whatever path your template plugin reads, the seeded primers in `primers/`, root `.graphifyignore` | Never touched. `brainforge-update` reports when the framework source moved ahead. |
-| User-owned | Everything outside `_brain-forge/`, without qualification, plus anything inside it that does not use a shipped filename. This is a rule rather than a list, so a directory you add later is yours without this table having to hear about it. Today that means `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, your inbox, instance-authored skills, and the learned synthesis model beside the engine core. | Never touched |
+| User-owned | Everything outside `_brain-forge/`, without qualification, plus anything inside it that does not use a shipped filename. This is a rule rather than a list, so a directory you add later is yours without this table having to hear about it. Today that means `raw/`, `wiki/`, `cards/`, `lists/`, `journal/`, `archive/`, `primers/`, your inbox, instance-authored skills, and the learned synthesis model beside the engine core. | Never touched |
 
 Update writes the files the product ships and never deletes anything, so your own state may sit inside the framework folder as long as it does not use a shipped filename. That is why the learned synthesis model lives beside the engine core.
 

@@ -10,6 +10,6 @@ Brain Forge is files and instructions an agent runs inside a vault. It is not a 
 
 - Install copies `_brain-forge/` into the vault root. It also seeds `.graphifyignore` at that root, and three primer files beside the owner's own.
 - Update rewrites the files the product ships under `_brain-forge/` and deletes nothing. It does not overwrite an adopted constitution, host skill copies, or the notes.
-- The skills, when an owner runs them, write captures under `raw/`, synthesis under `wiki/`, and a derived graph when a graph tool is installed.
+- The skills, when an owner runs them, write captures under `raw/`, synthesis under `wiki/`, working cards under `cards/`, and a derived graph when a graph tool is installed. Removing a card moves that file into `raw/`.
 - The framework does not run git and it does not take a credential.
-- It does not reach the network on its own. A graph refresh uses whatever graph tool the owner installed.
+- It does not reach the network on its own, except intake, which fetches a URL the owner handed it. A graph refresh uses whatever graph tool the owner installed.

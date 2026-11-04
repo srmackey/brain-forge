@@ -9,6 +9,7 @@ You read, research, and brainstorm with AI all week, and most of it evaporates. 
 ## What you get
 
 - **Keep it in one phrase.** Say "keep this" and the agent captures the source as it arrived, then folds it into the right wiki page.
+- **A pile for things you are still tracking.** Hand over a link and it becomes a card beside the wiki: a title, a short summary, and your own note. It stays off the wiki until you decide it is knowledge.
 - **Captures you can trust.** The raw layer is never edited after capture. The wiki says what the captures add up to, and records whose idea a claim was.
 - **A wiki that stays tidy.** Health passes surface contradictions, duplicates, orphans, and stale claims, and propose fixes rather than rewriting on their own. Link checks repair moved files and flag dead links.
 - **Context on demand.** Ask for a primer and the agent assembles what a goal needs from the wiki and your own profile, so you stop re-explaining.
@@ -42,7 +43,7 @@ This repository is the product. A vault that installed it is an instance. What s
 
 ### Model
 
-`raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. The **forge** purview turns arrivals into a corpus. The **synapse** purview keeps the graph and links honest. **brain** is the interaction layer (retrieval, query, analysis); its write tools are not built yet. The three are siblings, not nested. Framework install and update are not a purview and sit outside the capability matrix.
+`raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. `cards/` is a working pile beside those two. A card is not a capture and not a wiki page. The **forge** purview turns arrivals into a corpus and files a working card. The **synapse** purview keeps the graph and links honest. **brain** is the interaction layer (retrieval, query, analysis); its write tools are not built yet. The three are siblings, not nested. Framework install and update are not a purview and sit outside the capability matrix.
 
 ## What ships
 
@@ -52,12 +53,14 @@ Everything under `_brain-forge/`, and nothing else.
 |---|---|
 | `constitution.md` | The vault constitution. You adopt this. |
 | `schema.md` | Frontmatter, capability matrix, producer boundary, tool conventions |
-| `skills/` | The nine skill cores |
+| `skills/` | The ten skill cores |
 | `primers.md` | How the primer layer works. The manual. |
 | `primers/distill.md` | The web distill format |
 | `primers/_system.md` | Surface primer for working on your vault's design |
 | `primers/_me.md` | Empty personal primer. Fill this in first. |
-| `templates/` | Obsidian stationery: journal, primer, raw |
+| `templates/` | Obsidian stationery: journal, primer, raw, card |
+| `lists/working.md` | The shipped list. It names the working cards and the fields |
+| `lists/working.base` | The Base that shows that list |
 | `obsidian/` | Obsidian plugin macros |
 | `tools/` | Scripts an agent runs |
 | `.graphifyignore` | Seed for the vault-root graph ignore |
@@ -88,13 +91,15 @@ Full contract: `_brain-forge/skills/brainforge-update/SKILL.md`.
 
 You do not pick a purview to use the vault. The constitution **Use path** maps keep / ingest / compose. The names below are wiring.
 
-**Forge:** `forge-distill`, `forge-ingest`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
+**Forge:** `forge-distill`, `forge-ingest`, `forge-intake`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
 
 **Synapse:** `synapse-graph-refresh`, `synapse-link-check`
 
 **Product (not purview tools):** `brainforge-surfaces`, `brainforge-update`
 
 `forge-ingest` decides wiki vs hold. Hold when directed, or when the capture is not vault material.
+
+`forge-intake` files a link as a card. It checks the working pile and `cards/_removed.md`. It does not walk `raw/`.
 
 ## Obsidian
 

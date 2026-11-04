@@ -2,12 +2,12 @@
 type: system
 signal: false
 status: active
-last-updated: 2026-09-01
+last-updated: 2026-11-04
 ---
 
 # Schema
 
-Frontmatter, AI steering, capability matrix, raw-item rules, and the producer boundary for a Brain Forge vault. Canonical home for those rules. Tools reference this file and never duplicate it.
+Frontmatter, AI steering, capability matrix, raw-item rules, working cards, and the producer boundary for a Brain Forge vault. Canonical home for those rules. Tools reference this file and never duplicate it.
 
 This file is framework-owned and updates in place. Unlike the constitution, it is not adopted: the skills read it at this path, so a forked copy would not be consulted. Per-vault deviation belongs in your constitution, which the host loads and which wins under the precedence rule below.
 
@@ -19,7 +19,7 @@ This file is framework-owned and updates in place. Unlike the constitution, it i
 - Every property must have at least one clear consumer.
 - Use frontmatter for systemic, machine-readable flags. Use AI Steering sections for richer per-page guidance.
 - Maintain consistency on pages that carry `signal: true`.
-- `raw/` is a dumb drop zone. `wiki/` favors updating existing pages.
+- `raw/` is a dumb drop zone. `wiki/` favors updating existing pages. `cards/` is a working pile and is not synthesized.
 
 ---
 
@@ -33,6 +33,7 @@ Any rule that more than one purview, surface, or tool must consult lives in exac
 | Tool structure (skill / engine) | this file — Tool Structure Convention |
 | Frontmatter / AI-steering / raw-item rules | this file |
 | Where a new capture lands | this file — Raw Items |
+| Working cards (shape, states, the remove mark) | this file — Working cards |
 | Capture destination (wiki / hold) | `forge-ingest` |
 | Wiki-page classification (which page, once wiki-bound) | `forge-synthesis-engine` (optional instance `preferences.md` when steering is on) |
 | Authoring templates | `_brain-forge/templates/` |
@@ -53,13 +54,15 @@ A capture surface never picks the wiki home. Classification logic is never copie
 
 A `layers:` tag on a distill (`durable-reasoning` / `reference` / `system-intent`) is a non-binding hint. The engine always owns the final call. Producers never emit a destination class.
 
+A working card is not a capture. It does not enter this boundary. Working cards says what it is.
+
 ---
 
 ## Core Frontmatter Properties
 
 | Property | Use | Notes |
 |---|---|---|
-| `type` | `raw`, `primer`, `journal`, `system`, `project`, `person`, `concept`, `topic`, `reference`, `log`, `evolution`, `idea` | Primary nature of the item. |
+| `type` | `raw`, `primer`, `journal`, `system`, `project`, `person`, `concept`, `topic`, `reference`, `log`, `evolution`, `idea`, `card` | Primary nature of the item. |
 | `signal` | `true` or `false` | Active knowledge graph and AI attention. Graphify inclusion is `.graphifyignore`, not this flag. |
 | `ai-behavior` | `append-only`, `historical-evolution`, `propose-only` | Page-level constraint. Always paired with an AI Instructions callout immediately after frontmatter. Absence = default behavior. Do not write `ai-behavior: full`. |
 | `status` | `active`, `draft`, `archived`, `completed`, `review` | Lightweight filter. |
@@ -69,7 +72,7 @@ A `layers:` tag on a distill (`durable-reasoning` / `reference` / `system-intent
 
 | `source` | free text | Where a capture came from. `manual`, `voice`, `web`, `screenshot`, or a quoted description such as `"Claude conversation, 2026-09-02"`. Read as provenance by `forge-ingest`. |
 
-**`title:` is deprecated.** The H1 and filename are authoritative. Remove on sight during hygiene on unprotected pages.
+**`title:` is deprecated.** The H1 and filename are authoritative. Remove on sight during hygiene on unprotected pages. A card is the exception: Working cards says why `title` stays.
 
 **Date discipline.** Every stamp is the real current date. Never infer a future date.
 
@@ -144,6 +147,7 @@ Canonical autonomy table. Tools never duplicate it.
 | `_brain-forge/` | flag-only | never | flag-only |
 | `raw/` | flag-only | flag-only *(+ the Raw Items dated-subfolder move)* | flag-only |
 | `wiki/` | flag-only | auto | auto\* (links) |
+| `cards/` | flag-only | auto | flag-only |
 | `primers/` | flag-only | auto | auto\* |
 | `journal/` | never | never | propose |
 | `archive/` | flag-only | flag-only | flag-only |
@@ -227,6 +231,117 @@ Place page-specific AI rules in a collapsed callout immediately after frontmatte
 
 `raw/` is a dumb drop zone. New material lands with minimal overhead.
 
-**Unprocessed captures land at the root of `raw/`.** A new file is never placed in a dated monthly folder. `forge-ingest` is the one mechanism that moves a file from the root into `raw/YYYYMM/` (derived from the capture's date), and only after that capture has been processed: logged in `raw/_log.md`, and if wiki-bound, synthesized and linked. A held capture is not moved.
+**Unprocessed captures land at the root of `raw/`.** A new file is never placed in a dated monthly folder. `forge-ingest` is the one mechanism that moves a file from the root into `raw/YYYYMM/` (derived from the capture's date), and only after that capture has been processed: logged in `raw/_log.md`, and if wiki-bound, synthesized and linked. A held capture is not moved. A removed card is not a capture. Working cards says where that file is written, and ingest does not move it.
 
 Light steering hints in the raw template are acceptable. Strong steering (named destination pages) belongs in an AI Steering section at the top of that one capture. The primary record of what happened to a raw item lives in `raw/_log.md`.
+
+---
+
+## Working cards
+
+`cards/` sits beside `raw/` and `wiki/`. It is a working pile: a site, a course, a product, a person, a talk, a movie, a book. Kind is a tag on the card. A list is a definition applied to cards, not a folder of its own. The pile is not a third knowledge layer. A claim worth synthesizing still goes through distill into `raw/`. Keeping a card does not copy it into `raw/`.
+
+The folder is created when the first card is filed. It is user-owned. The graph does not index it: `cards/` is listed in the seeded `.graphifyignore`, and the synapse column of the matrix is flag-only here. A removed card that has been filed into `raw/` is corpus, and the graph may point at it. That hit is a pointer to the record, not a wiki page.
+
+### File
+
+One markdown file in `cards/`. The template is `_brain-forge/templates/card.md`.
+
+| Property | Use |
+|---|---|
+| `type` | `card` |
+| `signal` | `false` |
+| `title` | The name a list shows. Required. The filename is a slug, so the deprecation of `title` does not apply to a card. |
+| `url` | When there is one. A card with no URL is still a card. |
+| `summary` | One or two sentences. A fetch may write this. A failed fetch still leaves a card. |
+| `tags` | Kind and whatever else groups it. A suggestion can be corrected. |
+| `state` | `open`, `kept`, or `dropped`. |
+| `direction` | The owner's words: research, buy, take, follow, watch, or whatever they meant. |
+| `saved` | `YYYY-MM-DD`. When it was saved. |
+| `image` | Local path under `cards/_images/`, when a fetch saved one. |
+
+The body is the owner's opinion and the reason. A dropped card keeps why it was turned down, in the body, and stays on the pile.
+
+There is no parked state. Nothing on the pile sits off a list. A hold-off is a `direction`, or a list definition that selects on it. It is not a state, and it does not hide the card.
+
+`open` is still live. `kept` means the owner wants it around, and an agent does not remove it. `dropped` means decided against for now. It stays on the list with the reason.
+
+### Remove
+
+Remove means the owner does not expect to want the card again. Move the file out of `cards/` and write it straight into `raw/YYYYMM/`, using the month of the remove. Set `date` to that day. Set `synthesize: false`. Leave `state` as the last working state, so the earlier decision is still in the file. Do not edit the file after that. Append a row to `cards/_removed.md` in the same action. That list is how a later intake finds the card.
+
+`synthesize: false` is the mark. `forge-ingest` does not synthesize a file that carries it, and it does not synthesize `type: card`. It does not tidy the file and does not change it. It logs the file in `raw/_log.md` so a later run does not treat it as waiting.
+
+Literal delete is not part of this convention. There is no delete state and no delete step. Deleting a named card takes an explicit direction each time.
+
+### Match
+
+Intake compares a candidate with the working files in `cards/` and with `cards/_removed.md`. It loads that set once per run. It does not walk `raw/`. It opens a filed card only when a row is being shown. `cards/_removed.md` and `cards/_images/` are not cards.
+
+`cards/_removed.md` is a table. The filed card remains the record. The reason stays in that file.
+
+```markdown
+# Removed cards
+
+| removed | title | url | summary | state | file |
+|---|---|---|---|---|---|
+```
+
+`removed` is the day the card was filed. `file` is the path under `raw/`. A missing list means nothing has been removed. Intake does not repair. When the owner asks for a repair, that walk reads `raw/` once for `type: card` and rebuilds the list.
+
+Compare URLs after this normalization. Lowercase the scheme and the host. Drop a leading `www.` on the host. Drop the fragment. Drop one trailing slash on the path, except for a path that is only `/`. Drop query keys named `fbclid`, `gclid`, `ref`, `mc_cid`, or `mc_eid`, and any key that starts with `utm_`. Sort the remaining query keys.
+
+Exact means the same card.
+
+- Both have a URL, and the normalized URLs are equal.
+- The candidate has no URL, and a card has the same title after trimming and ignoring case.
+
+An exact match shows the earlier decision and does not open a second card unless the owner says so. Show the state. For a removed card, open that one file and show the reason.
+
+A strong similarity is not exact, and a person would still call it the same thing. Show the earlier card's title, url, state, what overlapped, and the reason, and wait. That candidate is not filed until the owner decides.
+
+- The normalized host and path are equal, and the query is not.
+- The titles are equal after trimming and ignoring case, the candidate has a URL, and the URLs are not an exact match.
+- The titles are the same name with words added or dropped. Ignore case. Drop the words a, an, the, of, and, for, to, in, on, with, and from. The shorter remaining list has at least two words, and every one of them appears in the longer list.
+
+A weak resemblance is not shown. The same host with a different path, or a single shared word, is weak.
+
+Check exact before strong. A URL match is decided on the URL. Title is the exact test only when the candidate has no URL. The same title on two different URLs is strong, not exact.
+
+A later change of mind opens a new file in `cards/`. The filed card stays, and its row stays on the list.
+
+A working card is not a wiki page.
+
+---
+
+## List definitions
+
+A list is a definition applied to cards, not a folder. One markdown file. The query is structured so a Base, or a later dashboard, can run it without a model. The body is one line a person can read. It is not the query.
+
+```yaml
+---
+type: list
+name: Working
+cards: cards
+where:
+  type: card
+fields:
+  - title
+  - state
+  - direction
+  - url
+  - summary
+  - saved
+order:
+  field: saved
+  direction: desc
+shape: table
+group: state
+---
+```
+
+`cards` is the folder. `where` selects which of those files. `fields` is the column order. `order` sorts the rows. `shape` is the view. `group` clusters them and does not hide any.
+
+The shipped list is `_brain-forge/lists/working.md`. The Base that renders it is `_brain-forge/lists/working.base`. The Base names the same cards and the same fields. It does not add a filter the definition does not have.
+
+An owner's own list lives in `lists/` at the vault root. That folder is user-owned. Update does not write it. The shipped pair stays in the framework so an update can revise the example.

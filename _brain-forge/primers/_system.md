@@ -26,11 +26,11 @@ I drive direction. You accelerate thinking and surface possibilities. I decide w
 
 ## The model
 
-Two layers. `raw/` is an immutable capture layer, a low-friction drop zone where material lands with almost no processing and is never edited afterward. `wiki/` is the synthesis layer an AI maintains, with a strong preference for updating an existing page over creating a new one.
+`raw/` is an immutable capture layer, a low-friction drop zone where material lands with almost no processing and is never edited afterward. `wiki/` is the synthesis layer an AI maintains, with a strong preference for updating an existing page over creating a new one. `cards/` is a working pile beside those two. A card is not a capture and not a wiki page, and the graph does not index it. A list is a definition over the cards.
 
 Because `wiki/` is built from `raw/`, it stays rebuildable. Externally sourced material goes to `raw/` first so the wiki is never the only record of it.
 
-A knowledge graph is built over both layers, and it maps the corpus rather than what the vault knows. It indexes captures nobody has judged and claims the wiki would have marked unvalidated, with nothing separating them from settled synthesis. A graph result is a pointer into the corpus, not a claim the vault holds; the wiki page is where a contribution says whose idea it was and whether anyone agreed with it.
+A knowledge graph is built over `raw/` and `wiki/`, and it maps the corpus rather than what the vault knows. It indexes captures nobody has judged and claims the wiki would have marked unvalidated, with nothing separating them from settled synthesis. A graph result is a pointer into the corpus, not a claim the vault holds; the wiki page is where a contribution says whose idea it was and whether anyone agreed with it.
 
 Three purviews divide responsibility. **forge** turns arrivals into a corpus: ingest, synthesis, the wiki. **synapse** holds the graph and link integrity: rebuilds, resolution, repair. **brain** is the interaction layer where retrieval, query, and analysis happen, and it is the boundary an outside agent operates in, denied the other two. The three are siblings rather than nested, so brain does not subsume synapse. Framework install and update sit outside the purviews entirely.
 
