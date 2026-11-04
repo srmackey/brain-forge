@@ -52,12 +52,12 @@ Everything under `_brain-forge/`, and nothing else.
 |---|---|
 | `constitution.md` | The vault constitution. You adopt this. |
 | `schema.md` | Frontmatter, capability matrix, producer boundary, tool conventions |
-| `skills/` | The nine skill cores |
+| `skills/` | The ten skill cores |
 | `primers.md` | How the primer layer works. The manual. |
 | `primers/distill.md` | The web distill format |
 | `primers/_system.md` | Surface primer for working on your vault's design |
 | `primers/_me.md` | Empty personal primer. Fill this in first. |
-| `templates/` | Obsidian stationery: journal, primer, raw |
+| `templates/` | Obsidian stationery: journal, primer, raw, card |
 | `obsidian/` | Obsidian plugin macros |
 | `tools/` | Scripts an agent runs |
 | `.graphifyignore` | Seed for the vault-root graph ignore |
@@ -88,13 +88,15 @@ Full contract: `_brain-forge/skills/brainforge-update/SKILL.md`.
 
 You do not pick a purview to use the vault. The constitution **Use path** maps keep / ingest / compose. The names below are wiring.
 
-**Forge:** `forge-distill`, `forge-ingest`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
+**Forge:** `forge-distill`, `forge-ingest`, `forge-intake`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
 
 **Synapse:** `synapse-graph-refresh`, `synapse-link-check`
 
 **Product (not purview tools):** `brainforge-surfaces`, `brainforge-update`
 
 `forge-ingest` decides wiki vs hold. Hold when directed, or when the capture is not vault material.
+
+`forge-intake` files a link as a card. It checks the working pile and `cards/_removed.md`. It does not walk `raw/`.
 
 ## Obsidian
 

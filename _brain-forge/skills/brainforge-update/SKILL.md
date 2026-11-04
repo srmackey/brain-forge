@@ -29,7 +29,7 @@ Everything outside `_brain-forge/` is the owner's without qualification. Install
 |---|---|---|
 | `_brain-forge/constitution.md` | Vault constitution | Written |
 | `_brain-forge/schema.md` | Frontmatter, capability matrix, conventions | Written |
-| `_brain-forge/skills/` | Skill cores (nine) | Written |
+| `_brain-forge/skills/` | Skill cores (ten) | Written |
 | `_brain-forge/primers.md` | The primer layer manual | Written |
 | `_brain-forge/primers/` | Shipped primers: distill format, vault-design primer, personal skeleton | Written |
 | `_brain-forge/templates/` | Obsidian stationery | Written |

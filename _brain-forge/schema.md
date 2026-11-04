@@ -258,7 +258,7 @@ One markdown file in `cards/`. The template is `_brain-forge/templates/card.md`.
 | `state` | `open`, `kept`, or `dropped`. |
 | `direction` | The owner's words: research, buy, take, follow, watch, or whatever they meant. |
 | `saved` | `YYYY-MM-DD`. When it was saved. |
-| `image` | Local path of an icon or preview, when one was saved. |
+| `image` | Local path under `cards/_images/`, when a fetch saved one. |
 
 The body is the owner's opinion and the reason. A dropped card keeps why it was turned down, in the body, and stays on the pile.
 
@@ -276,13 +276,37 @@ Literal delete is not part of this convention. There is no delete state and no d
 
 ### Match
 
-Intake compares a candidate with the working files in `cards/` and with `cards/_removed.md`. It loads that set once per run. It does not walk `raw/`. The list file is not a card. Intake ignores that filename.
+Intake compares a candidate with the working files in `cards/` and with `cards/_removed.md`. It loads that set once per run. It does not walk `raw/`. It opens a filed card only when a row is being shown. `cards/_removed.md` and `cards/_images/` are not cards.
 
-Each row of `cards/_removed.md` holds the title, url, summary, state, and the path of the filed file. The filed card remains the record. The reason stays in that file and is read only when a row is shown. If the list is missing, or a filed card has no row, a repair walks `raw/` once for `type: card` and rebuilds the list. An ordinary intake does not.
+`cards/_removed.md` is a table. The filed card remains the record. The reason stays in that file.
 
-Exact means the same card. The same URL, ignoring case on the host and a fragment, or the same title when there is no URL, ignoring case and surrounding space. An exact match shows the earlier decision and does not open a second card unless the owner says so.
+```markdown
+# Removed cards
 
-A strong similarity is not exact, and a person would still call it the same thing. The same path with a different query, or a title that is the same name with words added or dropped. Intake shows that card's title, url, state, what overlapped, and the reason from the file, and waits. That candidate is not filed until the owner decides. A weak resemblance is not shown. The same site, or one shared ordinary word, is weak.
+| removed | title | url | summary | state | file |
+|---|---|---|---|---|---|
+```
+
+`removed` is the day the card was filed. `file` is the path under `raw/`. A missing list means nothing has been removed. Intake does not repair. When the owner asks for a repair, that walk reads `raw/` once for `type: card` and rebuilds the list.
+
+Compare URLs after this normalization. Lowercase the scheme and the host. Drop a leading `www.` on the host. Drop the fragment. Drop one trailing slash on the path, except for a path that is only `/`. Drop query keys named `fbclid`, `gclid`, `ref`, `mc_cid`, or `mc_eid`, and any key that starts with `utm_`. Sort the remaining query keys.
+
+Exact means the same card.
+
+- Both have a URL, and the normalized URLs are equal.
+- The candidate has no URL, and a card has the same title after trimming and ignoring case.
+
+An exact match shows the earlier decision and does not open a second card unless the owner says so. Show the state. For a removed card, open that one file and show the reason.
+
+A strong similarity is not exact, and a person would still call it the same thing. Show the earlier card's title, url, state, what overlapped, and the reason, and wait. That candidate is not filed until the owner decides.
+
+- The normalized host and path are equal, and the query is not.
+- The titles are equal after trimming and ignoring case, the candidate has a URL, and the URLs are not an exact match.
+- The titles are the same name with words added or dropped. Ignore case. Drop the words a, an, the, of, and, for, to, in, on, with, and from. The shorter remaining list has at least two words, and every one of them appears in the longer list.
+
+A weak resemblance is not shown. The same host with a different path, or a single shared word, is weak.
+
+Check exact before strong. A URL match is decided on the URL. Title is the exact test only when the candidate has no URL. The same title on two different URLs is strong, not exact.
 
 A later change of mind opens a new file in `cards/`. The filed card stays, and its row stays on the list.
 
