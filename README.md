@@ -9,6 +9,7 @@ You read, research, and brainstorm with AI all week, and most of it evaporates. 
 ## What you get
 
 - **Keep it in one phrase.** Say "keep this" and the agent captures the source as it arrived, then folds it into the right wiki page.
+- **A pile for things you are still tracking.** Hand over a link and it becomes a card beside the wiki: a title, a short summary, and your own note. It stays off the wiki until you decide it is knowledge.
 - **Captures you can trust.** The raw layer is never edited after capture. The wiki says what the captures add up to, and records whose idea a claim was.
 - **A wiki that stays tidy.** Health passes surface contradictions, duplicates, orphans, and stale claims, and propose fixes rather than rewriting on their own. Link checks repair moved files and flag dead links.
 - **Context on demand.** Ask for a primer and the agent assembles what a goal needs from the wiki and your own profile, so you stop re-explaining.
@@ -42,7 +43,7 @@ This repository is the product. A vault that installed it is an instance. What s
 
 ### Model
 
-`raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. The **forge** purview turns arrivals into a corpus. The **synapse** purview keeps the graph and links honest. **brain** is the interaction layer (retrieval, query, analysis); its write tools are not built yet. The three are siblings, not nested. Framework install and update are not a purview and sit outside the capability matrix.
+`raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. `cards/` is a working pile beside those two. A card is not a capture and not a wiki page. The **forge** purview turns arrivals into a corpus and files a working card. The **synapse** purview keeps the graph and links honest. **brain** is the interaction layer (retrieval, query, analysis); its write tools are not built yet. The three are siblings, not nested. Framework install and update are not a purview and sit outside the capability matrix.
 
 ## What ships
 

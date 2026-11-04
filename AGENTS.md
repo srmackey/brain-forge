@@ -12,7 +12,7 @@ You are developing the framework. Change how a vault works here. Use a vault in 
 
 ## Model
 
-`raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. The **forge** purview turns arrivals into a corpus. The **synapse** purview keeps the graph and links honest. **brain** is the interaction layer: retrieval, query, analysis. Write tools for brain are not built yet. The three are siblings, not nested.
+`raw/` is an immutable capture layer. `wiki/` is an LLM-maintained synthesis layer. `cards/` is a working pile beside those two. A card is not a capture and not a wiki page. The **forge** purview turns arrivals into a corpus and files a working card. The **synapse** purview keeps the graph and links honest. **brain** is the interaction layer: retrieval, query, analysis. Write tools for brain are not built yet. The three are siblings, not nested.
 
 Framework install and update are not a purview. `brainforge-update` and `brainforge-surfaces` write the framework rather than the corpus, so they sit outside the capability matrix and take the product's name.
 
@@ -30,7 +30,7 @@ Install does not write host skill directories, a constitution, or `README.md`. A
 
 ## Skills
 
-**Forge:** `forge-distill`, `forge-ingest`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
+**Forge:** `forge-distill`, `forge-ingest`, `forge-intake`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
 
 **Synapse:** `synapse-graph-refresh`, `synapse-link-check`
 
@@ -49,7 +49,7 @@ New skills follow the shape of the files in `_brain-forge/skills/`. Vault operat
 | Framework-adjacent owner state | Instance `_brain-forge/skills/forge-synthesis-engine/preferences.md` and `tweaks-log.md` | The owner. Not shipped, so never written. |
 | Seeded | Instance `.graphifyignore`, `primers/distill.md`, `primers/_system.md`, `primers/_me.md` | The owner's after first install. Never overwritten. |
 | Adopted | The owner's constitution, host skill copies, plugin template paths | The owner's. Never written by install or update. |
-| User-owned | Everything outside instance `_brain-forge/` that is not seeded or adopted. This is a rule, not a list; examples today include `raw/`, `wiki/`, `journal/`, `archive/`, `primers/`, the vault's inbox, and instance-authored skills | Tracked there. Never overwritten. |
+| User-owned | Everything outside instance `_brain-forge/` that is not seeded or adopted. This is a rule, not a list; examples today include `raw/`, `wiki/`, `cards/`, `lists/`, `journal/`, `archive/`, `primers/`, the vault's inbox, and instance-authored skills | Tracked there. Never overwritten. |
 
 ## Public repo
 

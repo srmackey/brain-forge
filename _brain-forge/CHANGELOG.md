@@ -14,6 +14,17 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.10 (2026-11-04)
+
+A working pile sits beside the captures and the wiki. Reconcile your adopted constitution. Add `cards/` to your root `.graphifyignore` if you keep that copy. If you kept the seeded surface primer, its model section is behind. `schema.md`, `forge-ingest`, `forge-intake`, the card template, and `_brain-forge/lists/` are framework-internal: update rewrites them. `cards/` and `lists/` at the vault root are yours. Update does not create them.
+
+- **A card is one file in `cards/`.** It is not a capture and not a wiki page. Removing it moves the file into `raw/` with `synthesize: false`. Ingest does not synthesize that file, and the file is not edited after that.
+- **Intake files a link as a card.** It checks the working pile and `cards/_removed.md` once per run. It does not walk `raw/`. An exact repeat reports the earlier card. A strong similarity waits. Intake fetches the URL you handed it.
+- **A list is a definition, not a folder.** The shipped list is `_brain-forge/lists/working.md`, and `_brain-forge/lists/working.base` shows those cards and those fields. Your own lists live in `lists/` at the vault root.
+- **The traveling constitution carries the pile, the intake row, and `framework: 0.2.10`.**
+
+README and DESIGN name the pile. Neither file travels with install.
+
 ## 0.2.9 (2026-10-08)
 
 The synthesis preferences file sits beside the engine. No adopted-file reconcile.

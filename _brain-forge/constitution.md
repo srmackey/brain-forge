@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.2.6
+framework: 0.2.10
 
 The constitution for a vault that installed Brain Forge.
 
