@@ -1,6 +1,6 @@
 # Brain Forge
 
-**Version 0.2.10**
+**Version 0.2.11**
 
 Brain Forge is a vault framework. A vault that installed it keeps that person's notes. This repository ships the rules and the skills, not the notes.
 
@@ -12,7 +12,7 @@ How to install it is in [README.md](README.md). What changed for someone who alr
 
 `wiki/` is the synthesis layer. An agent maintains it: pages that say what the captures add up to, with room to say whose idea a claim was and whether anyone agreed.
 
-`cards/` is a working pile beside those two. A card tracks something the owner has not turned into knowledge yet: a link, a title, a course. It is not a capture and not a wiki page. The graph does not index the pile. A list is a definition over the cards. The shipped list is `_brain-forge/lists/working.md`, and a Base renders it.
+`cards/` is a working pile beside those two. A card tracks something the owner has not turned into knowledge yet: a link, a title, a course. It is not a capture and not a wiki page. The graph does not index the pile. A list is a definition over the cards. The shipped list is `_brain-forge/lists/working.md`, and a Base renders it. A primer definition is that same query with the prose shape. The skill reads it and returns a block.
 
 The graph is drawn across `raw/` and `wiki/`. A hit is a pointer into the corpus. It is not a claim the vault has judged true. An answer that starts from the graph goes to the wiki page before treating the hit as fact.
 
@@ -28,7 +28,7 @@ The work splits into three purviews. They are siblings. An agent that is only re
 
 Install and update are not a fourth purview. They write the framework files, not the notes. The permission table for the tools lives in [`_brain-forge/schema.md`](_brain-forge/schema.md).
 
-The owner does not pick a purview. "Keep this" or "put this in the vault" is distill, then ingest. A file already in `raw/` is ingest. "File these links" is intake. "Assemble context" is a primer. A stale graph or a broken link is the synapse skill for that job.
+The owner does not pick a purview. "Keep this" or "put this in the vault" is distill, then ingest. A file already in `raw/` is ingest. "File these links" is intake. "Assemble context" is a primer. "A primer from a card list" is the card primer. A stale graph or a broken link is the synapse skill for that job.
 
 Ingest's default is a wiki page. It holds the capture in `raw/` when the owner said to hold it, or when the capture is not material for this vault.
 

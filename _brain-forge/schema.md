@@ -340,8 +340,18 @@ group: state
 ---
 ```
 
-`cards` is the folder. `where` selects which of those files. `fields` is the column order. `order` sorts the rows. `shape` is the view. `group` clusters them and does not hide any.
+`cards` is the folder. `where` selects which of those files. `where.tags` means the card has every named tag. `where.exclude_tags` drops a card that has any named tag. `fields` is the column order. `order` sorts the rows. `shape` is the view. `group` clusters them and does not hide any.
 
 The shipped list is `_brain-forge/lists/working.md`. The Base that renders it is `_brain-forge/lists/working.base`. The Base names the same cards and the same fields. It does not add a filter the definition does not have.
 
 An owner's own list lives in `lists/` at the vault root. That folder is user-owned. Update does not write it. The shipped pair stays in the framework so an update can revise the example.
+
+---
+
+## Primer definitions
+
+A primer definition is the same query as a list, with `shape: prose`. It selects the same cards. `fields` names what the prose may read. `body` is allowed there and means the markdown after the card's frontmatter. A table definition leaves `body` off, because a Base column is a property.
+
+The body of the file is the writing instruction. It is not the primer. The skill returns the primer and does not write it back into the definition. A saved copy is a file the owner names.
+
+The shipped example is `_brain-forge/lists/working-primer.md`. An owner's primer definitions live in `lists/` at the vault root, beside their lists. Update does not write that folder.

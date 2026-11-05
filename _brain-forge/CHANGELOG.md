@@ -14,6 +14,14 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.11 (2026-11-05)
+
+A primer definition is the same card query in prose. Reconcile your adopted constitution: the use path gained a row, and `framework:` is `0.2.11`. `schema.md`, `forge-card-primer`, and `_brain-forge/lists/working-primer.md` are framework-internal: update rewrites them. Your own primer definitions live in `lists/` at the vault root. Update does not create them.
+
+- **A primer definition uses `shape: prose`.** It names the same cards and the fields the prose may read. `body` is the card text after the frontmatter. The body of the definition is the writing instruction, not the primer.
+- **`forge-card-primer` reads that definition and returns a block.** It does not edit the cards and does not write the wiki. `forge-primer` still assembles wiki context.
+- **The traveling constitution carries the new use-path row and `framework: 0.2.11`.**
+
 ## 0.2.10 (2026-11-04)
 
 A working pile sits beside the captures and the wiki. Reconcile your adopted constitution. Add `cards/` to your root `.graphifyignore` if you keep that copy. If you kept the seeded surface primer, its model section is behind. `schema.md`, `forge-ingest`, `forge-intake`, the card template, and `_brain-forge/lists/` are framework-internal: update rewrites them. `cards/` and `lists/` at the vault root are yours. Update does not create them.

@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.2.10
+framework: 0.2.11
 
 The constitution for a vault that installed Brain Forge.
 
@@ -48,7 +48,7 @@ Filing a card writes one markdown file in `cards/`. The shape is in schema. Remo
 
 Creating a card checks the working pile and `cards/_removed.md`. It does not walk `raw/`. The match rule is in schema.
 
-A list is a definition, not a folder. The shipped one is `_brain-forge/lists/working.md`, and `_brain-forge/lists/working.base` shows it. Schema holds the definition shape.
+A list is a definition, not a folder. The shipped one is `_brain-forge/lists/working.md`, and `_brain-forge/lists/working.base` shows it. A primer definition is the same query with `shape: prose`. Schema holds both.
 
 There is no parked state. A card stays visible on a list until it is removed.
 
@@ -65,6 +65,7 @@ The owner does not pick a purview. Purviews are wiring. Map what they meant, the
 | A file is already in `raw/`, or ingest what is waiting | Ingest |
 | These links, or this file of saved things, should become cards | Intake |
 | Assemble context for a goal so nobody re-explains | Primer |
+| A primer from a card list, so a sitting can brainstorm the next one | Card primer |
 | The graph is stale, or links are broken | The synapse skill that does that job, and only then |
 
 Do not wait for them to name `forge-distill`. "Keep this", "put this in the vault", "catalog this sitting", and "capture this as an idea" are enough when the sitting was the source. "File these links" and "make cards from this" are intake. Do not add a skill whose only job is to pick among these.

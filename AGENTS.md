@@ -30,7 +30,7 @@ Install does not write host skill directories, a constitution, or `README.md`. A
 
 ## Skills
 
-**Forge:** `forge-distill`, `forge-ingest`, `forge-intake`, `forge-primer`, `forge-signal-check`, `forge-synthesis-engine`
+**Forge:** `forge-distill`, `forge-ingest`, `forge-intake`, `forge-primer`, `forge-card-primer`, `forge-signal-check`, `forge-synthesis-engine`
 
 **Synapse:** `synapse-graph-refresh`, `synapse-link-check`
 
