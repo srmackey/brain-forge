@@ -14,6 +14,17 @@ naming the path relative to `_brain-forge/`.** That line is not decoration.
 removal recorded only in prose reads as a file the framework never shipped, and
 a name merely mentioned in an entry is not a removal.
 
+## 0.2.12 (2026-11-06)
+
+A brief is `type: brief` and lives in `briefs/`. `include` is a list. Each item is a whole brief, one heading in a brief, or a wiki heading whose text starts with `Codex - `. The instruction heading is `## Codex - Name`. `forge-primer` compiles from that heading, Steering, and Continuity. It does not follow a transclusion, and it does not read cards. Reconcile your adopted constitution: the user-owned examples name `briefs/`, the include sentence names a wiki Codex heading, the primer sentence names that compile, and `framework:` is `0.2.12`. The use-path row arrived in 0.2.11. `schema.md`, `primers.md`, `forge-card-primer`, `forge-primer`, and `_brain-forge/briefs/` are framework-internal: update rewrites them. Your own briefs live in `briefs/` at the vault root. Update does not create them.
+
+- **A brief carries `where`, `fields`, and an optional `include`.** It does not carry `name`, `cards`, `order`, or `shape`. The skill reads `cards/` and does not sort. `body` in `fields` is the card text after the frontmatter. The body of the brief is the writing instruction.
+- **`include` is a list.** A whole file is an item with no heading. A heading item stops at the next heading with the same number of hashes or fewer. The skill does not follow an include inside an included section. Taste still comes from the cards on that read.
+- **An include is an instruction.** A wiki item is one heading whose text starts with `Codex - `, not the rest of the page. A saved primer is not an include. An include does not add cards.
+- **`## Codex - Name` is the shared instruction heading.** It is plain, not a callout. `forge-primer` reads it and does not write the block back. Steering stays `## Primer - Steering`. Continuity stays `## Primer - Continuity`. `## Primer - Codex - Name` does not match until it is retitled.
+- **The traveling constitution names `briefs/`, the Codex include, and `framework: 0.2.12`.**
+- Removed: `lists/working-primer.md`
+
 ## 0.2.11 (2026-11-05)
 
 A primer definition is the same card query in prose. Reconcile your adopted constitution: the use path gained a row, and `framework:` is `0.2.11`. `schema.md`, `forge-card-primer`, and `_brain-forge/lists/working-primer.md` are framework-internal: update rewrites them. Your own primer definitions live in `lists/` at the vault root. Update does not create them.

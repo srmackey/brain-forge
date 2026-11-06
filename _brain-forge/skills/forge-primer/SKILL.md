@@ -1,6 +1,6 @@
 ---
 name: forge-primer
-description: "Assemble context for a goal so nobody re-explains. Trigger on 'compose a primer', 'take this vault with me', 'I don't want to re-explain', or /forge-primer. Compose mode (default) follows ## Primer - Steering, ## Primer - Continuity, and ## Primer - Codex - Name. Static mode authors a new primers/ file. Not the capture pipe. Follows the vault constitution; human direction overrides."
+description: "Assemble context for a goal so nobody re-explains. Trigger on 'compose a primer', 'take this vault with me', 'I don't want to re-explain', or /forge-primer. Compose mode (default) follows ## Primer - Steering, ## Primer - Continuity, and ## Codex - Name. Static mode authors a new primers/ file. Not the capture pipe. Follows the vault constitution; human direction overrides."
 argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  static <description>"
 ---
 
@@ -8,9 +8,9 @@ argument-hint: "[goal [using codex \"Name\"] [from wiki/page raw/path ...]]  |  
 
 # forge-primer Skill
 
-The primer layer manual is `_brain-forge/primers.md`: what the kinds are, how composition works, and why a transcluded primer does not copy cleanly out of Obsidian. This skill is the engine that implements it, and the canonical home for the discovery rules below. Read the manual for the model, read here for the mechanics.
+The primer layer manual is `_brain-forge/primers.md`: the kinds, the reserved headings, and the heading read. This skill is the engine, and the canonical home for the discovery rules below. Read the manual for the model, read here for the mechanics.
 
-Reusable engine for **dynamic primer composition** (default) **and static primer authoring** (`static` mode). This is the single general-purpose "Context Composer" for Brain Forge. In compose mode it replaces the need for per-pattern custom skills by using human-curated `## Primer - Codex - Name` instruction sets (plus Steering and Continuity blocks) to assemble the right context for a given goal. In static mode it authors a new hand-crafted primer file in `primers/` (see **Static Authoring Mode** at the end).
+Reusable engine for **dynamic primer composition** (default) **and static primer authoring** (`static` mode). In compose mode it compiles a block from a `## Codex - Name` instruction, plus Steering and Continuity. The instruction is for the agent. The rest of a wiki page stays human prose. In static mode it authors a new hand-crafted primer file in `primers/` (see **Static Authoring Mode** at the end). This skill does not read cards. That path is `forge-card-primer`.
 
 ## When to run
 
@@ -21,23 +21,23 @@ Run when the owner wants assembled context for a goal: "compose a primer", "take
 Your job is to transform a user goal + optional references into a ready-to-paste, high-signal primer block without forcing the user (or calling agent) to re-explain foundational material.
 
 You do this by:
-- Locating and interpreting the special `## Primer - ` qualified headings (the reliable discovery contract).
-- When a codex is supplied or relevant, following its explicit instructions for how to compose.
+- Locating `## Codex - Name`, `## Primer - Steering`, and `## Primer - Continuity`. The old heading `## Primer - Codex - Name` does not match.
+- When a codex is supplied or relevant, following that heading's instructions.
 - Preferring Continuity snapshots for exact conversation resumption.
 - Falling back gracefully to static content or synthesis from sources.
 - Always emitting clean, dense, attributed output with provenance.
 
-This supports both web AI paste sessions and agentic work while keeping the human layer (wiki, primers) readable and maintainable.
+The wiki page stays human. A Codex heading is an instruction, not page prose. Do not write the compiled block back into the heading.
 
 ## Terminology
 
-- **Codex** (`## Primer - Codex - Specific Name`): A set of instructions (inside a primer file) that tells you exactly how to dynamically assemble a primer for a recurring pattern or use case. Human-curated.
-- **Primer file**: Any `.md` in `primers/` that may contain static context, one or more codex sections, or both.
-- **Steering** (`## Primer - Steering` on wiki pages): Topic-specific composition guidance. On wiki, wrapped in `[!ai-instructions]-` callout (for AI directives while keeping the page human-browsable).
-- **Continuity** (`## Primer - Continuity` in raw/distill files): High-signal snapshot (decisions, state, constraints, open questions, signals) intended primarily to "continue this exact conversation." Usually plain heading.
-- **Static content**: Normal descriptive headings/blocks in primer files (no special `## Primer - Static` prefix needed).
+- **Codex** (`## Codex - Name`): An instruction. It lives on a wiki page, or in a primer file when that file holds a heading to pull by name. Plain heading. Not a callout. The composer reads it and does not write the block back. The heading text starts with `Codex - `.
+- **Primer file**: Any `.md` in `primers/` that may contain static context, one or more Codex headings, or both.
+- **Steering** (`## Primer - Steering` on wiki pages): Topic-specific composition guidance. On wiki, wrapped in an `[!ai-instructions]-` callout, so the page stays human-browsable.
+- **Continuity** (`## Primer - Continuity` in raw/distill files): High-signal snapshot (decisions, state, constraints, open questions, signals) intended primarily to continue this exact conversation. Plain heading.
+- **Static content**: Normal descriptive headings in primer files. No special prefix.
 
-The qualified heading text (e.g. `## Primer - Codex - Harbor Movies`) is the key the composer looks for. Callout wrappers are required only for wiki Steering; plain qualified headings are preferred in primers/ and raw for clean transclusion and readability.
+Take the section the way `_brain-forge/primers.md` defines it. A missing heading stops the run. Callout wrappers are required only for wiki Steering. A Codex heading is plain. Do not follow a transclusion. Do not read `cards/`.
 
 ## How to Accept & Process Caller Input
 
@@ -48,18 +48,18 @@ The caller (user or another agent) will typically provide:
 
 **Your process**:
 1. Parse the goal and any explicit codex / file / header references.
-2. Read the referenced content (use available file tools / Obsidian-aware reading).
-3. Discover all relevant `## Primer - ` headings in the provided or related material.
+2. Read the referenced files.
+3. Discover `## Codex - Name`, `## Primer - Steering`, and `## Primer - Continuity` in that material. Do not follow a transclusion. Do not read `cards/`.
 4. Apply the rules below (especially any codex instructions).
-5. Compose and return the primer.
+5. Compose and return the primer. Do not write it back into the heading.
 
-You may need to read multiple sources (a primer file for its codex + a wiki page for its Steering + a raw file for its Continuity).
+You may need to read multiple sources (a wiki page or primer file for its Codex, a wiki page for its Steering, a raw file for its Continuity).
 
 ## Core Composition Rules (mandatory)
 
 When assembling a primer, follow these rules in order:
 
-1. **Explicit codex reference** (by name e.g. "use codex Harbor Movies", or by the full `## Primer - Codex - Name` header): Locate the matching section and **follow its instructions exactly**. The codex is the authoritative "how to build for this pattern." Example codex instructions might say: "Start with the static Harbor profile, prefer any Continuity block for watched titles and signals, apply the house-rules filter, keep the primer brief."
+1. **Explicit codex reference** (by name, for example "use codex Harbor Movies", or by the full `## Codex - Name` header): Locate that heading on a wiki page or in a primer file and follow its instructions. A missing heading stops the run. Do not write the result back into the heading. Example instructions might say: "Start with the Harbor profile, prefer any Continuity block for watched titles and signals, apply the house-rules filter, keep the primer brief."
 
 2. **Relevant wiki page**: If a wiki page is in scope for the goal, check for a `## Primer - Steering` section and apply its guidance (including any guardrails, gravitates, cross-refs to protected logs, etc.).
 
@@ -67,9 +67,9 @@ When assembling a primer, follow these rules in order:
 
 4. **Static primer content**: Use normal static blocks from primer files when no codex section applies to the request, or when the caller explicitly wants the stable/hand-crafted version.
 
-5. **Output quality**: Produce a **clean, dense, attributed primer block** ready to paste. Include lightweight provenance (e.g. "Sources: [[primers/harbor.md#Primer - Codex - Harbor Movies]], [[wiki/harbor-movies#Primer - Steering]], Continuity from [[raw/202606/...]]"). Attribute key guardrails and facts back to their origins.
+5. **Output quality**: Produce a clean, dense, attributed primer block ready to paste. Include lightweight provenance (for example "Sources: [[wiki/harbor#Codex - Harbor Movies]], [[wiki/harbor-movies#Primer - Steering]], Continuity from [[raw/202606/...]]"). Attribute key guardrails and facts back to their origins. A paste block has no wikilinks.
 
-6. **Respect non-goals and constitution**: Do not pollute wiki pages. Preserve human agency (user decides stable vs. dynamic). Keep the system general — many patterns via codex sections inside existing primer files. Always follow the vault constitution (provenance, prefer existing pages for any synthesis side-effects, human direction overrides, raw immutability, etc.).
+6. **Respect non-goals and constitution**: Do not write the composed block onto a wiki page. A Codex heading may live there. The rest of that page stays human prose. Do not put a card query, a field list, or a rating on the wiki. Preserve human agency (the caller decides stable vs. dynamic). One composer handles many patterns via Codex headings. Always follow the vault constitution (provenance, prefer existing pages for any synthesis side-effects, human direction overrides, raw immutability).
 
 If multiple codex or sources conflict, prefer the most specific explicit codex, then the most recent Continuity, then Steering, then static. Surface the choice briefly in provenance when helpful.
 
@@ -86,7 +86,7 @@ Example skeleton the caller can expect:
 [composed high-signal context drawn from Steering / Continuity / codex-driven assembly]
 
 **Provenance (composed via /forge-primer)**  
-- Codex: [[primers/harbor.md#Primer - Codex - Harbor Movies]]
+- Codex: [[wiki/harbor.md#Codex - Harbor Movies]]
 - Steering: [[wiki/harbor-movies#Primer - Steering]]
 - Continuity (preferred): [[raw/202606/20260604-...]]
 ```
@@ -104,14 +104,15 @@ The skill/command should be easy to invoke directly with natural language goals 
 
 ## Non-Negotiables (from the vault constitution)
 
-- Do not pollute wiki pages with dense context blocks — keep them human-readable. Steering lives in the callout on wiki; the qualified name is what matters for discovery.
-- Avoid creating large numbers of new files or parallel maintenance surfaces. Codex sections belong inside existing primer files.
-- Preserve human agency: the user (or caller) remains in control of what becomes stable vs. dynamically composed. Offer Continuity; do not force it.
-- Keep the system general — one composer (this skill) handles many patterns via codex sections rather than custom per-pattern skills.
+- Do not write a composed primer onto a wiki page. Steering stays in the callout. A Codex heading is plain, and the mark is what makes it an instruction rather than page prose.
+- Do not read `cards/`. Do not follow a transclusion. Do not write the block back into the heading.
+- A missing `## Codex - Name`, when the caller named one, stops the run. `## Primer - Codex - Name` does not match.
+- Preserve human agency: the caller remains in control of what becomes stable vs. dynamically composed. Offer Continuity. Do not force it.
+- One composer handles many patterns via Codex headings. Do not add a skill per pattern.
 - Lightweight provenance on every meaningful contribution.
 - Raw immutability (except the dated-subfolder move in `_brain-forge/schema.md` Raw Items); log raw processing only to `raw/_log.md`.
 - Human direction always takes precedence.
-- Follow the exact qualified header names (`## Primer - Steering`, `## Primer - Continuity`, `## Primer - Codex - Name`) as the discovery contract.
+- Follow the exact heading names (`## Primer - Steering`, `## Primer - Continuity`, `## Codex - Name`) as the discovery contract.
 
 ## Examples
 
@@ -120,8 +121,8 @@ The skill/command should be easy to invoke directly with natural language goals 
 Caller: "Use codex Harbor Movies for recommendations this weekend."
 
 Composer behavior:
-- Locate `## Primer - Codex - Harbor Movies` in the relevant primer file.
-- Follow its instructions (start with static profile/guardrails from harbor, prefer Continuity for watched titles + signals, apply values filter, keep brief).
+- Locate `## Codex - Harbor Movies` on the wiki page or in the primer file that holds it.
+- Follow its instructions (start with the Harbor profile, prefer Continuity for watched titles and signals, apply the values filter, keep it brief). Do not write the block back.
 - Pull Steering from `wiki/harbor-movies#Primer - Steering` (or `## Primer - Steering`).
 - If a recent raw with Continuity for movie discussion is referenced, prefer it.
 - Output a tight, attributed primer.
@@ -150,7 +151,7 @@ When the caller invokes with the `static` keyword (`/forge-primer static <descri
 
 ## Version & Provenance
 
-Codex and Context Composer: qualified headers (`## Primer - Steering`, `Continuity`, `Codex - Name`), caller input handling, and static authoring mode. Callouts required only on wiki Steering.
+Codex is `## Codex - Name`, plain, on a wiki page or in a primer file. Callouts are required only on wiki Steering. This skill does not read cards and does not follow a transclusion.
 
 Update this file whenever the composition rules or header conventions evolve.
 

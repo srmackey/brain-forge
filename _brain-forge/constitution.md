@@ -1,6 +1,6 @@
 # Vault constitution (Brain Forge)
 
-framework: 0.2.11
+framework: 0.2.12
 
 The constitution for a vault that installed Brain Forge.
 
@@ -48,7 +48,7 @@ Filing a card writes one markdown file in `cards/`. The shape is in schema. Remo
 
 Creating a card checks the working pile and `cards/_removed.md`. It does not walk `raw/`. The match rule is in schema.
 
-A list is a definition, not a folder. The shipped one is `_brain-forge/lists/working.md`, and `_brain-forge/lists/working.base` shows it. A primer definition is the same query with `shape: prose`. Schema holds both.
+A list is a definition, not a folder. The shipped one is `_brain-forge/lists/working.md`, and `_brain-forge/lists/working.base` shows it. A brief is `type: brief` in `briefs/` at the vault root. `include` is a list. Each item is a brief path, or a wiki heading whose text starts with `Codex - `. Schema holds the rule.
 
 There is no parked state. A card stays visible on a list until it is removed.
 
@@ -76,7 +76,7 @@ Do not wait for them to name `forge-distill`. "Keep this", "put this in the vaul
 |---|---|---|
 | Framework | The files the product ships under `_brain-forge/` | Overwritten |
 | Adopted | Your constitution, host skill copies, whatever path your template plugin reads, the seeded primers in `primers/`, root `.graphifyignore` | Never touched. `brainforge-update` reports when the framework source moved ahead. |
-| User-owned | Everything outside `_brain-forge/`, without qualification, plus anything inside it that does not use a shipped filename. This is a rule rather than a list, so a directory you add later is yours without this table having to hear about it. Today that means `raw/`, `wiki/`, `cards/`, `lists/`, `journal/`, `archive/`, `primers/`, your inbox, instance-authored skills, and the learned synthesis model beside the engine core. | Never touched |
+| User-owned | Everything outside `_brain-forge/`, without qualification, plus anything inside it that does not use a shipped filename. This is a rule rather than a list, so a directory you add later is yours without this table having to hear about it. Today that means `raw/`, `wiki/`, `cards/`, `lists/`, `briefs/`, `journal/`, `archive/`, `primers/`, your inbox, instance-authored skills, and the learned synthesis model beside the engine core. | Never touched |
 
 Update writes the files the product ships and never deletes anything, so your own state may sit inside the framework folder as long as it does not use a shipped filename. That is why the learned synthesis model lives beside the engine core.
 
@@ -88,7 +88,7 @@ Synthesis steering is optional and off unless you create `_brain-forge/skills/fo
 
 ## Primers
 
-The reusable context layer. `_brain-forge/primers.md` is the manual: the kinds of primer, the reserved headings, how composition works, and when to use `forge-primer` instead of transclusion. `primers/_me.md` is where a new vault starts.
+The reusable context layer. `_brain-forge/primers.md` is the manual: the kinds of primer and the reserved headings. `forge-primer` compiles a block from a `## Codex - Name` heading, Steering, and Continuity. A Codex heading is an instruction. Steering and Continuity keep their own headings. `primers/_me.md` is where a new vault starts.
 
 ## Records
 

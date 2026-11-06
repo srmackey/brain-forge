@@ -30,20 +30,21 @@ last-updated: {{date:YYYY-MM-DD}}
   Three heading names are a discovery contract and mean something specific
   to `/forge-primer`. Use them only for what they are:
 
-      ## Primer - Codex - <Name>   assembly instructions for a recurring
-                                   pattern, inside a primer file
+      ## Codex - <Name>            an instruction. On a wiki page, or in
+                                   this file when one heading is pulled by
+                                   name. Plain. Not a callout.
       ## Primer - Steering         composition guidance, on a wiki page,
                                    wrapped in an [!ai-instructions]- callout
       ## Primer - Continuity       a resume-this-conversation snapshot,
                                    in a raw or distill file
 
-  Ordinary static content needs no prefix.
+  Ordinary static content needs no prefix. `## Primer - Codex - <Name>`
+  does not match.
 
   IF THIS PRIMER IS MEANT TO BE PASTED
-  Keep the paste block self-contained. No `[[wikilinks]]` and no
-  transclusion: neither resolves outside the vault, and a transcluded file
-  does not copy cleanly out of Obsidian. Compose with `/forge-primer`
-  instead when you want assembled sources in pasteable form.
+  Keep the paste block self-contained. No `[[wikilinks]]`. They do not
+  resolve outside the vault. Compose with `/forge-primer` when you want
+  assembled sources in pasteable form.
 
   Delete this comment when you are done.
 -->

@@ -61,7 +61,8 @@ Everything under `_brain-forge/`, and nothing else.
 | `templates/` | Obsidian stationery: journal, primer, raw, card |
 | `lists/working.md` | The shipped list. It names the working cards and the fields |
 | `lists/working.base` | The Base that shows that list |
-| `lists/working-primer.md` | The shipped primer definition. Same cards, prose shape |
+| `briefs/working.md` | The shipped brief. `type: brief`, same cards |
+| `briefs/house.md` | A standing instruction the working brief includes by heading |
 | `obsidian/` | Obsidian plugin macros |
 | `tools/` | Scripts an agent runs |
 | `.graphifyignore` | Seed for the vault-root graph ignore |
@@ -102,13 +103,13 @@ You do not pick a purview to use the vault. The constitution **Use path** maps k
 
 `forge-intake` files a link as a card. It checks the working pile and `cards/_removed.md`. It does not walk `raw/`.
 
-`forge-card-primer` reads a primer definition and returns a block. It does not edit the cards.
+`forge-card-primer` reads a brief, including a heading it names. A wiki heading is a `Codex - ` instruction. It does not edit the cards.
 
 ## Obsidian
 
-The human layer assumes Obsidian. Wikilinks, `![[file#Section]]` transclusion, Reading view, and `[!ai-instructions]` callouts are all Obsidian mechanics, and `synapse-link-check` exists because clicking a broken link in Obsidian silently creates an empty file at that path.
+The human layer assumes Obsidian. Wikilinks, Reading view, and `[!ai-instructions]` callouts are Obsidian mechanics, and `synapse-link-check` exists because clicking a broken link in Obsidian silently creates an empty file at that path.
 
-The agent layer does not assume it. Everything on disk is plain markdown, and the skills run from any coding agent whether or not Obsidian is installed. Open the vault in something else and you keep capture, ingest, synthesis, and link integrity. You lose composition by transclusion and callout rendering.
+The agent layer does not assume it. Everything on disk is plain markdown, and the skills run from any coding agent whether or not Obsidian is installed. Open the vault in something else and you keep capture, ingest, synthesis, link integrity, and primer composition. You lose callout rendering.
 
 Plugins, all optional:
 

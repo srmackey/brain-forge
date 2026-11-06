@@ -1,6 +1,6 @@
 # Brain Forge
 
-**Version 0.2.11**
+**Version 0.2.12**
 
 Brain Forge is a vault framework. A vault that installed it keeps that person's notes. This repository ships the rules and the skills, not the notes.
 
@@ -12,7 +12,7 @@ How to install it is in [README.md](README.md). What changed for someone who alr
 
 `wiki/` is the synthesis layer. An agent maintains it: pages that say what the captures add up to, with room to say whose idea a claim was and whether anyone agreed.
 
-`cards/` is a working pile beside those two. A card tracks something the owner has not turned into knowledge yet: a link, a title, a course. It is not a capture and not a wiki page. The graph does not index the pile. A list is a definition over the cards. The shipped list is `_brain-forge/lists/working.md`, and a Base renders it. A primer definition is that same query with the prose shape. The skill reads it and returns a block.
+`cards/` is a working pile beside those two. A card tracks something the owner has not turned into knowledge yet: a link, a title, a course. It is not a capture and not a wiki page. The graph does not index the pile. A list is a definition over the cards. The shipped list is `_brain-forge/lists/working.md`, and a Base renders it. A brief is `type: brief` in `briefs/`. `include` is a list of brief paths, or a wiki heading whose text starts with `Codex - `. The card primer reads the cards and those instructions and returns a block. `forge-primer` reads the same Codex heading and does not read the cards.
 
 The graph is drawn across `raw/` and `wiki/`. A hit is a pointer into the corpus. It is not a claim the vault has judged true. An answer that starts from the graph goes to the wiki page before treating the hit as fact.
 

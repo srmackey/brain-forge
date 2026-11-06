@@ -16,15 +16,9 @@ last-updated:
   It is yours.
 
   HOW IT GETS USED
-  Other primers pull named sections out of this file rather than copying
-  them, so an edit here reaches every primer that references it:
-
-      ![[_me#I am...]]
-      ![[_me#my work]]
-
-  Transclusion is for primers an agent reads inside the vault. For a block
-  you paste into a web AI, run /forge-primer instead, which resolves the
-  same sections into clean text. See _brain-forge/primers.md for why.
+  /forge-primer reads the headings you name. An edit here reaches every
+  run that names this file. A block you paste into a web AI comes from
+  that skill, which returns clean text. See _brain-forge/primers.md.
 
   SECTION NAMES ARE CONTEXT
   The heading travels with the content into the assembled prompt, so name

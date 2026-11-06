@@ -33,7 +33,8 @@ Everything outside `_brain-forge/` is the owner's without qualification. Install
 | `_brain-forge/primers.md` | The primer layer manual | Written |
 | `_brain-forge/primers/` | Shipped primers: distill format, vault-design primer, personal skeleton | Written |
 | `_brain-forge/templates/` | Obsidian stationery | Written |
-| `_brain-forge/lists/` | Shipped list definition, its Base, and the shipped primer definition | Written |
+| `_brain-forge/lists/` | Shipped list definition and its Base | Written |
+| `_brain-forge/briefs/` | Shipped brief and the instruction it includes | Written |
 | `_brain-forge/obsidian/` | Obsidian plugin macros | Written |
 | `_brain-forge/tools/` | Scripts an agent runs | Written |
 | `_brain-forge/.graphifyignore` | Seed source for the vault-root ignore | Written |

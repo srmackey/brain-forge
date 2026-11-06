@@ -350,8 +350,40 @@ An owner's own list lives in `lists/` at the vault root. That folder is user-own
 
 ## Primer definitions
 
-A primer definition is the same query as a list, with `shape: prose`. It selects the same cards. `fields` names what the prose may read. `body` is allowed there and means the markdown after the card's frontmatter. A table definition leaves `body` off, because a Base column is a property.
+A brief is `type: brief`. It selects cards with the same `where` a list uses. `fields` names what the prose may read. `body` is allowed there and means the markdown after the card's frontmatter. A list leaves `body` off, because a Base column is a property.
+
+```yaml
+---
+type: brief
+where:
+  type: card
+fields:
+  - title
+  - state
+  - direction
+  - summary
+  - body
+include:
+  - _brain-forge/briefs/house.md#Codex - What to weigh
+---
+```
+
+That is the whole frontmatter. `name`, `cards`, `order`, and `shape` belong to a list. A brief does not carry them. The skill reads `cards/` and does not sort.
 
 The body of the file is the writing instruction. It is not the primer. The skill returns the primer and does not write it back into the definition. A saved copy is a file the owner names.
 
-The shipped example is `_brain-forge/lists/working-primer.md`. An owner's primer definitions live in `lists/` at the vault root, beside their lists. Update does not write that folder.
+A brief lives in `briefs/` at the vault root. That folder is user-owned. Update does not write it. A list stays in `lists/`, and a list is the browse table. The query is written on the brief, so the brief stands on its own.
+
+`include` is optional. Each entry is a path from the vault root, or that path, a `#`, and a heading.
+
+A path with no heading includes the markdown after that file's frontmatter. That form is a brief. A path with a heading includes that section: from the heading through the line before the next heading with the same number of hashes or fewer. A deeper heading stays inside the section. The heading text is the words after the hashes. The same read is in `_brain-forge/primers.md`.
+
+A wiki path is only a heading, and the heading text starts with `Codex - `. The skill reads that heading and does not take the rest of the page. A local brief may be a whole file or any heading.
+
+An include is another instruction. A saved primer is not one. A path under `primers/`, or a file whose `type` is `primer`, is refused. A wiki path with no heading, or a heading that does not start with `Codex - `, is refused. An include does not add that file's cards, and it does not add the wiki page's prose. The brief being run is the query. The skill does not write the primer back into the heading.
+
+Includes are one level. An `include` key on an included file is not followed. The brief names every section it wants.
+
+A file with no `where` is an instruction for other briefs to include. The skill does not run it on its own.
+
+The shipped brief is `_brain-forge/briefs/working.md`. It includes one heading of `_brain-forge/briefs/house.md`.
